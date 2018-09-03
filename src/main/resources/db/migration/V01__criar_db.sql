@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `gescolar`.`turma` (
   `serie` VARCHAR(45) NULL DEFAULT NULL,
   `turno` VARCHAR(45) NULL DEFAULT NULL,
   `quant_dias_semana` INT(11) NULL DEFAULT NULL,
-  `codigo_periodo_letivo` INT(11) NOT NULL,
+  `codigo_periodo_letivo` INT(11),
   `vagas` INT(11) NULL DEFAULT NULL,
   PRIMARY KEY (`codigo`),
   INDEX `fk_turma_periodo_letivo1_idx` (`codigo_periodo_letivo` ASC),
@@ -308,27 +308,7 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
 
--- -----------------------------------------------------
--- Table `gescolar`.`schema_version`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `gescolar`.`schema_version` (
-  `version_rank` INT(11) NOT NULL,
-  `installed_rank` INT(11) NOT NULL,
-  `version` VARCHAR(50) NOT NULL,
-  `description` VARCHAR(200) NOT NULL,
-  `type` VARCHAR(20) NOT NULL,
-  `script` VARCHAR(1000) NOT NULL,
-  `checksum` INT(11) NULL DEFAULT NULL,
-  `installed_by` VARCHAR(100) NOT NULL,
-  `installed_on` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `execution_time` INT(11) NOT NULL,
-  `success` TINYINT(1) NOT NULL,
-  PRIMARY KEY (`version`),
-  INDEX `schema_version_vr_idx` (`version_rank` ASC),
-  INDEX `schema_version_ir_idx` (`installed_rank` ASC),
-  INDEX `schema_version_s_idx` (`success` ASC))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+
 
 
 -- -----------------------------------------------------
@@ -339,7 +319,7 @@ CREATE TABLE IF NOT EXISTS `gescolar`.`TURMA_PERIODO` (
   `dia` VARCHAR(45) NULL,
   `periodo` VARCHAR(45) NULL,
   `turma_codigo` INT(11) NOT NULL,
-  `codigo_discipliana_turma` INT(11) NOT NULL,
+  `codigo_discipliana_turma` INT(11) NULL,
   PRIMARY KEY (`codigo`),
   INDEX `fk_TURMA_PERIODO_turma1_idx` (`turma_codigo` ASC),
   INDEX `fk_TURMA_PERIODO_discipliana_turma1_idx` (`codigo_discipliana_turma` ASC),

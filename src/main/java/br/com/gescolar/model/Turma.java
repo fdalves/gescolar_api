@@ -17,13 +17,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import br.com.gescolar.dto.Periodo;
 import br.com.gescolar.types.SerieEnum;
 import br.com.gescolar.types.TurnoEnum;
 
@@ -68,14 +69,17 @@ public class Turma implements Serializable {
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "turma", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<TurmaPeriodo> periodos;
+	private List<TurmaPeriodo> turmaPeriodos;
 	
-	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "codigo_periodo_letivo")
 	@JsonIgnore
 	private PeriodoLetivo periodoLetivo;
 
+	@Transient
+	private List<Periodo> periodos;
+	
+	
 	public Long getCodigo() {
 		return codigo;
 	}
@@ -140,12 +144,14 @@ public class Turma implements Serializable {
 		this.disciplinas = disciplinas;
 	}
 
-	public List<TurmaPeriodo> getPeriodos() {
-		return periodos;
+	
+
+	public List<TurmaPeriodo> getTurmaPeriodos() {
+		return turmaPeriodos;
 	}
 
-	public void setPeriodos(List<TurmaPeriodo> periodos) {
-		this.periodos = periodos;
+	public void setTurmaPeriodos(List<TurmaPeriodo> turmaPeriodos) {
+		this.turmaPeriodos = turmaPeriodos;
 	}
 
 	public PeriodoLetivo getPeriodoLetivo() {
@@ -162,6 +168,18 @@ public class Turma implements Serializable {
 
 	public void setVagas(Integer vagas) {
 		this.vagas = vagas;
+	}
+	
+	
+	
+	
+
+	public List<Periodo> getPeriodos() {
+		return periodos;
+	}
+
+	public void setPeriodos(List<Periodo> periodos) {
+		this.periodos = periodos;
 	}
 
 	@Override
