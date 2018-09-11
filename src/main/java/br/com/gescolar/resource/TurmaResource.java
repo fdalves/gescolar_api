@@ -34,10 +34,10 @@ public class TurmaResource {
 
 	@Autowired
 	private TurmaRepository turmaRepository;
-	
+
 	@Autowired
 	private TurmaService turmaService;
-	
+
 	@Autowired
 	private ApplicationEventPublisher publisher;
 
@@ -53,34 +53,40 @@ public class TurmaResource {
 		Turma turma = turmaRepository.getOne(codigo);
 		return turma != null ? ResponseEntity.ok(turma) : ResponseEntity.notFound().build();
 	}
-	
+
+	@GetMapping("/getTurma/{codigo}")
+	public ResponseEntity<Turma> getTurma(@PathVariable Long codigo) {
+		Turma turma = turmaRepository.getOne(codigo);
+		this.turmaService.loadPeriodos(turma);
+		return turma != null ? ResponseEntity.ok(turma) : ResponseEntity.notFound().build();
+	}
+
 	@GetMapping("/listar")
 	public List<Turma> listar() {
 		return turmaRepository.findAll();
 	}
-	
+
 	@GetMapping("/series")
 	public List<Serie> listarSeries() {
 		Serie s = new Serie();
-		return  s.listarTodasSeries();
+		return s.listarTodasSeries();
 	}
-	
+
 	@DeleteMapping("/{codigo}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void remover(@PathVariable Long codigo) {
 		turmaRepository.deleteById(codigo);
 	}
-	
+
 	@PutMapping("/{codigo}")
 	public ResponseEntity<Turma> atualizar(@PathVariable Long codigo, @Valid @RequestBody Turma turma) {
 		Turma turmaSalva = turmaService.atualizar(codigo, turma);
 		return ResponseEntity.ok(turmaSalva);
 	}
-	
+
 	@GetMapping
 	public Page<Turma> pesquisar(@RequestParam(required = false, defaultValue = "%") String nome, Pageable pageable) {
 		return turmaRepository.findByNomeContaining(nome, pageable);
 	}
-	
 
 }

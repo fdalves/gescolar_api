@@ -17,27 +17,25 @@ import br.com.gescolar.types.PeriodoEnum;
 
 @Service
 public class TurmaService {
-	
+
 	@Autowired
 	private TurmaRepository turmaRepository;
-	
+
 	@Autowired
-	private TurmaPeriodoRepository turmaPeriodoRepository; 
-	
-	
-	
-	@Transactional	
+	private TurmaPeriodoRepository turmaPeriodoRepository;
+
+	@Transactional
 	public Turma salvar(Turma turma) {
 		turma = turmaRepository.save(turma);
-		this.savePeridos(turma.getPeriodos(),turma);
+		this.savePeridos(turma.getPeriodos(), turma);
 		return turma;
 	}
-	
-	private void savePeridos(List<Periodo> periodos,Turma turma) {
+
+	private void savePeridos(List<Periodo> periodos, Turma turma) {
 		if (periodos != null && !periodos.isEmpty()) {
 			for (Periodo periodo : periodos) {
 				int quantidadePeriodos = periodo.getQuant();
-				for (int i = 1; i <=quantidadePeriodos; i++) {
+				for (int i = 1; i <= quantidadePeriodos; i++) {
 					TurmaPeriodo turmaPeriodo = new TurmaPeriodo();
 					turmaPeriodo.setDia(DiaEnum.getDia(Integer.valueOf(periodo.getValue())));
 					turmaPeriodo.setTurma(turmaRepository.getOne(turma.getCodigo()));
@@ -48,14 +46,17 @@ public class TurmaService {
 		}
 	}
 
+	public void loadPeriodos(Turma turma) {
+		List<Periodo> peirodos = turmaPeriodoRepository.findPeriodos(turma.getCodigo());
+		turma.setPeriodos(peirodos);
+	}
+
 	public Turma atualizar(Long codigo, Turma turma) {
 		return null;
 	}
-	
+
 	public Turma deletar() {
 		return null;
 	}
-	
+
 }
-
-
