@@ -12,6 +12,10 @@ public class Periodo implements Serializable {
 	private String value;
 	private DiaEnum dia;
 
+	public Periodo() {
+		super();
+	}
+
 	public Periodo(DiaEnum dia, Long quant) {
 		super();
 		this.quant = quant.intValue();
