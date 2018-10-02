@@ -1,6 +1,5 @@
 package br.com.gescolar.model;
 
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -28,49 +27,47 @@ import br.com.gescolar.dto.Periodo;
 import br.com.gescolar.types.SerieEnum;
 import br.com.gescolar.types.TurnoEnum;
 
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 @Entity
-@Table(name="TURMA")
+@Table(name = "TURMA")
 public class Turma implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="codigo")
+	@Column(name = "codigo")
 	private Long codigo;
-	
+
 	@NotNull
 	@NotEmpty
 	private String nome;
-	
+
 	private String sala;
-	
+
 	@Enumerated(EnumType.STRING)
 	private SerieEnum serie;
-	
+
 	@Enumerated(EnumType.STRING)
 	private TurnoEnum turno;
-	
-	@Column(name="quant_dias_semana")
+
+	@Column(name = "quant_dias_semana")
 	private Integer quantidadeDiasSemana;
-	
+
 	private Integer vagas;
-	
-	
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "turma", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Aluno> alunos;
-	
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "turma", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<DisciplinaTurma> disciplinas;
-	
-	
+
 	@JsonIgnore
-	@OneToMany(mappedBy = "turma", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "turma", fetch = FetchType.LAZY)
 	private List<TurmaPeriodo> turmaPeriodos;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "codigo_periodo_letivo")
 	@JsonIgnore
@@ -78,8 +75,7 @@ public class Turma implements Serializable {
 
 	@Transient
 	private List<Periodo> periodos;
-	
-	
+
 	public Long getCodigo() {
 		return codigo;
 	}
@@ -144,8 +140,6 @@ public class Turma implements Serializable {
 		this.disciplinas = disciplinas;
 	}
 
-	
-
 	public List<TurmaPeriodo> getTurmaPeriodos() {
 		return turmaPeriodos;
 	}
@@ -161,7 +155,7 @@ public class Turma implements Serializable {
 	public void setPeriodoLetivo(PeriodoLetivo periodoLetivo) {
 		this.periodoLetivo = periodoLetivo;
 	}
-	
+
 	public Integer getVagas() {
 		return vagas;
 	}
@@ -169,10 +163,6 @@ public class Turma implements Serializable {
 	public void setVagas(Integer vagas) {
 		this.vagas = vagas;
 	}
-	
-	
-	
-	
 
 	public List<Periodo> getPeriodos() {
 		return periodos;
@@ -186,30 +176,30 @@ public class Turma implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
+		result = prime * result + (codigo == null ? 0 : codigo.hashCode());
 		return result;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		Turma other = (Turma) obj;
 		if (codigo == null) {
-			if (other.codigo != null)
+			if (other.codigo != null) {
 				return false;
-		} else if (!codigo.equals(other.codigo))
+			}
+		} else if (!codigo.equals(other.codigo)) {
 			return false;
+		}
 		return true;
 	}
-	
-	
-	
-	
-	
-	
+
 }

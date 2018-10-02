@@ -48,14 +48,30 @@ public class TurmaService {
 	 */
 	@Transactional
 	public Turma atualizar(Long codigo, Turma turma) {
+		this.verifyPeridos(turma);
 		Turma turmaSalva = this.turmaRepository.getOne(codigo);
+		turmaSalva.setTurmaPeriodos(this.turmaPeriodoRepository.findByTurma(turmaSalva));
 		List<TurmaPeriodo> turmaPeriodoList = this.periodosToTurmaPeriodos(turma);
 		this.insertTurmaPeriodo(turmaSalva.getTurmaPeriodos(), turmaPeriodoList);
 		this.deleteTurmaPeriodo(turmaSalva.getTurmaPeriodos(), turmaPeriodoList);
 		BeanUtils.copyProperties(turma, turmaSalva, "periodos", "turmaPeriodos");
-		turmaSalva.setTurmaPeriodos(this.turmaPeriodoRepository.findByTurma(turmaSalva));
+		turmaSalva = turmaRepository.save(turmaSalva);
 		turmaSalva.setPeriodos(turma.getPeriodos());
-		return turmaRepository.save(turmaSalva);
+		return turmaSalva;
+
+	}
+
+	/**
+	 * @param turma
+	 */
+	private void verifyPeridos(Turma turma) {
+		if (turma != null
+		        && turma.getPeriodos() != null
+		        && turma.getPeriodos().size() == 6
+		        && turma.getQuantidadeDiasSemana() == 5) {
+			turma.getPeriodos().remove(5);
+		}
+
 	}
 
 	/**
