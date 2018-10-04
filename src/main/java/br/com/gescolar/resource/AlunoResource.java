@@ -33,10 +33,10 @@ public class AlunoResource {
 
 	@Autowired
 	private AlunoRepository alunoRepository;
-	
+
 	@Autowired
 	private AlunoService alunoService;
-	
+
 	@Autowired
 	private ApplicationEventPublisher publisher;
 
@@ -52,33 +52,34 @@ public class AlunoResource {
 		Aluno aluno = alunoRepository.getOne(codigo);
 		return aluno != null ? ResponseEntity.ok(aluno) : ResponseEntity.notFound().build();
 	}
-	
+
 	@DeleteMapping("/{codigo}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void remover(@PathVariable Long codigo) {
 		alunoRepository.deleteById(codigo);
 	}
-	
+
 	@PutMapping("/{codigo}")
 	public ResponseEntity<Aluno> atualizar(@PathVariable Long codigo, @Valid @RequestBody Aluno aluno) {
 		Aluno AlunoSalvo = alunoService.atualizar(codigo, aluno);
 		return ResponseEntity.ok(AlunoSalvo);
 	}
-	
+
 	@GetMapping
 	public Page<Aluno> pesquisar(@RequestParam(required = false, defaultValue = "%") String nome,
-								 @RequestParam(required = false, defaultValue = "%") String matricula,
-								 Pageable pageable) {
-		return alunoRepository.findByNomeContainingAndMatriculaContaining(nome,matricula,pageable);
-	}
-	
-	@GetMapping("/matriculaExistente/{matricula}")
-	@ResponseBody
-	public ResponseEntity<Boolean> isValid(@PathVariable String matricula, @RequestParam (required = false, defaultValue = "") String codigo) {
-		Long codigoLong = null;
-		if (!StringUtils.isEmpty(codigo)) codigoLong = new Long(codigo); 
-		return ResponseEntity.ok(alunoService.verificaMatricula(matricula,codigoLong));
+	        @RequestParam(required = false, defaultValue = "%") String matricula,
+	        Pageable pageable) {
+		return alunoRepository.findByNomeContainingAndMatriculaContaining(nome, matricula, pageable);
 	}
 
-	
+	@GetMapping("/matriculaExistente/{matricula}")
+	@ResponseBody
+	public ResponseEntity<Boolean> isValid(@PathVariable String matricula, @RequestParam(required = false, defaultValue = "") String codigo) {
+		Long codigoLong = null;
+		if (!StringUtils.isEmpty(codigo) && !codigo.equals("null")) {
+			codigoLong = new Long(codigo);
+		}
+		return ResponseEntity.ok(alunoService.verificaMatricula(matricula, codigoLong));
+	}
+
 }

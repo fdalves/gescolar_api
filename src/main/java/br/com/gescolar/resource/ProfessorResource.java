@@ -33,10 +33,10 @@ public class ProfessorResource {
 
 	@Autowired
 	private ProfessorRepository professorRepository;
-	
+
 	@Autowired
 	private ProfessorService professorService;
-	
+
 	@Autowired
 	private ApplicationEventPublisher publisher;
 
@@ -52,30 +52,31 @@ public class ProfessorResource {
 		Professor professor = professorRepository.getOne(codigo);
 		return professor != null ? ResponseEntity.ok(professor) : ResponseEntity.notFound().build();
 	}
-	
+
 	@DeleteMapping("/{codigo}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void remover(@PathVariable Long codigo) {
 		professorRepository.deleteById(codigo);
 	}
-	
+
 	@PutMapping("/{codigo}")
 	public ResponseEntity<Professor> atualizar(@PathVariable Long codigo, @Valid @RequestBody Professor professor) {
 		Professor professorSalva = professorService.atualizar(codigo, professor);
 		return ResponseEntity.ok(professorSalva);
 	}
-	
+
 	@GetMapping
 	public Page<Professor> pesquisar(@RequestParam(required = false, defaultValue = "%") String nome, Pageable pageable) {
 		return professorRepository.findByNomeContaining(nome, pageable);
 	}
 
-	
 	@GetMapping("/cpfExistente")
 	@ResponseBody
-	public ResponseEntity<Boolean> isValid(@RequestParam (required = true) String cpf, @RequestParam (required = false, defaultValue = "") String codigo) {
+	public ResponseEntity<Boolean> isValid(@RequestParam(required = true) String cpf, @RequestParam(required = false, defaultValue = "") String codigo) {
 		Long codigoLong = null;
-		if (!StringUtils.isEmpty(codigo)) codigoLong = new Long(codigo); 
-		return ResponseEntity.ok(professorService.verificaCpf(cpf,codigoLong));
+		if (!StringUtils.isEmpty(codigo) && !codigo.equals("null")) {
+			codigoLong = new Long(codigo);
+		}
+		return ResponseEntity.ok(professorService.verificaCpf(cpf, codigoLong));
 	}
 }
