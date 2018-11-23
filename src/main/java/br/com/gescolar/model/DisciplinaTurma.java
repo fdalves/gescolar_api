@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -31,6 +32,7 @@ public class DisciplinaTurma implements Serializable {
 	@Column(name="quant_periodos")
 	private Integer quantPeriodosSemana;
 	
+	@JsonIgnore
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "codigo_turma")

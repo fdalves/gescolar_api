@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.gescolar.dto.Serie;
+import br.com.gescolar.dto.TurmaPeriodoDTO;
 import br.com.gescolar.event.RecursoCriadoEvent;
 import br.com.gescolar.model.Turma;
 import br.com.gescolar.repository.TurmaRepository;
@@ -87,6 +88,13 @@ public class TurmaResource {
 	@GetMapping
 	public Page<Turma> pesquisar(@RequestParam(required = false, defaultValue = "%") String nome, Pageable pageable) {
 		return turmaRepository.findByNomeContaining(nome, pageable);
+	}
+	
+	
+	@GetMapping("/getTurmaPeriodo/{codigo}")
+	public ResponseEntity<TurmaPeriodoDTO> getTurmaPeriodo(@PathVariable Long codigo) {
+		TurmaPeriodoDTO dto = this.turmaService.getTurmaPeriodo(codigo);
+		return dto != null ? ResponseEntity.ok(dto) : ResponseEntity.notFound().build();
 	}
 
 }

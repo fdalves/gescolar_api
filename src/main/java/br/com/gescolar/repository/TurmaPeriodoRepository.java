@@ -21,5 +21,6 @@ public interface TurmaPeriodoRepository extends JpaRepository<TurmaPeriodo, Long
 	List<Periodo> findPeriodos(Long codigoTurma);
 
 	List<TurmaPeriodo> findByTurma(Turma turma);
+	
 
 }

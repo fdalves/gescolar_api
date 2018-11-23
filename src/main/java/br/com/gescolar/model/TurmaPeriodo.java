@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import br.com.gescolar.types.DiaEnum;
 import br.com.gescolar.types.PeriodoEnum;
 
@@ -35,12 +37,14 @@ public class TurmaPeriodo implements Serializable {
 	private PeriodoEnum periodo;
 
 	@NotNull
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "turma_codigo")
 	private Turma turma;
 
-	@Column(name = "codigo_discipliana_turma", nullable = true)
-	private Long codigoDisciplinaTurma;
+	@ManyToOne
+	@JoinColumn(name = "codigo_discipliana_turma")
+	private DisciplinaTurma disciplinaTurma;
 
 	public Long getCodigo() {
 		return codigo;
@@ -74,12 +78,14 @@ public class TurmaPeriodo implements Serializable {
 		this.turma = turma;
 	}
 
-	public Long getCodigoDisciplinaTurma() {
-		return codigoDisciplinaTurma;
+	public DisciplinaTurma getDisciplinaTurma() {
+		return disciplinaTurma;
 	}
 
-	public void setCodigoDisciplinaTurma(Long codigoDisciplinaTurma) {
-		this.codigoDisciplinaTurma = codigoDisciplinaTurma;
+	public void setDisciplinaTurma(DisciplinaTurma disciplinaTurma) {
+		this.disciplinaTurma = disciplinaTurma;
 	}
+
+	
 
 }

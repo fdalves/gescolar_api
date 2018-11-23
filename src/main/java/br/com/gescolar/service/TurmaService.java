@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.gescolar.dto.Periodo;
+import br.com.gescolar.dto.TurmaPeriodoDTO;
 import br.com.gescolar.model.Turma;
 import br.com.gescolar.model.TurmaPeriodo;
 import br.com.gescolar.repository.TurmaPeriodoRepository;
@@ -166,8 +167,55 @@ public class TurmaService {
 		return Collections.emptyList();
 	}
 
-	public Turma deletar() {
-		return null;
+	
+	/**
+	 * getTurmaPeriodo
+	 * @param codigoTurma
+	 * @return TurmaPeriodoDTO
+	 */
+	public TurmaPeriodoDTO getTurmaPeriodo(long codigoTurma) {
+		Turma turma = turmaRepository.getOne(codigoTurma);
+		if (turma == null) return null;
+		List<TurmaPeriodo> turmaPeriodosList = this.turmaPeriodoRepository.findByTurma(turma);
+		if (turmaPeriodosList == null || turmaPeriodosList.isEmpty()) return null;
+		return this.getTurmaPeriodoDTO(turmaPeriodosList);
 	}
-
+	
+	/**
+	 * getTurmaPeriodoDTO
+	 * @param turmaPeriodosList
+	 * @return TurmaPeriodoDTO
+	 */
+	private TurmaPeriodoDTO getTurmaPeriodoDTO(List<TurmaPeriodo> turmaPeriodosList) {
+		TurmaPeriodoDTO dto = new TurmaPeriodoDTO();
+		List<TurmaPeriodo> segundaList = new ArrayList<>();
+		List<TurmaPeriodo> tercaList = new ArrayList<>();
+		List<TurmaPeriodo> quartaList = new ArrayList<>();
+		List<TurmaPeriodo> quintaList = new ArrayList<>();
+		List<TurmaPeriodo> sextaList = new ArrayList<>();
+		List<TurmaPeriodo> sabadoList = new ArrayList<>();
+		for (TurmaPeriodo turmaPeriodo : turmaPeriodosList) {
+			 if (turmaPeriodo.getDia().equals(DiaEnum.SEGUNDA)) {
+				 segundaList.add(turmaPeriodo);
+			 } else if (turmaPeriodo.getDia().equals(DiaEnum.TERCA)) {
+				 tercaList.add(turmaPeriodo);
+			 } else if (turmaPeriodo.getDia().equals(DiaEnum.QUARTA)) {
+				 quartaList.add(turmaPeriodo);
+			 } else if (turmaPeriodo.getDia().equals(DiaEnum.QUINTA)) {
+				 quintaList.add(turmaPeriodo);
+			 } else if (turmaPeriodo.getDia().equals(DiaEnum.SEXTA)) {
+				 sextaList.add(turmaPeriodo);
+			 } else if (turmaPeriodo.getDia().equals(DiaEnum.SABADO)) {
+				 sabadoList.add(turmaPeriodo);
+			 }
+		}
+		dto.setSegunda(segundaList);
+		dto.setTerca(tercaList);
+		dto.setQuarta(quartaList);
+		dto.setQuinta(quintaList);
+		dto.setSexta(sextaList);
+		dto.setSabado(sabadoList);
+		return dto;
+	}
+	
 }
