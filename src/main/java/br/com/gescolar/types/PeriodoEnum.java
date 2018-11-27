@@ -8,7 +8,10 @@ public enum PeriodoEnum {
 	QUARTO_PERIODO,
 	QUINTO_PERIODO,
 	SEXTO_PERIODO,
-	SETIMO_PERIODO;
+	SETIMO_PERIODO,
+	OITAVO_PERIODO,
+	NONO_PERIODO,
+	DECIMO_PERIODO;
 	
 	
 	public static PeriodoEnum getPeriodoEnum(int periodo) {
@@ -22,11 +25,17 @@ public enum PeriodoEnum {
 		case 4:
 			return QUARTO_PERIODO;
 		case 5:
-			return SEXTO_PERIODO;
+			return QUINTO_PERIODO;
 		case 6:
 			return SEXTO_PERIODO;
 		case 7:
 			return SETIMO_PERIODO;
+		case 8:
+			return OITAVO_PERIODO;
+		case 9:
+			return NONO_PERIODO;
+		case 10:
+			return DECIMO_PERIODO;
 		default:
 			return null;
 		}
