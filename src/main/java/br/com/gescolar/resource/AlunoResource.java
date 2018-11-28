@@ -61,8 +61,8 @@ public class AlunoResource {
 
 	@PutMapping("/{codigo}")
 	public ResponseEntity<Aluno> atualizar(@PathVariable Long codigo, @Valid @RequestBody Aluno aluno) {
-		Aluno AlunoSalvo = alunoService.atualizar(codigo, aluno);
-		return ResponseEntity.ok(AlunoSalvo);
+		Aluno alunoSalvo = alunoService.atualizar(codigo, aluno);
+		return ResponseEntity.ok(alunoSalvo);
 	}
 
 	@GetMapping
