@@ -18,6 +18,7 @@ public class TurmaPeriodoDTO implements Serializable{
 	private List<TurmaPeriodo> quinta;
 	private List<TurmaPeriodo> sexta;
 	private List<TurmaPeriodo> sabado;
+	private List<TurmaPeriodo> all;
 	
 	
 	public List<TurmaPeriodo> getSegunda() {
@@ -55,6 +56,13 @@ public class TurmaPeriodoDTO implements Serializable{
 	}
 	public void setSabado(List<TurmaPeriodo> sabado) {
 		this.sabado = sabado;
+	}
+	
+	public List<TurmaPeriodo> getAll() {
+		return all;
+	}
+	public void setAll(List<TurmaPeriodo> all) {
+		this.all = all;
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;

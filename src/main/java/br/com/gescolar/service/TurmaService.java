@@ -215,6 +215,17 @@ public class TurmaService {
 		dto.setQuinta(quintaList);
 		dto.setSexta(sextaList);
 		dto.setSabado(sabadoList);
+		
+		List<TurmaPeriodo> all = new ArrayList<>();
+		all.addAll(segundaList);
+		all.addAll(tercaList);
+		all.addAll(quartaList);
+		all.addAll(quintaList);
+		all.addAll(sextaList);
+		all.addAll(sabadoList);
+		
+		dto.setAll(all);
+		
 		return dto;
 	}
 	
