@@ -28,7 +28,7 @@ public class Disciplina implements Serializable {
 	@Column(name="nome")
 	private String nome;
 	
-	@Column(name="desc")
+	@Column(name="descricao")
 	private String descricao;
 	
 	
