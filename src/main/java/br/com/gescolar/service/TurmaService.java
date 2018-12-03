@@ -11,7 +11,9 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.gescolar.dto.DisciplinaTurmaDTO;
 import br.com.gescolar.dto.Periodo;
+import br.com.gescolar.dto.PeriodosDTO;
 import br.com.gescolar.dto.TurmaPeriodoDTO;
 import br.com.gescolar.model.Turma;
 import br.com.gescolar.model.TurmaPeriodo;
@@ -173,7 +175,7 @@ public class TurmaService {
 	 * @param codigoTurma
 	 * @return TurmaPeriodoDTO
 	 */
-	public TurmaPeriodoDTO getTurmaPeriodo(long codigoTurma) {
+	public PeriodosDTO getTurmaPeriodo(long codigoTurma) {
 		Turma turma = turmaRepository.getOne(codigoTurma);
 		if (turma == null) return null;
 		List<TurmaPeriodo> turmaPeriodosList = this.turmaPeriodoRepository.findByTurma(turma);
@@ -186,27 +188,30 @@ public class TurmaService {
 	 * @param turmaPeriodosList
 	 * @return TurmaPeriodoDTO
 	 */
-	private TurmaPeriodoDTO getTurmaPeriodoDTO(List<TurmaPeriodo> turmaPeriodosList) {
-		TurmaPeriodoDTO dto = new TurmaPeriodoDTO();
-		List<TurmaPeriodo> segundaList = new ArrayList<>();
-		List<TurmaPeriodo> tercaList = new ArrayList<>();
-		List<TurmaPeriodo> quartaList = new ArrayList<>();
-		List<TurmaPeriodo> quintaList = new ArrayList<>();
-		List<TurmaPeriodo> sextaList = new ArrayList<>();
-		List<TurmaPeriodo> sabadoList = new ArrayList<>();
+	private PeriodosDTO getTurmaPeriodoDTO(List<TurmaPeriodo> turmaPeriodosList) {
+		PeriodosDTO dto = new PeriodosDTO();
+		List<TurmaPeriodoDTO> segundaList = new ArrayList<>();
+		List<TurmaPeriodoDTO> tercaList = new ArrayList<>();
+		List<TurmaPeriodoDTO> quartaList = new ArrayList<>();
+		List<TurmaPeriodoDTO> quintaList = new ArrayList<>();
+		List<TurmaPeriodoDTO> sextaList = new ArrayList<>();
+		List<TurmaPeriodoDTO> sabadoList = new ArrayList<>();
+		List<TurmaPeriodoDTO> periodosVagos = new ArrayList<>();
+		dto.setVagos(periodosVagos);
+		
 		for (TurmaPeriodo turmaPeriodo : turmaPeriodosList) {
 			 if (turmaPeriodo.getDia().equals(DiaEnum.SEGUNDA)) {
-				 segundaList.add(turmaPeriodo);
+				 segundaList.add(this.parseToDTO(turmaPeriodo,dto));
 			 } else if (turmaPeriodo.getDia().equals(DiaEnum.TERCA)) {
-				 tercaList.add(turmaPeriodo);
+				 tercaList.add(this.parseToDTO(turmaPeriodo,dto));
 			 } else if (turmaPeriodo.getDia().equals(DiaEnum.QUARTA)) {
-				 quartaList.add(turmaPeriodo);
+				 quartaList.add(this.parseToDTO(turmaPeriodo,dto));
 			 } else if (turmaPeriodo.getDia().equals(DiaEnum.QUINTA)) {
-				 quintaList.add(turmaPeriodo);
+				 quintaList.add(this.parseToDTO(turmaPeriodo,dto));
 			 } else if (turmaPeriodo.getDia().equals(DiaEnum.SEXTA)) {
-				 sextaList.add(turmaPeriodo);
+				 sextaList.add(this.parseToDTO(turmaPeriodo,dto));
 			 } else if (turmaPeriodo.getDia().equals(DiaEnum.SABADO)) {
-				 sabadoList.add(turmaPeriodo);
+				 sabadoList.add(this.parseToDTO(turmaPeriodo,dto));
 			 }
 		}
 		dto.setSegunda(segundaList);
@@ -216,7 +221,7 @@ public class TurmaService {
 		dto.setSexta(sextaList);
 		dto.setSabado(sabadoList);
 		
-		List<TurmaPeriodo> all = new ArrayList<>();
+		List<TurmaPeriodoDTO> all = new ArrayList<>();
 		all.addAll(segundaList);
 		all.addAll(tercaList);
 		all.addAll(quartaList);
@@ -226,7 +231,30 @@ public class TurmaService {
 		
 		dto.setAll(all);
 		
+		
+		
 		return dto;
 	}
+	
+	
+	private TurmaPeriodoDTO parseToDTO(TurmaPeriodo periodo, PeriodosDTO objDto) {
+		TurmaPeriodoDTO dto = new TurmaPeriodoDTO();
+		dto.setCodigo(periodo.getCodigo());
+		dto.setDia(periodo.getDia().toString());
+		dto.setPeriodo(periodo.getPeriodo().toString());
+		if (periodo.getDisciplinaTurma() != null && periodo.getDisciplinaTurma().getCodigo() != null) {
+			DisciplinaTurmaDTO disciplinaTurmaDTO = new DisciplinaTurmaDTO();
+			disciplinaTurmaDTO.setCodigo(periodo.getDisciplinaTurma().getCodigo());
+			disciplinaTurmaDTO.setCodigoDisciplina(periodo.getDisciplinaTurma().getDisciplina().getCodigo());
+			disciplinaTurmaDTO.setCodigoProfessor(periodo.getDisciplinaTurma().getProfessor().getCodigo());
+			disciplinaTurmaDTO.setNomeDisciplina(periodo.getDisciplinaTurma().getDisciplina().getNome());
+			disciplinaTurmaDTO.setNomeProfessor(periodo.getDisciplinaTurma().getProfessor().getNome());
+			dto.setDisciplinaTurma(disciplinaTurmaDTO);
+		} else {
+			objDto.getVagos().add(dto);
+		}
+		return dto;
+	}
+	
 	
 }
