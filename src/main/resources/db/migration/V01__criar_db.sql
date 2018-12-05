@@ -121,7 +121,7 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `gescolar`.`disciplina` (
   `codigo` INT(11) NOT NULL AUTO_INCREMENT,
-  `desc` VARCHAR(300) NULL DEFAULT NULL,
+  `descricao` VARCHAR(300) NULL DEFAULT NULL,
   `nome` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`codigo`))
 ENGINE = InnoDB

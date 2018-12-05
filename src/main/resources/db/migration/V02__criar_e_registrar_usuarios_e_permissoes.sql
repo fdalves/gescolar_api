@@ -17,3 +17,12 @@ INSERT INTO `gescolar`.`turma` (`codigo`, `nome`, `sala`, `quant_dias_semana`, `
 
 INSERT INTO `gescolar`.`aluno` (`codigo`, `nome`, `matricula`, `sexo`, `codigo_usuario`, `codigo_turma`) VALUES ('1', 'teste aluno', '12345', 'M', '1', '1');
 
+
+INSERT INTO `gescolar`.`disciplina` (`codigo`, `descricao`, `nome`) VALUES ('1', 'Matematica', 'Matematica');
+INSERT INTO `gescolar`.`disciplina` (`codigo`, `descricao`, `nome`) VALUES ('2', 'Portugues', 'Portugues');
+INSERT INTO `gescolar`.`disciplina` (`codigo`, `descricao`, `nome`) VALUES ('3', 'Geografia', 'Geografia');
+INSERT INTO `gescolar`.`disciplina` (`codigo`, `descricao`, `nome`) VALUES ('4', 'Historia', 'Historia');
+INSERT INTO `gescolar`.`disciplina` (`codigo`, `descricao`, `nome`) VALUES ('5', 'Ingles', 'Ingles');
+INSERT INTO `gescolar`.`disciplina` (`codigo`, `descricao`, `nome`) VALUES ('6', 'Biologia', 'Biologia');
+
+
