@@ -249,6 +249,7 @@ public class TurmaService {
 			disciplinaTurmaDTO.setCodigoProfessor(periodo.getDisciplinaTurma().getProfessor().getCodigo());
 			disciplinaTurmaDTO.setNomeDisciplina(periodo.getDisciplinaTurma().getDisciplina().getNome());
 			disciplinaTurmaDTO.setNomeProfessor(periodo.getDisciplinaTurma().getProfessor().getNome());
+			disciplinaTurmaDTO.setCodigoTurma(periodo.getTurma().getCodigo());
 			dto.setDisciplinaTurma(disciplinaTurmaDTO);
 		} else {
 			objDto.getVagos().add(dto);
