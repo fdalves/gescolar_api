@@ -15,8 +15,12 @@ import br.com.gescolar.dto.DisciplinaTurmaDTO;
 import br.com.gescolar.dto.Periodo;
 import br.com.gescolar.dto.PeriodosDTO;
 import br.com.gescolar.dto.TurmaPeriodoDTO;
+import br.com.gescolar.model.DisciplinaTurma;
 import br.com.gescolar.model.Turma;
 import br.com.gescolar.model.TurmaPeriodo;
+import br.com.gescolar.repository.DisciplinaRepository;
+import br.com.gescolar.repository.DisciplinaTurmaRepository;
+import br.com.gescolar.repository.ProfessorRepository;
 import br.com.gescolar.repository.TurmaPeriodoRepository;
 import br.com.gescolar.repository.TurmaRepository;
 import br.com.gescolar.types.DiaEnum;
@@ -27,9 +31,14 @@ public class TurmaService {
 
 	@Autowired
 	private TurmaRepository turmaRepository;
-
 	@Autowired
 	private TurmaPeriodoRepository turmaPeriodoRepository;
+	@Autowired
+	private DisciplinaRepository disciplinaRepository;
+	@Autowired
+	private ProfessorRepository professorRepository;
+	@Autowired
+	private DisciplinaTurmaRepository disciplinaTurmaRepository;
 
 	/**
 	 * salvar
@@ -228,15 +237,16 @@ public class TurmaService {
 		all.addAll(quintaList);
 		all.addAll(sextaList);
 		all.addAll(sabadoList);
-		
 		dto.setAll(all);
-		
-		
-		
 		return dto;
 	}
 	
-	
+	/**
+	 * parseToDTO
+	 * @param periodo
+	 * @param objDto
+	 * @return TurmaPeriodoDTO
+	 */
 	private TurmaPeriodoDTO parseToDTO(TurmaPeriodo periodo, PeriodosDTO objDto) {
 		TurmaPeriodoDTO dto = new TurmaPeriodoDTO();
 		dto.setCodigo(periodo.getCodigo());
@@ -256,6 +266,40 @@ public class TurmaService {
 		}
 		return dto;
 	}
+	
+	/**
+	 * salvarDisciplina
+	 * @param disciplinas
+	 * @return List<DisciplinaTurmaDTO>
+	 */
+	@Transactional
+	public List<DisciplinaTurmaDTO> salvarDisciplina(List<DisciplinaTurmaDTO> disciplinas) {
+		for (DisciplinaTurmaDTO disciplina : disciplinas) {
+			DisciplinaTurma disciplinaTurma = this.parseToModel(disciplina);
+			disciplinaTurma = disciplinaTurmaRepository.save(disciplinaTurma);
+		}
+		return disciplinas;
+	}
+	
+	
+	/**
+	 * parseToModel
+	 * @param DisciplinaTurmaDTO
+	 * @return DisciplinaTurma
+	 */
+	private DisciplinaTurma parseToModel(DisciplinaTurmaDTO dto) {
+		DisciplinaTurma disciplinaTurma = new DisciplinaTurma();
+		disciplinaTurma.setDisciplina(this.disciplinaRepository.getOne(dto.getCodigoDisciplina()));
+		disciplinaTurma.setTurma(this.turmaRepository.getOne(dto.getCodigoTurma()));
+		disciplinaTurma.setProfessor(this.professorRepository.getOne(dto.getCodigoProfessor()));
+		return disciplinaTurma;
+	}
+
+	
+	
+	
+
+	
 	
 	
 }

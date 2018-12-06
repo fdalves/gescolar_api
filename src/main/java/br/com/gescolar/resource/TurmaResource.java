@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.gescolar.dto.Serie;
+import br.com.gescolar.dto.DisciplinaTurmaDTO;
 import br.com.gescolar.dto.PeriodosDTO;
 import br.com.gescolar.event.RecursoCriadoEvent;
 import br.com.gescolar.model.Turma;
@@ -95,6 +96,12 @@ public class TurmaResource {
 	public ResponseEntity<PeriodosDTO> getTurmaPeriodo(@PathVariable Long codigo) {
 		PeriodosDTO dto = this.turmaService.getTurmaPeriodo(codigo);
 		return dto != null ? ResponseEntity.ok(dto) : ResponseEntity.notFound().build();
+	}
+	
+	@PostMapping("/salvarDisciplina")
+	public ResponseEntity<List<DisciplinaTurmaDTO>> salvarDisciplina(@RequestBody List<DisciplinaTurmaDTO> disciplinas, HttpServletResponse response) {
+		List<DisciplinaTurmaDTO> disciplinasSalva = turmaService.salvarDisciplina(disciplinas);
+		return ResponseEntity.status(HttpStatus.CREATED).body(disciplinasSalva);
 	}
 
 }

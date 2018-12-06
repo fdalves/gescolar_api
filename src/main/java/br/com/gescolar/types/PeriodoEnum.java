@@ -40,4 +40,34 @@ public enum PeriodoEnum {
 			return null;
 		}
 	}
+	
+	/**
+	 * parse
+	 * @param periodo
+	 * @return PeriodoEnum
+	 */
+	public static PeriodoEnum parse(String periodo) {
+		if (periodo.equals("PRIMEIRO_PERIODO")) {
+			return PRIMEIRO_PERIODO;
+		} else if (periodo.equals("SEGUNDO_PERIODO")) {
+			return SEGUNDO_PERIODO;
+		} else if (periodo.equals("TERCEIRO_PERIODO")) {
+			return TERCEIRO_PERIODO;
+		} else if (periodo.equals("QUARTO_PERIODO")) {
+			return QUARTO_PERIODO;
+		} else if (periodo.equals("QUINTO_PERIODO")) {
+			return QUINTO_PERIODO;
+		} else if (periodo.equals("SEXTO_PERIODO")) {
+			return SEXTO_PERIODO;
+		} else if (periodo.equals("SETIMO_PERIODO")) {
+			return SETIMO_PERIODO;
+		} else if (periodo.equals("OITAVO_PERIODO")) {
+			return OITAVO_PERIODO;
+		} else if (periodo.equals("NONO_PERIODO")) {
+			return NONO_PERIODO;
+		} else if (periodo.equals("DECIMO_PERIODO")) {
+			return DECIMO_PERIODO;
+		}
+		return null;
+	}
 }

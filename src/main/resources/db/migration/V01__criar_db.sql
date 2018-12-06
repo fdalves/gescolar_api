@@ -158,13 +158,12 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `gescolar`.`discipliana_turma` (
   `codigo` INT(11) NOT NULL AUTO_INCREMENT,
-  `quant_periodos` INT(11) NULL DEFAULT NULL,
-  `turma_codigo` INT(11) NOT NULL,
-  `codigo_professo` INT(11) NOT NULL,
+  `codigo_turma` INT(11) NOT NULL,
+  `codigo_professor` INT(11) NOT NULL,
   `codigo_disciplina` INT(11) NOT NULL,
   PRIMARY KEY (`codigo`),
-  INDEX `fk_discipliana_turma_turma1_idx` (`turma_codigo` ASC),
-  INDEX `fk_discipliana_turma_professor1_idx` (`codigo_professo` ASC),
+  INDEX `fk_discipliana_turma_turma1_idx` (`codigo_turma` ASC),
+  INDEX `fk_discipliana_turma_professor1_idx` (`codigo_professor` ASC),
   INDEX `fk_discipliana_turma_disciplina1_idx` (`codigo_disciplina` ASC),
   CONSTRAINT `fk_discipliana_turma_disciplina1`
     FOREIGN KEY (`codigo_disciplina`)
@@ -172,12 +171,12 @@ CREATE TABLE IF NOT EXISTS `gescolar`.`discipliana_turma` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_discipliana_turma_professor1`
-    FOREIGN KEY (`codigo_professo`)
+    FOREIGN KEY (`codigo_professor`)
     REFERENCES `gescolar`.`professor` (`codigo`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_discipliana_turma_turma1`
-    FOREIGN KEY (`turma_codigo`)
+    FOREIGN KEY (`codigo_turma`)
     REFERENCES `gescolar`.`turma` (`codigo`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)

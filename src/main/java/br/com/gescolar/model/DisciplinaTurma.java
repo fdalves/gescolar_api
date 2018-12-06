@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
-@Table(name="DISCIPLINA_TURMA")
+@Table(name="DISCIPLIANA_TURMA")
 public class DisciplinaTurma implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -27,10 +27,6 @@ public class DisciplinaTurma implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="codigo")
 	private Long codigo;
-	
-	@NotNull
-	@Column(name="quant_periodos")
-	private Integer quantPeriodosSemana;
 	
 	@JsonIgnore
 	@NotNull
@@ -56,13 +52,6 @@ public class DisciplinaTurma implements Serializable {
 		this.codigo = codigo;
 	}
 
-	public Integer getQuantPeriodosSemana() {
-		return quantPeriodosSemana;
-	}
-
-	public void setQuantPeriodosSemana(Integer quantPeriodosSemana) {
-		this.quantPeriodosSemana = quantPeriodosSemana;
-	}
 
 	public Turma getTurma() {
 		return turma;
@@ -88,32 +77,5 @@ public class DisciplinaTurma implements Serializable {
 		this.disciplina = disciplina;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		DisciplinaTurma other = (DisciplinaTurma) obj;
-		if (codigo == null) {
-			if (other.codigo != null)
-				return false;
-		} else if (!codigo.equals(other.codigo))
-			return false;
-		return true;
-	}
-	
-	
-	
 	
 }

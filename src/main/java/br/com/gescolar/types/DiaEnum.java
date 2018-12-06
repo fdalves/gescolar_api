@@ -67,5 +67,27 @@ public enum DiaEnum {
 		}
 		return null;
 	}
+	
+	/**
+	 * parse
+	 * @param dia
+	 * @return DiaEnum
+	 */
+	public static DiaEnum parse(String dia) {
+		if (dia.equals("Segunda")) {
+			return DiaEnum.SEGUNDA;
+		} else if (dia.equals("Terça")) {
+			return DiaEnum.TERCA;
+		} else if (dia.equals("Quarta")) {
+			return DiaEnum.QUARTA;
+		} else if (dia.equals("Quinta")) {
+			return DiaEnum.QUINTA;
+		} else if (dia.equals("Sexta")) {
+			return DiaEnum.SEXTA;
+		} else if (dia.equals("Sábado")) {
+			return DiaEnum.SABADO;
+		}
+		return null;
+	}
 
 }
