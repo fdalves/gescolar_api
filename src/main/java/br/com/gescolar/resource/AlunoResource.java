@@ -1,5 +1,7 @@
 package br.com.gescolar.resource;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
@@ -81,5 +83,10 @@ public class AlunoResource {
 		}
 		return ResponseEntity.ok(alunoService.verificaMatricula(matricula, codigoLong));
 	}
-
+	
+	
+	@GetMapping("/pesquisarPorTurma/{codigo}")
+	public List<Aluno> pesquisarPorTurma(@PathVariable Long codigoTruma) {
+		return alunoService.pesquisarPorTurma(codigoTruma);
+	}
 }
