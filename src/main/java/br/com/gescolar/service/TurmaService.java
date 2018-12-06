@@ -276,7 +276,10 @@ public class TurmaService {
 	public List<DisciplinaTurmaDTO> salvarDisciplina(List<DisciplinaTurmaDTO> disciplinas) {
 		for (DisciplinaTurmaDTO disciplina : disciplinas) {
 			DisciplinaTurma disciplinaTurma = this.parseToModel(disciplina);
-			disciplinaTurma = disciplinaTurmaRepository.save(disciplinaTurma);
+			disciplinaTurma = this.disciplinaTurmaRepository.save(disciplinaTurma);
+			TurmaPeriodo turmaPeriodo = this.turmaPeriodoRepository.getOne(disciplina.getCodigoTurmaPeriodo());
+			turmaPeriodo.setDisciplinaTurma(disciplinaTurma);
+			this.turmaPeriodoRepository.save(turmaPeriodo);
 		}
 		return disciplinas;
 	}
@@ -293,6 +296,23 @@ public class TurmaService {
 		disciplinaTurma.setTurma(this.turmaRepository.getOne(dto.getCodigoTurma()));
 		disciplinaTurma.setProfessor(this.professorRepository.getOne(dto.getCodigoProfessor()));
 		return disciplinaTurma;
+	}
+
+	/**
+	 * removerDisciplinaTurma
+	 * @param Long codigo
+	 */
+	@Transactional
+	public void removerDisciplinaTurma(Long codigo) {
+		DisciplinaTurma disciplinaTurma = this.disciplinaTurmaRepository.getOne(codigo);
+		List<TurmaPeriodo> periodos = this.turmaPeriodoRepository.findByDisciplinaTurma(disciplinaTurma);
+		if (periodos != null && !periodos.isEmpty()) {
+			for (TurmaPeriodo turmaPeriodo : periodos) {
+				turmaPeriodo.setDisciplinaTurma(null);
+				this.turmaPeriodoRepository.save(turmaPeriodo);
+			}
+		}
+		this.disciplinaTurmaRepository.delete(disciplinaTurma);
 	}
 
 	

@@ -15,6 +15,7 @@ public class DisciplinaTurmaDTO implements Serializable {
 	private String nomeProfessor;
 	private String nomeDisciplina;
 	private Long codigoDisciplina;
+	private Long codigoTurmaPeriodo;
 	
 	public Long getCodigo() {
 		return codigo;
@@ -57,6 +58,12 @@ public class DisciplinaTurmaDTO implements Serializable {
 	}
 	public void setNomeDisciplina(String nomeDisciplina) {
 		this.nomeDisciplina = nomeDisciplina;
+	}
+	public Long getCodigoTurmaPeriodo() {
+		return codigoTurmaPeriodo;
+	}
+	public void setCodigoTurmaPeriodo(Long codigoTurmaPeriodo) {
+		this.codigoTurmaPeriodo = codigoTurmaPeriodo;
 	}
 	
 	

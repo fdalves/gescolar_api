@@ -103,5 +103,11 @@ public class TurmaResource {
 		List<DisciplinaTurmaDTO> disciplinasSalva = turmaService.salvarDisciplina(disciplinas);
 		return ResponseEntity.status(HttpStatus.CREATED).body(disciplinasSalva);
 	}
+	
+	@DeleteMapping("/deleteDisciplina/{codigo}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void removerDisciplina(@PathVariable Long codigo) {
+		this.turmaService.removerDisciplinaTurma(codigo);
+	}
 
 }

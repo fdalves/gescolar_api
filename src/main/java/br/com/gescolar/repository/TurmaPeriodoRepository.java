@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import br.com.gescolar.dto.Periodo;
+import br.com.gescolar.model.DisciplinaTurma;
 import br.com.gescolar.model.Turma;
 import br.com.gescolar.model.TurmaPeriodo;
 
@@ -21,5 +22,7 @@ public interface TurmaPeriodoRepository extends JpaRepository<TurmaPeriodo, Long
 	List<Periodo> findPeriodos(Long codigoTurma);
 
 	List<TurmaPeriodo> findByTurma(Turma turma);
+	
+	List<TurmaPeriodo> findByDisciplinaTurma(DisciplinaTurma disciplinaTurma);
 
 }
