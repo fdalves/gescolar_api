@@ -1,7 +1,5 @@
 package br.com.gescolar.resource;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
@@ -26,7 +24,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.gescolar.event.RecursoCriadoEvent;
 import br.com.gescolar.model.Aluno;
+import br.com.gescolar.model.Turma;
 import br.com.gescolar.repository.AlunoRepository;
+import br.com.gescolar.repository.TurmaRepository;
 import br.com.gescolar.service.AlunoService;
 
 @RestController
@@ -38,6 +38,9 @@ public class AlunoResource {
 
 	@Autowired
 	private AlunoService alunoService;
+	
+	@Autowired
+	private TurmaRepository turmaRepository; 
 
 	@Autowired
 	private ApplicationEventPublisher publisher;
@@ -76,17 +79,20 @@ public class AlunoResource {
 
 	@GetMapping("/matriculaExistente/{matricula}")
 	@ResponseBody
-	public ResponseEntity<Boolean> isValid(@PathVariable String matricula, @RequestParam(required = false, defaultValue = "") String codigo) {
+	public ResponseEntity<Boolean> isValid(@PathVariable String matricula,
+			@RequestParam(required = false, defaultValue = "") String codigo) {
 		Long codigoLong = null;
 		if (!StringUtils.isEmpty(codigo) && !codigo.equals("null")) {
 			codigoLong = new Long(codigo);
 		}
 		return ResponseEntity.ok(alunoService.verificaMatricula(matricula, codigoLong));
 	}
-	
-	
-	@GetMapping("/pesquisarPorTurma/{codigo}")
-	public List<Aluno> pesquisarPorTurma(@PathVariable Long codigoTruma) {
-		return alunoService.pesquisarPorTurma(codigoTruma);
+
+	@GetMapping("/pesquisarPorTurma/{codigoTruma}")
+	public Page<Aluno> pesquisarPorTurma(@PathVariable Long codigoTruma,
+			@RequestParam(required = false, defaultValue = "%") String nome,
+			@RequestParam(required = false, defaultValue = "%") String matricula, Pageable pageable) {
+		Turma turma = this.turmaRepository.getOne(codigoTruma);
+		return alunoRepository.findByTurmaAndNomeContainingAndMatriculaContaining(turma, nome, matricula, pageable);
 	}
 }

@@ -18,5 +18,7 @@ public interface AlunoRepository  extends JpaRepository<Aluno, Long> {
 	public boolean existsByMatricula(String matricula);
 	
 	public List<Aluno> findByTurma(Turma turma);
+	
+	public Page<Aluno> findByTurmaAndNomeContainingAndMatriculaContaining(Turma t, String nome, String matricula, Pageable pageable );
 
 }
