@@ -6,6 +6,6 @@ import br.com.gescolar.model.TipoUsuario;
 
 public interface TipoUsuarioRepository extends JpaRepository<TipoUsuario, Long>{
 
-	TipoUsuario findByTipoUsuario(String tipoUsuario);
+	TipoUsuario findByDescTipoUsuario(String tipoUsuario);
 	
 }

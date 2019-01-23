@@ -2,12 +2,17 @@ package br.com.gescolar.model;
 
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -30,34 +35,44 @@ public class TipoUsuario implements Serializable {
 	@NotNull
 	@Length(max=45)
 	@Column(name="desc_tipo_usurio")
-	private String tipoUsuario;
+	private String descTipoUsuario;
 	
-	@Column(name="role")
-	private String regra;
+	
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name="tipo_usuario_permissao", joinColumns = @JoinColumn(name="codigo_tipo_usuario")
+		,inverseJoinColumns= @JoinColumn(name="codigo_permissao"))
+	private List<Permissao> permissoes;
+
 
 	public Long getCodigo() {
 		return codigo;
 	}
 
+
 	public void setCodigo(Long codigo) {
 		this.codigo = codigo;
 	}
 
-	public String getTipoUsuario() {
-		return tipoUsuario;
+
+	public String getDescTipoUsuario() {
+		return descTipoUsuario;
 	}
 
-	public void setTipoUsuario(String tipoUsuario) {
-		this.tipoUsuario = tipoUsuario;
+
+	public void setDescTipoUsuario(String descTipoUsuario) {
+		this.descTipoUsuario = descTipoUsuario;
 	}
 
-	public String getRegra() {
-		return regra;
+
+	public List<Permissao> getPermissoes() {
+		return permissoes;
 	}
 
-	public void setRegra(String regra) {
-		this.regra = regra;
+
+	public void setPermissoes(List<Permissao> permissoes) {
+		this.permissoes = permissoes;
 	}
+
 
 	@Override
 	public int hashCode() {
@@ -66,6 +81,7 @@ public class TipoUsuario implements Serializable {
 		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
 		return result;
 	}
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -83,7 +99,6 @@ public class TipoUsuario implements Serializable {
 			return false;
 		return true;
 	}
-	
 	
 	
 	

@@ -24,85 +24,79 @@ public class Chamada implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id_chamada")
-	private Long idChamada;
+	@Column(name="codigo")
+	private Long codigo;
 	
 	@NotNull
 	private Boolean presenca;
 	
 	@NotNull
-	private Date data;
+	@Column(name="data_chamada")
+	private Date dataChamada;
+	
+	@NotNull
+	@Column(name="data_inclusao")
+	private Date dataInclusao;
 	
 	@NotNull
 	@ManyToOne
-	@JoinColumn(name = "id_disciplina_turma")
-	private DisciplinaTurma disciplinaTurma;
+	@JoinColumn(name = "codigo_tuma_periodo")
+	private TurmaPeriodo turmaPeriodo;
 	
 	@NotNull
 	@ManyToOne
-	@JoinColumn(name = "id_aluno")
+	@JoinColumn(name = "codigo_aluno")
 	private Aluno aluno;
-	
-	public Long getIdChamada() {
-		return idChamada;
+
+	public Long getCodigo() {
+		return codigo;
 	}
-	public void setIdChamada(Long idChamada) {
-		this.idChamada = idChamada;
+
+	public void setCodigo(Long codigo) {
+		this.codigo = codigo;
 	}
+
 	public Boolean getPresenca() {
 		return presenca;
 	}
+
 	public void setPresenca(Boolean presenca) {
 		this.presenca = presenca;
 	}
-	public Date getData() {
-		return data;
+
+	public Date getDataChamada() {
+		return dataChamada;
 	}
-	public void setData(Date data) {
-		this.data = data;
+
+	public void setDataChamada(Date dataChamada) {
+		this.dataChamada = dataChamada;
 	}
-	public DisciplinaTurma getDisciplinaTurma() {
-		return disciplinaTurma;
+
+	public Date getDataInclusao() {
+		return dataInclusao;
 	}
-	public void setDisciplinaTurma(DisciplinaTurma disciplinaTurma) {
-		this.disciplinaTurma = disciplinaTurma;
+
+	public void setDataInclusao(Date dataInclusao) {
+		this.dataInclusao = dataInclusao;
 	}
+
+	public TurmaPeriodo getTurmaPeriodo() {
+		return turmaPeriodo;
+	}
+
+	public void setTurmaPeriodo(TurmaPeriodo turmaPeriodo) {
+		this.turmaPeriodo = turmaPeriodo;
+	}
+
 	public Aluno getAluno() {
 		return aluno;
 	}
+
 	public void setAluno(Aluno aluno) {
 		this.aluno = aluno;
 	}
 	
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((aluno == null) ? 0 : aluno.hashCode());
-		result = prime * result + ((idChamada == null) ? 0 : idChamada.hashCode());
-		return result;
-	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Chamada other = (Chamada) obj;
-		if (aluno == null) {
-			if (other.aluno != null)
-				return false;
-		} else if (!aluno.equals(other.aluno))
-			return false;
-		if (idChamada == null) {
-			if (other.idChamada != null)
-				return false;
-		} else if (!idChamada.equals(other.idChamada))
-			return false;
-		return true;
-	}
+	
 	
 	
 }

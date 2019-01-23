@@ -60,10 +60,24 @@ DEFAULT CHARACTER SET = utf8;
 CREATE TABLE IF NOT EXISTS `gescolar`.`tipo_usuario` (
   `codigo` INT(11) NOT NULL,
   `desc_tipo_usurio` VARCHAR(45) NULL DEFAULT NULL,
-  `role` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`codigo`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
+
+
+CREATE TABLE IF NOT EXISTS gescolar.permissao (
+	codigo INT(11) PRIMARY KEY,
+	descricao VARCHAR(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS gescolar.tipo_usuario_permissao (
+	codigo_tipo_usuario INT(11) NOT NULL,
+	codigo_permissao INT(11) NOT NULL,
+	PRIMARY KEY (codigo_tipo_usuario, codigo_permissao),
+	FOREIGN KEY (codigo_tipo_usuario) REFERENCES tipo_usuario(codigo),
+	FOREIGN KEY (codigo_permissao) REFERENCES permissao(codigo)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 -- -----------------------------------------------------
@@ -234,10 +248,25 @@ DEFAULT CHARACTER SET = utf8;
 -- Table `gescolar`.`chamada`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `gescolar`.`chamada` (
-  `id_chamada` INT(11) NOT NULL AUTO_INCREMENT,
+  `codigo` INT(11) NOT NULL AUTO_INCREMENT,
   `presenca` TINYINT(1) NOT NULL,
-  `data` DATE NOT NULL,
-  PRIMARY KEY (`id_chamada`))
+  `data_chamada` DATE NOT NULL,
+  `data_inclusao` DATE NOT NULL,
+  `codigo_aluno` INT(11) NOT NULL,
+  `codigo_turma_periodo` INT(11) NOT NULL,
+  PRIMARY KEY (`codigo`),
+  INDEX `fk_chamada_aulo_idx` (`codigo_aluno` ASC),
+  INDEX `fk_chamada_codigo_turma_idx` (`codigo_turma_periodo` ASC),
+  CONSTRAINT `fk_chamada_aulo`
+    FOREIGN KEY (`codigo_aluno`)
+    REFERENCES `gescolar`.`aluno` (`codigo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_chamada_codigo_turma`
+    FOREIGN KEY (`codigo_turma_periodo`)
+    REFERENCES `gescolar`.`turma_periodo` (`codigo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 

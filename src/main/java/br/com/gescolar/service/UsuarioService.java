@@ -22,7 +22,7 @@ public class UsuarioService {
 	private String senhaDefault;
 	
 	public Usuario gerarUsuarioDefault(String login,TipoUsuarioEnum tipoUsuarioEnum) {
-		TipoUsuario tipoUsuario = tipoUsuarioRepository.findByTipoUsuario(tipoUsuarioEnum.toString());
+		TipoUsuario tipoUsuario = tipoUsuarioRepository.findByDescTipoUsuario(tipoUsuarioEnum.toString());
 		Usuario usuario = new Usuario();
 		usuario.setTipoUsuario(tipoUsuario);
 		usuario.setLogin(login);
