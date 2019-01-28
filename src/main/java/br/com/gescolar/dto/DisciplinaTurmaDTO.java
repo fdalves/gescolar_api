@@ -4,18 +4,17 @@ import java.io.Serializable;
 
 public class DisciplinaTurmaDTO implements Serializable {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private Long codigo;
 	private Integer quantPeriodosSemana;
 	private Long codigoTurma;
+	private String nomeTurma;
 	private Long codigoProfessor;
 	private String nomeProfessor;
 	private String nomeDisciplina;
 	private Long codigoDisciplina;
 	private Long codigoTurmaPeriodo;
+	private String turmaDisciplina;
 	
 	public Long getCodigo() {
 		return codigo;
@@ -65,9 +64,49 @@ public class DisciplinaTurmaDTO implements Serializable {
 	public void setCodigoTurmaPeriodo(Long codigoTurmaPeriodo) {
 		this.codigoTurmaPeriodo = codigoTurmaPeriodo;
 	}
+	public String getNomeTurma() {
+		return nomeTurma;
+	}
+	public void setNomeTurma(String nomeTurma) {
+		this.nomeTurma = nomeTurma;
+	}
+	public String getTurmaDisciplina() {
+		return turmaDisciplina;
+	}
+	public void setTurmaDisciplina(String turmaDisciplina) {
+		this.turmaDisciplina = turmaDisciplina;
+	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		DisciplinaTurmaDTO other = (DisciplinaTurmaDTO) obj;
+		if (codigo == null) {
+			if (other.codigo != null)
+				return false;
+		} else if (!codigo.equals(other.codigo))
+			return false;
+		return true;
+	}
+	@Override
+	public String toString() {
+		return "DisciplinaTurmaDTO [codigo=" + codigo + ", quantPeriodosSemana=" + quantPeriodosSemana
+				+ ", codigoTurma=" + codigoTurma + ", nomeTurma=" + nomeTurma + ", codigoProfessor=" + codigoProfessor
+				+ ", nomeProfessor=" + nomeProfessor + ", nomeDisciplina=" + nomeDisciplina + ", codigoDisciplina="
+				+ codigoDisciplina + ", codigoTurmaPeriodo=" + codigoTurmaPeriodo + ", turmaDisciplina="
+				+ turmaDisciplina + "]";
+	}
 	
 	
-	
-	
-
 }

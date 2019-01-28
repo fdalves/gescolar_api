@@ -109,5 +109,5 @@ public class TurmaResource {
 	public void removerDisciplina(@PathVariable Long codigo) {
 		this.turmaService.removerDisciplinaTurma(codigo);
 	}
-
+	
 }

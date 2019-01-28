@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -45,7 +46,6 @@ public class TurmaService {
 	 * @param turma
 	 * @return Turma
 	 */
-	@Transactional
 	public Turma salvar(Turma turma) {
 		turma = turmaRepository.save(turma);
 		this.savePeridos(this.periodosToTurmaPeriodos(turma));
@@ -58,7 +58,6 @@ public class TurmaService {
 	 * @param turma
 	 * @return Turma
 	 */
-	@Transactional
 	public Turma atualizar(Long codigo, Turma turma) {
 		this.verifyPeridos(turma);
 		Turma turmaSalva = this.turmaRepository.getOne(codigo);
@@ -272,15 +271,28 @@ public class TurmaService {
 	 * @param disciplinas
 	 * @return List<DisciplinaTurmaDTO>
 	 */
-	@Transactional
 	public List<DisciplinaTurmaDTO> salvarDisciplina(List<DisciplinaTurmaDTO> disciplinas) {
-		for (DisciplinaTurmaDTO disciplina : disciplinas) {
-			DisciplinaTurma disciplinaTurma = this.parseToModel(disciplina);
-			disciplinaTurma = this.disciplinaTurmaRepository.save(disciplinaTurma);
-			TurmaPeriodo turmaPeriodo = this.turmaPeriodoRepository.getOne(disciplina.getCodigoTurmaPeriodo());
-			turmaPeriodo.setDisciplinaTurma(disciplinaTurma);
-			this.turmaPeriodoRepository.save(turmaPeriodo);
+		
+		if (disciplinas != null && !disciplinas.isEmpty()) {
+			
+			DisciplinaTurma disciplinaTurma = this.parseToModel(disciplinas.get(0));
+			
+			Optional<DisciplinaTurma> optional = disciplinaTurmaRepository.findByDisciplinaAndProfessorAndTurma(disciplinaTurma.getDisciplina(),
+					disciplinaTurma.getProfessor(), disciplinaTurma.getTurma());
+			
+			if (optional.isPresent()) {
+				disciplinaTurma = optional.get();
+			} else {
+				disciplinaTurma = this.disciplinaTurmaRepository.save(disciplinaTurma);
+			}
+			
+			for (DisciplinaTurmaDTO disciplina : disciplinas) {
+				TurmaPeriodo turmaPeriodo = this.turmaPeriodoRepository.getOne(disciplina.getCodigoTurmaPeriodo());
+				turmaPeriodo.setDisciplinaTurma(disciplinaTurma);
+				this.turmaPeriodoRepository.save(turmaPeriodo);
+			}
 		}
+		
 		return disciplinas;
 	}
 	
@@ -315,11 +327,6 @@ public class TurmaService {
 		this.disciplinaTurmaRepository.delete(disciplinaTurma);
 	}
 
-	
-	
-	
-
-	
 	
 	
 }
