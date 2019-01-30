@@ -31,7 +31,7 @@ public class AlunoService {
 	 * @return Aluno
 	 */
 	public Aluno salvar(Aluno aluno) {
-		Usuario usuario = usuarioService.gerarUsuarioDefault(aluno.getMatricula(), TipoUsuarioEnum.ALUNO_RESPONSSAVEL);
+		Usuario usuario = usuarioService.gerarUsuarioDefault(aluno.getMatricula().replaceAll("[^0-9]", ""), TipoUsuarioEnum.ALUNO_RESPONSSAVEL);
 		aluno.setUsuario(usuario);
 		fotoService.salvar(aluno.getFoto());
 		return alunoRepository.save(aluno);

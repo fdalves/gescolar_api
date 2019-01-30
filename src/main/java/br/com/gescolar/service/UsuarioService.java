@@ -1,7 +1,6 @@
 package br.com.gescolar.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import br.com.gescolar.model.TipoUsuario;
@@ -18,19 +17,15 @@ public class UsuarioService {
 	private UsuarioRepository usuarioRepository;
 	@Autowired
 	private TipoUsuarioRepository tipoUsuarioRepository;
-	@Value("${senha.default}")
-	private String senhaDefault;
+	
 	
 	public Usuario gerarUsuarioDefault(String login,TipoUsuarioEnum tipoUsuarioEnum) {
 		TipoUsuario tipoUsuario = tipoUsuarioRepository.findByDescTipoUsuario(tipoUsuarioEnum.toString());
 		Usuario usuario = new Usuario();
 		usuario.setTipoUsuario(tipoUsuario);
 		usuario.setLogin(login);
-		usuario.setSenha(this.getSenhaDefault());
+		usuario.setSenha(GeradorSenha.gerarCryptSenha(login));
 		return usuarioRepository.save(usuario);
 	}
 
-	private String getSenhaDefault() {
-		return GeradorSenha.gerarCryptSenha(senhaDefault);
-	}
 }

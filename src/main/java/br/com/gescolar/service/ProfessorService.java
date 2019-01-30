@@ -1,7 +1,5 @@
 package br.com.gescolar.service;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -37,9 +35,8 @@ public class ProfessorService {
 		return professorSalvo;
 	}
 	
-	@Transactional
 	public Professor salvar(Professor professor) {
-		Usuario usuario = usuarioService.gerarUsuarioDefault(professor.getCpf(), TipoUsuarioEnum.PROFESSOR);
+		Usuario usuario = usuarioService.gerarUsuarioDefault(professor.getCpf().replaceAll("[^0-9]", ""), TipoUsuarioEnum.PROFESSOR);
 		professor.setUsuario(usuario);
 		fotoService.salvar(professor.getFoto());
 		return this.professorRepository.save(professor);
