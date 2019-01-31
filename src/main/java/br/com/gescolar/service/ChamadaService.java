@@ -123,7 +123,7 @@ public class ChamadaService {
 		Calendar c = Calendar.getInstance();
 		c.setTime(data);
 		int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
-		return DiaEnum.getDia(dayOfWeek);
+		return DiaEnum.getDia(dayOfWeek - 1);
 	}
 	
 }

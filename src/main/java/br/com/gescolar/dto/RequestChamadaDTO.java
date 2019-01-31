@@ -1,7 +1,7 @@
 package br.com.gescolar.dto;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 @JsonAutoDetect
@@ -11,7 +11,7 @@ public class RequestChamadaDTO implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Date data;
+	private LocalDate data;
 	private Long codigoTurmaDiciplina;
 	
 	
@@ -22,10 +22,14 @@ public class RequestChamadaDTO implements Serializable{
 	public void setCodigoTurmaDiciplina(Long codigoTurmaDiciplina) {
 		this.codigoTurmaDiciplina = codigoTurmaDiciplina;
 	}
-	public Date getData() {
+	
+	
+	
+	
+	public LocalDate getData() {
 		return data;
 	}
-	public void setData(Date data) {
+	public void setData(LocalDate data) {
 		this.data = data;
 	}
 	@Override

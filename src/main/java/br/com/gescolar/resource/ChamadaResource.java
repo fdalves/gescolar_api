@@ -1,5 +1,7 @@
 package br.com.gescolar.resource;
 
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +32,8 @@ public class ChamadaResource {
 	
 	@PostMapping("/getPeriodos")
 	public List<TurmaPeriodoDTO> getPeriodos(@RequestBody RequestChamadaDTO dto) {
-		return this.chamadaService.listarPeriodos(dto.getCodigoTurmaDiciplina(), dto.getData()); 
+		Date date = Date.from(dto.getData().atStartOfDay(ZoneId.systemDefault()).toInstant());
+		return this.chamadaService.listarPeriodos(dto.getCodigoTurmaDiciplina(),date); 
 	}
 	
 	
