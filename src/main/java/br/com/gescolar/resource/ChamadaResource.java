@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.gescolar.dto.DisciplinaTurmaDTO;
 import br.com.gescolar.dto.RequestChamadaDTO;
 import br.com.gescolar.dto.TurmaPeriodoDTO;
+import br.com.gescolar.model.Aluno;
 import br.com.gescolar.service.ChamadaService;
 
 @RestController
@@ -34,6 +35,11 @@ public class ChamadaResource {
 	public List<TurmaPeriodoDTO> getPeriodos(@RequestBody RequestChamadaDTO dto) {
 		Date date = Date.from(dto.getData().atStartOfDay(ZoneId.systemDefault()).toInstant());
 		return this.chamadaService.listarPeriodos(dto.getCodigoTurmaDiciplina(),date); 
+	}
+	
+	@GetMapping("/getAlunos/{codigoTurmaDisciplina}")
+	public List<Aluno> getAlunos(@PathVariable Long codigoTurmaDisciplina) {
+		return this.chamadaService.getAlunos(codigoTurmaDisciplina); 
 	}
 	
 	

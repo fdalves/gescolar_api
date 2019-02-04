@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import br.com.gescolar.dto.ChamadaDTO;
 import br.com.gescolar.dto.DisciplinaTurmaDTO;
 import br.com.gescolar.dto.TurmaPeriodoDTO;
+import br.com.gescolar.exception.ChamadaNotFoundExcption;
 import br.com.gescolar.model.Aluno;
 import br.com.gescolar.model.Chamada;
 import br.com.gescolar.model.DisciplinaTurma;
@@ -21,6 +22,7 @@ import br.com.gescolar.repository.ChamadaRepository;
 import br.com.gescolar.repository.DisciplinaTurmaRepository;
 import br.com.gescolar.repository.ProfessorRepository;
 import br.com.gescolar.repository.TurmaPeriodoRepository;
+import br.com.gescolar.repository.listener.UrlFotoListener;
 import br.com.gescolar.types.DiaEnum;
 
 /**
@@ -84,10 +86,30 @@ public class ChamadaService {
 				listPeriodos.add(dto);
 			}
 		}
+		
+		if (listPeriodos.isEmpty()) throw new ChamadaNotFoundExcption();
 		return listPeriodos;
 	}
 	
+	/**
+	 * getAlunos
+	 * @param codigoTurmaDisciplina
+	 * @return List<Aluno>
+	 */
+	public List<Aluno> getAlunos(Long codigoTurmaDisciplina) {
+		DisciplinaTurma disciplinaTurma = this.disciplinaTurmaRepository.getOne(codigoTurmaDisciplina);
+		return this.carregaFotos(this.alunoRepository.findByTurma(disciplinaTurma.getTurma()));
+	}
 	
+	private List<Aluno> carregaFotos(List<Aluno> findByTurma) {
+		UrlFotoListener fotoListener = new UrlFotoListener();
+		for (Aluno aluno : findByTurma) {
+			fotoListener.postLoad(aluno);
+		}
+		return findByTurma;
+	}
+
+
 	/**
 	 * listarAlunosTurmaPeriodo
 	 * @param codigoTurmaPeriodo
@@ -125,5 +147,7 @@ public class ChamadaService {
 		int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
 		return DiaEnum.getDia(dayOfWeek - 1);
 	}
+
+	
 	
 }
