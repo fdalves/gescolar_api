@@ -28,9 +28,6 @@ public class Chamada implements Serializable {
 	private Long codigo;
 	
 	@NotNull
-	private Boolean presenca;
-	
-	@NotNull
 	@Column(name="data_chamada")
 	private Date dataChamada;
 	
@@ -43,11 +40,7 @@ public class Chamada implements Serializable {
 	@JoinColumn(name = "codigo_tuma_periodo")
 	private TurmaPeriodo turmaPeriodo;
 	
-	@NotNull
-	@ManyToOne
-	@JoinColumn(name = "codigo_aluno")
-	private Aluno aluno;
-
+	
 	public Long getCodigo() {
 		return codigo;
 	}
@@ -56,13 +49,6 @@ public class Chamada implements Serializable {
 		this.codigo = codigo;
 	}
 
-	public Boolean getPresenca() {
-		return presenca;
-	}
-
-	public void setPresenca(Boolean presenca) {
-		this.presenca = presenca;
-	}
 
 	public Date getDataChamada() {
 		return dataChamada;
@@ -88,15 +74,4 @@ public class Chamada implements Serializable {
 		this.turmaPeriodo = turmaPeriodo;
 	}
 
-	public Aluno getAluno() {
-		return aluno;
-	}
-
-	public void setAluno(Aluno aluno) {
-		this.aluno = aluno;
-	}
-	
-	
-	
-	
 }

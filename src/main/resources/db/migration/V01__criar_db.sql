@@ -249,19 +249,11 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `gescolar`.`chamada` (
   `codigo` INT(11) NOT NULL AUTO_INCREMENT,
-  `presenca` TINYINT(1) NOT NULL,
   `data_chamada` DATE NOT NULL,
   `data_inclusao` DATE NOT NULL,
-  `codigo_aluno` INT(11) NOT NULL,
   `codigo_turma_periodo` INT(11) NOT NULL,
   PRIMARY KEY (`codigo`),
-  INDEX `fk_chamada_aulo_idx` (`codigo_aluno` ASC),
   INDEX `fk_chamada_codigo_turma_idx` (`codigo_turma_periodo` ASC),
-  CONSTRAINT `fk_chamada_aulo`
-    FOREIGN KEY (`codigo_aluno`)
-    REFERENCES `gescolar`.`aluno` (`codigo`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
   CONSTRAINT `fk_chamada_codigo_turma`
     FOREIGN KEY (`codigo_turma_periodo`)
     REFERENCES `gescolar`.`turma_periodo` (`codigo`)
@@ -362,6 +354,31 @@ CREATE TABLE IF NOT EXISTS `gescolar`.`TURMA_PERIODO` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
+
+
+CREATE TABLE IF NOT EXISTS `gescolar`.`CHAMADA_ALUNO` (
+  `codigo` INT NOT NULL AUTO_INCREMENT,
+  `chamada_codigo` INT(11) NOT NULL,
+  `aluno_codigo` INT(11) NULL,
+  `presenca` TINYINT(1) NOT NULL,
+  PRIMARY KEY (`codigo`),
+  INDEX `fk_turma_codigo_idx` (`chamada_codigo` ASC),
+  INDEX `fk_aluno_codigo_idx` (`aluno_codigo` ASC),
+  CONSTRAINT `fk_chamada_codigo`
+    FOREIGN KEY (`chamada_codigo`)
+    REFERENCES `gescolar`.`chamada` (`codigo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_aluno_codigo`
+    FOREIGN KEY (`aluno_codigo`)
+    REFERENCES `gescolar`.`aluno` (`codigo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

@@ -1,6 +1,5 @@
 package br.com.gescolar.service;
 
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -14,12 +13,10 @@ import br.com.gescolar.dto.DisciplinaTurmaDTO;
 import br.com.gescolar.dto.TurmaPeriodoDTO;
 import br.com.gescolar.exception.ChamadaNotFoundExcption;
 import br.com.gescolar.model.Aluno;
-import br.com.gescolar.model.Chamada;
 import br.com.gescolar.model.DisciplinaTurma;
 import br.com.gescolar.model.Professor;
 import br.com.gescolar.model.TurmaPeriodo;
 import br.com.gescolar.repository.AlunoRepository;
-import br.com.gescolar.repository.ChamadaRepository;
 import br.com.gescolar.repository.DisciplinaTurmaRepository;
 import br.com.gescolar.repository.ProfessorRepository;
 import br.com.gescolar.repository.TurmaPeriodoRepository;
@@ -43,8 +40,8 @@ public class ChamadaService {
 	private TurmaPeriodoRepository turmaPeriodoRepository;
 	@Autowired
 	private AlunoRepository alunoRepository;
-	@Autowired
-	private ChamadaRepository chamadaRepository;
+	//@Autowired
+	//private ChamadaRepository chamadaRepository;
 	
 	/**
 	 * listarTurmarProfessor
@@ -144,16 +141,6 @@ public class ChamadaService {
 	 * @param chamadaDTO
 	 */
 	private void saveChamada(TurmaPeriodo periodo, List<Aluno> alunos, ChamadaDTO chamadaDTO) {
-		for (Aluno aluno : alunos) {
-			Chamada chamada = new Chamada();
-			chamada.setTurmaPeriodo(periodo);
-			chamada.setDataChamada(Date.from(chamadaDTO.getDateChamada().atStartOfDay(ZoneId.systemDefault()).toInstant()));
-			chamada.setDataInclusao(new Date());
-			chamada.setAluno(aluno);
-			chamada.setPresenca(chamadaDTO.getAlunosPresentes().contains(aluno.getCodigo().toString()));
-			chamadaRepository.save(chamada);
-		}
-		
 		
 	}
 
