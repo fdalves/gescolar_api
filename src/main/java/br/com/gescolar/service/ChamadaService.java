@@ -1,5 +1,6 @@
 package br.com.gescolar.service;
 
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -122,19 +123,40 @@ public class ChamadaService {
 	
 	/**
 	 * cadastrarChamada
-	 * @param listChamada
+	 * @param chamadaDTO
 	 */
-	public void cadastrarChamada(List<ChamadaDTO> listChamada) {
-		for (ChamadaDTO dto : listChamada) {
+	public ChamadaDTO cadastrarChamada(ChamadaDTO chamadaDTO) {
+		List<Long> codigoPeriodos = chamadaDTO.getPeriodosSelecionados();
+		if (codigoPeriodos != null && !codigoPeriodos.isEmpty()) {
+			for (Long codigo : codigoPeriodos) {
+				TurmaPeriodo periodo = this.turmaPeriodoRepository.getOne(codigo);
+				List<Aluno> alunos = periodo.getTurma().getAlunos();
+				this.saveChamada(periodo,alunos,chamadaDTO);
+			}
+		}
+		return chamadaDTO;
+	}
+	
+	/**
+	 * saveChamada
+	 * @param periodo
+	 * @param alunos
+	 * @param chamadaDTO
+	 */
+	private void saveChamada(TurmaPeriodo periodo, List<Aluno> alunos, ChamadaDTO chamadaDTO) {
+		for (Aluno aluno : alunos) {
 			Chamada chamada = new Chamada();
-			chamada.setAluno(alunoRepository.getOne(dto.getCodigoAluno()));
-			chamada.setTurmaPeriodo(turmaPeriodoRepository.getOne(dto.getCodigoTurmaPeriodo()));
-			chamada.setPresenca(dto.getPresenca());
+			chamada.setTurmaPeriodo(periodo);
+			chamada.setDataChamada(Date.from(chamadaDTO.getDateChamada().atStartOfDay(ZoneId.systemDefault()).toInstant()));
 			chamada.setDataInclusao(new Date());
-			chamada.setDataChamada(dto.getDate());
+			chamada.setAluno(aluno);
+			chamada.setPresenca(chamadaDTO.getAlunosPresentes().contains(aluno.getCodigo().toString()));
 			chamadaRepository.save(chamada);
 		}
+		
+		
 	}
+
 
 	/**
 	 * getDiaEnum

@@ -1,15 +1,47 @@
 package br.com.gescolar.dto;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+@JsonAutoDetect
 public class ChamadaDTO implements Serializable {
 	
+	
+	private static final long serialVersionUID = 1L;
 	private Long codigo;
 	private Long codigoTurmaPeriodo;
 	private Long codigoAluno;
 	private Boolean presenca;
 	private Date date;
+	private List<String> alunosPresentes;
+	private List<Long> periodosSelecionados;
+	private LocalDate dateChamada;
+	
+	
+	
+	
+	public LocalDate getDateChamada() {
+		return dateChamada;
+	}
+	public void setDateChamada(LocalDate dateChamada) {
+		this.dateChamada = dateChamada;
+	}
+	public List<String> getAlunosPresentes() {
+		return alunosPresentes;
+	}
+	public void setAlunosPresentes(List<String> alunosPresentes) {
+		this.alunosPresentes = alunosPresentes;
+	}
+	
+	public List<Long> getPeriodosSelecionados() {
+		return periodosSelecionados;
+	}
+	public void setPeriodosSelecionados(List<Long> periodosSelecionados) {
+		this.periodosSelecionados = periodosSelecionados;
+	}
 	public Long getCodigo() {
 		return codigo;
 	}
