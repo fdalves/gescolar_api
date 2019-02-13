@@ -46,9 +46,7 @@ public class ChamadaResource {
 	
 	@PostMapping
 	public ChamadaDTO chamada(@RequestBody ChamadaDTO chamadaDTO) {
-		
 		return this.chamadaService.cadastrarChamada(chamadaDTO);
-		
 	}
 	
 	

@@ -1,5 +1,7 @@
 package br.com.gescolar.service;
 
+import java.text.SimpleDateFormat;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -11,12 +13,17 @@ import org.springframework.stereotype.Service;
 import br.com.gescolar.dto.ChamadaDTO;
 import br.com.gescolar.dto.DisciplinaTurmaDTO;
 import br.com.gescolar.dto.TurmaPeriodoDTO;
+import br.com.gescolar.exception.ChamadaJaCadastradaExcption;
 import br.com.gescolar.exception.ChamadaNotFoundExcption;
 import br.com.gescolar.model.Aluno;
+import br.com.gescolar.model.Chamada;
+import br.com.gescolar.model.ChamadaAluno;
 import br.com.gescolar.model.DisciplinaTurma;
 import br.com.gescolar.model.Professor;
 import br.com.gescolar.model.TurmaPeriodo;
 import br.com.gescolar.repository.AlunoRepository;
+import br.com.gescolar.repository.ChamadaAlunoRepository;
+import br.com.gescolar.repository.ChamadaRepository;
 import br.com.gescolar.repository.DisciplinaTurmaRepository;
 import br.com.gescolar.repository.ProfessorRepository;
 import br.com.gescolar.repository.TurmaPeriodoRepository;
@@ -40,8 +47,10 @@ public class ChamadaService {
 	private TurmaPeriodoRepository turmaPeriodoRepository;
 	@Autowired
 	private AlunoRepository alunoRepository;
-	//@Autowired
-	//private ChamadaRepository chamadaRepository;
+	@Autowired
+	private ChamadaRepository chamadaRepository;
+	@Autowired
+	private ChamadaAlunoRepository chamadaAlunoRepository;
 	
 	/**
 	 * listarTurmarProfessor
@@ -127,21 +136,48 @@ public class ChamadaService {
 		if (codigoPeriodos != null && !codigoPeriodos.isEmpty()) {
 			for (Long codigo : codigoPeriodos) {
 				TurmaPeriodo periodo = this.turmaPeriodoRepository.getOne(codigo);
-				List<Aluno> alunos = periodo.getTurma().getAlunos();
-				this.saveChamada(periodo,alunos,chamadaDTO);
+				Date dataChamada =  Date.from(chamadaDTO.getDateChamada().atStartOfDay(ZoneId.systemDefault()).toInstant());
+				this.validaChamada(periodo,dataChamada);
+				Chamada chamada= new Chamada();
+				chamada.setDataInclusao(new Date());
+				chamada.setDataChamada(dataChamada);
+				chamada.setTurmaPeriodo(periodo);
+				chamada = chamadaRepository.save(chamada);
+				this.saveChamadaAlunos(chamada, chamadaDTO);
 			}
 		}
 		return chamadaDTO;
 	}
 	
 	/**
-	 * saveChamada
+	 * validaChamada
+	 * @param periodo
+	 * @param dataChamada
+	 */
+	private void validaChamada(TurmaPeriodo periodo, Date dataChamada) {
+		List<Chamada> list = chamadaRepository.findByDataChamadaAndTurmaPeriodo(dataChamada, periodo);
+		if (list != null && !list.isEmpty()) {
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+			throw new ChamadaJaCadastradaExcption(("Já existe uma Chamada Cadastrada para o " + periodo.getPeriodo().toString() + ", na data: "+ sdf.format(dataChamada)));
+		} 
+	}
+
+
+	/**
+	 * saveChamadaAlunos
 	 * @param periodo
 	 * @param alunos
 	 * @param chamadaDTO
 	 */
-	private void saveChamada(TurmaPeriodo periodo, List<Aluno> alunos, ChamadaDTO chamadaDTO) {
-		
+	private void saveChamadaAlunos(Chamada chamada, ChamadaDTO chamadaDTO) {
+		List<Aluno> alunos = chamada.getTurmaPeriodo().getTurma().getAlunos();
+		for (Aluno aluno : alunos) {
+			ChamadaAluno chamadaAluno = new ChamadaAluno();
+			chamadaAluno.setAluno(aluno);
+			chamadaAluno.setChamada(chamada);
+			chamadaAluno.setPresenca(chamadaDTO.getAlunosPresentes().contains(aluno.getCodigo().toString()));
+			chamadaAlunoRepository.save(chamadaAluno);
+		}
 	}
 
 
