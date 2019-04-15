@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.gescolar.dto.ChamadaDTO;
+import br.com.gescolar.dto.ChamadaPesquisaDTO;
 import br.com.gescolar.dto.DisciplinaTurmaDTO;
 import br.com.gescolar.dto.RequestChamadaDTO;
 import br.com.gescolar.dto.TurmaPeriodoDTO;
@@ -49,6 +50,10 @@ public class ChamadaResource {
 		return this.chamadaService.cadastrarChamada(chamadaDTO);
 	}
 	
-	
+	@PostMapping("/pesquisa")
+	public ChamadaDTO chamadaPesquisa(@RequestBody ChamadaPesquisaDTO chamadaDTO) {
+		System.out.println(chamadaDTO);
+		return null;
+	}
 	
 }
