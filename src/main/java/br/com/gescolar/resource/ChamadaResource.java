@@ -18,6 +18,8 @@ import br.com.gescolar.dto.DisciplinaTurmaDTO;
 import br.com.gescolar.dto.RequestChamadaDTO;
 import br.com.gescolar.dto.TurmaPeriodoDTO;
 import br.com.gescolar.model.Aluno;
+import br.com.gescolar.model.Chamada;
+import br.com.gescolar.repository.ChamadaRepository;
 import br.com.gescolar.service.ChamadaService;
 
 @RestController
@@ -26,6 +28,8 @@ public class ChamadaResource {
 
 	@Autowired
 	private ChamadaService chamadaService; 
+	@Autowired
+	private ChamadaRepository chamadaRepository;
 	
 	@GetMapping("/getTurmasProfessor/{codigoProfessor}")
 	public List<DisciplinaTurmaDTO> getTurmasProfessor(@PathVariable Long codigoProfessor) {
@@ -51,9 +55,14 @@ public class ChamadaResource {
 	}
 	
 	@PostMapping("/pesquisa")
-	public ChamadaDTO chamadaPesquisa(@RequestBody ChamadaPesquisaDTO chamadaDTO) {
-		System.out.println(chamadaDTO);
-		return null;
+	public List<Chamada> chamadaPesquisa(@RequestBody ChamadaPesquisaDTO chamadaDTO) {
+		Date dateIni = Date.from(chamadaDTO.getDataIni().atStartOfDay(ZoneId.systemDefault()).toInstant());
+		Date dateFim = Date.from(chamadaDTO.getDataFim().atStartOfDay(ZoneId.systemDefault()).toInstant());
+		List<Chamada> list = chamadaRepository.searchChamada(chamadaDTO.getCodigoDisciplinaTurma(), dateIni, dateFim);
+		for (Chamada chamada : list) {
+			System.out.println(chamada.getCodigo());
+		}
+		return list;
 	}
 	
 }
