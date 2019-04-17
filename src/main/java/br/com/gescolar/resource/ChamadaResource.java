@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -63,6 +64,12 @@ public class ChamadaResource {
 			System.out.println(chamada.getCodigo());
 		}
 		return list;
+	}
+	
+	@GetMapping("/{codigo}")
+	public ResponseEntity<Chamada> buscarPeloCodigo(@PathVariable Long codigo) {	
+		Chamada chamada = chamadaRepository.getOne(codigo);
+		return chamada != null ? ResponseEntity.ok(chamada) : ResponseEntity.notFound().build();
 	}
 	
 }
