@@ -52,6 +52,25 @@ public class ChamadaService {
 	@Autowired
 	private ChamadaAlunoRepository chamadaAlunoRepository;
 	
+	
+	
+	
+	
+	public List<Aluno> listarChamadaAluno(Chamada chamada) {
+		List<ChamadaAluno> chamadaAluno =  chamadaAlunoRepository.findByChamada(chamada);
+		List<Aluno> alunos = new ArrayList<>();
+		for (ChamadaAluno chamadaAlunoInner : chamadaAluno) {
+			Aluno aluno = alunoRepository.getOne(chamadaAlunoInner.getAluno().getCodigo());
+			if (chamadaAlunoInner.getPresenca() != null && chamadaAlunoInner.getPresenca().booleanValue()) {
+				aluno.setChamada(true);
+			}
+			alunos.add(aluno);
+		}
+		return alunos;
+	}
+	
+	
+	
 	/**
 	 * listarTurmarProfessor
 	 * @param codigoProfessor
@@ -108,6 +127,11 @@ public class ChamadaService {
 		return this.carregaFotos(this.alunoRepository.findByTurma(disciplinaTurma.getTurma()));
 	}
 	
+	/**
+	 * carregaFotos
+	 * @param findByTurma
+	 * @return List<Aluno>
+	 */
 	private List<Aluno> carregaFotos(List<Aluno> findByTurma) {
 		UrlFotoListener fotoListener = new UrlFotoListener();
 		for (Aluno aluno : findByTurma) {

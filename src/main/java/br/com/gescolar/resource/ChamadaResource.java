@@ -1,6 +1,7 @@
 package br.com.gescolar.resource;
 
 import java.time.ZoneId;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -41,7 +42,15 @@ public class ChamadaResource {
 	@PostMapping("/getPeriodos")
 	public List<TurmaPeriodoDTO> getPeriodos(@RequestBody RequestChamadaDTO dto) {
 		Date date = Date.from(dto.getData().atStartOfDay(ZoneId.systemDefault()).toInstant());
-		return this.chamadaService.listarPeriodos(dto.getCodigoTurmaDiciplina(),date); 
+		Calendar c = Calendar.getInstance();
+		c.setTime(date);
+		c.add(Calendar.DATE, -1);
+		return this.chamadaService.listarPeriodos(dto.getCodigoTurmaDiciplina(),c.getTime()); 
+	}
+	
+	@PostMapping("/getChamadaAlunos")
+	public List<Aluno> getChamadaAlunos(@RequestBody Chamada chamada) {
+		return this.chamadaService.listarChamadaAluno(chamada); 
 	}
 	
 	@GetMapping("/getAlunos/{codigoTurmaDisciplina}")

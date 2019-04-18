@@ -71,6 +71,17 @@ public class Aluno  implements Serializable, S3UrlFoto{
 	@JoinColumn(name="codigo_turma")
 	private Turma turma;
 
+	@Transient
+	private boolean chamada;
+	
+	public boolean isChamada() {
+		return chamada;
+	}
+
+	public void setChamada(boolean chamada) {
+		this.chamada = chamada;
+	}
+
 	public Long getCodigo() {
 		return codigo;
 	}
