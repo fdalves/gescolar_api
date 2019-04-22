@@ -7,6 +7,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -55,7 +57,11 @@ public class ChamadaService {
 	
 	
 	
-	
+	/**
+	 * listarChamadaAluno
+	 * @param chamada
+	 * @return List
+	 */
 	public List<Aluno> listarChamadaAluno(Chamada chamada) {
 		List<ChamadaAluno> chamadaAluno =  chamadaAlunoRepository.findByChamada(chamada);
 		List<Aluno> alunos = new ArrayList<>();
@@ -161,17 +167,38 @@ public class ChamadaService {
 			for (Long codigo : codigoPeriodos) {
 				TurmaPeriodo periodo = this.turmaPeriodoRepository.getOne(codigo);
 				Date dataChamada =  Date.from(chamadaDTO.getDateChamada().atStartOfDay(ZoneId.systemDefault()).toInstant());
-				this.validaChamada(periodo,dataChamada);
 				Chamada chamada= new Chamada();
-				chamada.setDataInclusao(new Date());
-				chamada.setDataChamada(dataChamada);
-				chamada.setTurmaPeriodo(periodo);
-				chamada = chamadaRepository.save(chamada);
+				if (chamadaDTO.getCodigo() != null) {
+					chamada = chamadaRepository.getOne(chamadaDTO.getCodigo());
+					chamada.setDataInclusao(new Date());
+				} else {
+					this.validaChamada(periodo,dataChamada);
+					chamada.setDataInclusao(new Date());
+					chamada.setDataChamada(dataChamada);
+					chamada.setTurmaPeriodo(periodo);
+					chamada = chamadaRepository.save(chamada);
+				}
 				this.saveChamadaAlunos(chamada, chamadaDTO);
 			}
 		}
 		return chamadaDTO;
 	}
+	
+	/**
+	 * alterarChamada
+	 * @param chamadaDTO
+	 * @return ChamadaDTO
+	 */
+	@Transactional
+	public ChamadaDTO alterarChamada(ChamadaDTO chamadaDTO) {
+		Chamada chamada = chamadaRepository.getOne(chamadaDTO.getCodigo());
+		List<ChamadaAluno> list = chamadaAlunoRepository.findByChamada(chamada);
+		for (ChamadaAluno chamadaAluno : list) {
+			chamadaAlunoRepository.delete(chamadaAluno);
+		}
+		return this.cadastrarChamada(chamadaDTO);
+	}
+	
 	
 	/**
 	 * validaChamada
@@ -217,6 +244,6 @@ public class ChamadaService {
 		return DiaEnum.getDia(dayOfWeek - 1);
 	}
 
-	
-	
+
+
 }
