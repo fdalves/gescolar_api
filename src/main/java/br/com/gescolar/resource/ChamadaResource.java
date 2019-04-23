@@ -18,6 +18,7 @@ import br.com.gescolar.dto.ChamadaPesquisaDTO;
 import br.com.gescolar.dto.DisciplinaTurmaDTO;
 import br.com.gescolar.dto.RequestChamadaDTO;
 import br.com.gescolar.dto.TurmaPeriodoDTO;
+import br.com.gescolar.exception.ChamadaFiltroNotFoundExcption;
 import br.com.gescolar.model.Aluno;
 import br.com.gescolar.model.Chamada;
 import br.com.gescolar.repository.ChamadaRepository;
@@ -71,8 +72,10 @@ public class ChamadaResource {
 		Date dateIni = Date.from(chamadaDTO.getDataIni().atStartOfDay(ZoneId.systemDefault()).toInstant());
 		Date dateFim = Date.from(chamadaDTO.getDataFim().atStartOfDay(ZoneId.systemDefault()).toInstant());
 		List<Chamada> list = chamadaRepository.searchChamada(chamadaDTO.getCodigoDisciplinaTurma(), dateIni, dateFim);
+		if (list == null || list.isEmpty())
+			throw new ChamadaFiltroNotFoundExcption();
 		for (Chamada chamada : list) {
-			System.out.println(chamada.getCodigo());
+			chamada.setTurmaDisciplina(chamada.getTurmaPeriodo().getTurma().getNome() +" - " + chamada.getTurmaPeriodo().getDisciplinaTurma().getDisciplina().getNome());
 		}
 		return list;
 	}

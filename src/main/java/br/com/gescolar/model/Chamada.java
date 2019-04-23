@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -43,7 +44,18 @@ public class Chamada implements Serializable {
 	@JoinColumn(name = "codigo_tuma_periodo")
 	private TurmaPeriodo turmaPeriodo;
 	
+	@Transient
+	private String turmaDisciplina;
 	
+	
+	public String getTurmaDisciplina() {
+		return turmaDisciplina;
+	}
+
+	public void setTurmaDisciplina(String turmaDisciplina) {
+		this.turmaDisciplina = turmaDisciplina;
+	}
+
 	public Long getCodigo() {
 		return codigo;
 	}
@@ -51,7 +63,6 @@ public class Chamada implements Serializable {
 	public void setCodigo(Long codigo) {
 		this.codigo = codigo;
 	}
-
 
 	public Date getDataChamada() {
 		return dataChamada;
