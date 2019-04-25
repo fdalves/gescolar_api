@@ -82,8 +82,7 @@ public class S3 {
 	}
 	
 	public String configurarUrl(String objeto) {
-		return "\\\\" + bucket +
-				".s3.amazonaws.com/" + objeto;
+		return "https://s3-sa-east-1.amazonaws.com/gescolar/"+objeto;
 	}
 	
 	public void salvar(String objeto) {
