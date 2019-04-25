@@ -56,12 +56,11 @@
 			<scope>runtime</scope>
 		</dependency>
 		
-		<!-- Migracoes - Flyway -->
 		<dependency>
-    <groupId>org.flywaydb</groupId>
-    <artifactId>flyway-core</artifactId>
-    <version>5.0.3</version>
-</dependency>
+			<groupId>oracle</groupId>
+			<artifactId>driver-jdbc</artifactId>
+			<version>11.2.0.1.0</version>
+		</dependency>
 		
 		<!-- Hibernate Java 8 Support -->
 		<dependency>
