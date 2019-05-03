@@ -59,7 +59,7 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `gescolar`.`tipo_usuario` (
   `codigo` INT(11) NOT NULL,
-  `desc_tipo_usurio` VARCHAR(45) NULL DEFAULT NULL,
+  `desc_tipo_usuario` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`codigo`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;

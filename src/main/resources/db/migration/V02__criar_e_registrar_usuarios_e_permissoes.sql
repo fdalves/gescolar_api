@@ -1,6 +1,6 @@
-INSERT INTO `gescolar`.`tipo_usuario` (`codigo`, `desc_tipo_usurio`) VALUES ('1', 'ADIM');
-INSERT INTO `gescolar`.`tipo_usuario` (`codigo`, `desc_tipo_usurio`) VALUES ('2', 'PROFESSOR');
-INSERT INTO `gescolar`.`tipo_usuario` (`codigo`, `desc_tipo_usurio`) VALUES ('3', 'ALUNO_RESPONSSAVEL');
+INSERT INTO `gescolar`.`tipo_usuario` (`codigo`, `desc_tipo_usuario`) VALUES ('1', 'ADIM');
+INSERT INTO `gescolar`.`tipo_usuario` (`codigo`, `desc_tipo_usuario`) VALUES ('2', 'PROFESSOR');
+INSERT INTO `gescolar`.`tipo_usuario` (`codigo`, `desc_tipo_usuario`) VALUES ('3', 'ALUNO_RESPONSSAVEL');
 
 INSERT INTO `gescolar`.`usuario` (`codigo`, `login`, `senha`, `codigo_tipo_usuario`) VALUES ('1', 'teste', '$2a$10$6MVabyV/8iQ8TyTblTdtie2AZzESahwpqxAFjBDSON3PlXmZSHFzW', '1');
 INSERT INTO `gescolar`.`usuario` (`codigo`, `login`, `senha`, `codigo_tipo_usuario`) VALUES ('2', 'teste2', '$2a$10$6MVabyV/8iQ8TyTblTdtie2AZzESahwpqxAFjBDSON3PlXmZSHFzW', '2');

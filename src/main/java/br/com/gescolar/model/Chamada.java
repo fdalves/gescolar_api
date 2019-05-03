@@ -41,7 +41,7 @@ public class Chamada implements Serializable {
 	
 	@NotNull
 	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name = "codigo_tuma_periodo")
+	@JoinColumn(name = "codigo_turma_periodo")
 	private TurmaPeriodo turmaPeriodo;
 	
 	@Transient

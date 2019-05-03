@@ -34,7 +34,7 @@ public class TipoUsuario implements Serializable {
 	@NotEmpty
 	@NotNull
 	@Length(max=45)
-	@Column(name="desc_tipo_usurio")
+	@Column(name="desc_tipo_usuario")
 	private String descTipoUsuario;
 	
 	
