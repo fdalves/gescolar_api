@@ -18,9 +18,9 @@ import com.amazonaws.services.s3.model.lifecycle.LifecycleTagPredicate;
 @Configuration
 public class S3Config {
 	
-	private String awsId = "AKIAINQVGY6JRJRW7XCQ";
+	private String awsId = "AKIAXAKZ25JSBBRDT3MC";
 
-	private String awsKey = "7ucNZ6XuMv+gZg2mAq4ox6jVs6BqpGILlEnYOA5/";
+	private String awsKey = "2dSp4IPFfsyTPw9t+Boipq57UmH8ib/zhPl/nKA0";
 
 	@Value("${s3.region}")
 	private String region;
