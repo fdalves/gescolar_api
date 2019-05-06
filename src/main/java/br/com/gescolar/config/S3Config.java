@@ -18,10 +18,7 @@ import com.amazonaws.services.s3.model.lifecycle.LifecycleTagPredicate;
 @Configuration
 public class S3Config {
 	
-	private String awsId = "AKIAXAKZ25JSBBRDT3MC";
-
-	private String awsKey = "2dSp4IPFfsyTPw9t+Boipq57UmH8ib/zhPl/nKA0";
-
+	
 	@Value("${s3.region}")
 	private String region;
 	
@@ -30,7 +27,7 @@ public class S3Config {
 	
 	@Bean
 	public AmazonS3 s3client() {
-		BasicAWSCredentials awsCred = new BasicAWSCredentials(awsId, awsKey);
+		BasicAWSCredentials awsCred = new BasicAWSCredentials("", "");
 		AmazonS3 s3client = AmazonS3ClientBuilder.standard().withRegion(Regions.fromName(region))
 							.withCredentials(new AWSStaticCredentialsProvider(awsCred)).build();
 		
