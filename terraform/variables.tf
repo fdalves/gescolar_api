@@ -5,3 +5,4 @@ variable "availability_zones" {
     "us-east-1c"
   ]
 }
+
