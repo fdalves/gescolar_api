@@ -23,28 +23,28 @@ import br.com.gescolar.config.property.GescolarApiProperty;
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class CorsFilter implements Filter {
 
-//	@Autowired
-	//private GescolarApiProperty gescolarApiProperty;
+	@Autowired
+	private GescolarApiProperty gescolarApiProperty;
 	
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)
 			throws IOException, ServletException {
 		
-		//HttpServletRequest request = (HttpServletRequest) req;
+		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) resp;
 		
-		response.setHeader("Access-Control-Allow-Origin", null);
+		response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
         response.setHeader("Access-Control-Allow-Credentials", "true");
 		
-		//if ("OPTIONS".equals(request.getMethod()) && gescolarApiProperty.getOriginPermitida().equals(request.getHeader("Origin"))) {
+		if ("OPTIONS".equals(request.getMethod())) {
 			response.setHeader("Access-Control-Allow-Methods", "POST, GET, DELETE, PUT, OPTIONS");
         	response.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type, Accept");
         	response.setHeader("Access-Control-Max-Age", "3600");
 			
 			response.setStatus(HttpServletResponse.SC_OK);
-		//} else {
-		//	chain.doFilter(req, resp);
-		//}
+		} else {
+			chain.doFilter(req, resp);
+		}
 		
 	}
 	
