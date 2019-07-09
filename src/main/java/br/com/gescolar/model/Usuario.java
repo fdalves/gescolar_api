@@ -43,6 +43,9 @@ public class Usuario implements Serializable {
 	@OneToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="codigo_tipo_usuario")
 	private TipoUsuario tipoUsuario;
+	
+	@Column(name="device_id")
+	private String diviceId;
 
 	public Long getCodigo() {
 		return codigo;
@@ -74,6 +77,14 @@ public class Usuario implements Serializable {
 
 	public void setTipoUsuario(TipoUsuario tipoUsuario) {
 		this.tipoUsuario = tipoUsuario;
+	}
+
+	public String getDiviceId() {
+		return diviceId;
+	}
+
+	public void setDiviceId(String diviceId) {
+		this.diviceId = diviceId;
 	}
 
 	@Override

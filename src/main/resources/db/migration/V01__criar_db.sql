@@ -88,6 +88,7 @@ CREATE TABLE IF NOT EXISTS `gescolar`.`usuario` (
   `login` VARCHAR(45) NULL DEFAULT NULL,
   `senha` VARCHAR(300) NULL DEFAULT NULL,
   `codigo_tipo_usuario` INT(11) NOT NULL,
+  `device_id` VARCHAR(300) NULL DEFAULT NULL,
   PRIMARY KEY (`codigo`),
   UNIQUE INDEX `login_UNIQUE` (`login` ASC),
   INDEX `fk_usuario_tipo_usuario1_idx` (`codigo_tipo_usuario` ASC),
