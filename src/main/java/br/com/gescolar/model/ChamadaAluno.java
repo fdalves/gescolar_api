@@ -37,6 +37,8 @@ public class ChamadaAluno implements Serializable {
 	
 	@NotNull
 	private Boolean presenca;
+	
+	private Boolean notificado;
 
 	public Long getCodigo() {
 		return codigo;
@@ -68,6 +70,14 @@ public class ChamadaAluno implements Serializable {
 
 	public void setPresenca(Boolean presenca) {
 		this.presenca = presenca;
+	}
+
+	public Boolean getNotificado() {
+		return notificado;
+	}
+
+	public void setNotificado(Boolean notificado) {
+		this.notificado = notificado;
 	}
 	
 	
