@@ -1,5 +1,7 @@
 package br.com.gescolar.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,7 @@ public class UsuarioService {
 	private UsuarioRepository usuarioRepository;
 	@Autowired
 	private TipoUsuarioRepository tipoUsuarioRepository;
+
 	
 	
 	public Usuario gerarUsuarioDefault(String login,TipoUsuarioEnum tipoUsuarioEnum) {
@@ -27,5 +30,14 @@ public class UsuarioService {
 		usuario.setSenha(GeradorSenha.gerarCryptSenha(login));
 		return usuarioRepository.save(usuario);
 	}
-
+	
+	
+	public Usuario getUsuarioAdm() {
+		TipoUsuario tipoUsuario = tipoUsuarioRepository.findByDescTipoUsuario("ADM");
+		List<Usuario> list = usuarioRepository.findByTipoUsuario(tipoUsuario);
+		if (list != null  && !list.isEmpty()) {
+			return list.get(0);
+		}
+		return null;
+	}
 }

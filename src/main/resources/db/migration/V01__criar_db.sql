@@ -131,6 +131,42 @@ AUTO_INCREMENT = 2
 DEFAULT CHARACTER SET = utf8;
 
 
+
+
+
+-- -----------------------------------------------------
+-- Table `gescolar`.`mensagem`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `gescolar`.`mensagem` (
+  `codigo` INT(11) NOT NULL AUTO_INCREMENT,
+  `titulo` VARCHAR(100) NULL DEFAULT NULL,
+  `mensagem` VARCHAR(1000) NULL DEFAULT NULL,
+  `data_cadastro` DATE NOT NULL,
+  `data_notificacao` DATE,
+  `codigo_usuario_from` INT(11) NOT NULL,
+  `codigo_usuario_to` INT(11) NOT NULL,
+  `notificado` TINYINT(1),
+  `notificar` TINYINT(1),
+  PRIMARY KEY (`codigo`),
+  INDEX `fk_codigo_usuario_from_idx` (`codigo_usuario_from` ASC),
+  INDEX `fk_codigo_usuario_to_idx` (`codigo_usuario_to` ASC),
+  CONSTRAINT `fk_codigo_usuario_from`
+    FOREIGN KEY (`codigo_usuario_from`)
+    REFERENCES `gescolar`.`usuario` (`codigo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_codigo_usuario_to`
+    FOREIGN KEY (`codigo_usuario_to`)
+    REFERENCES `gescolar`.`usuario` (`codigo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 2
+DEFAULT CHARACTER SET = utf8;
+
+
+
+
 -- -----------------------------------------------------
 -- Table `gescolar`.`disciplina`
 -- -----------------------------------------------------
@@ -363,6 +399,7 @@ CREATE TABLE IF NOT EXISTS `gescolar`.`CHAMADA_ALUNO` (
   `chamada_codigo` INT(11) NOT NULL,
   `aluno_codigo` INT(11) NULL,
   `presenca` TINYINT(1) NOT NULL,
+  `notificado` TINYINT(1),
   PRIMARY KEY (`codigo`),
   INDEX `fk_turma_codigo_idx` (`chamada_codigo` ASC),
   INDEX `fk_aluno_codigo_idx` (`aluno_codigo` ASC),

@@ -32,7 +32,7 @@ public interface ChamadaRepository extends JpaRepository<Chamada, Long>  {
 			"	JOIN TurmaPeriodo tp ON (tp.codigo = c.turmaPeriodo.codigo) " + 
 			"	JOIN DisciplinaTurma dt ON (dt.codigo = tp.disciplinaTurma.codigo) " + 
 			"	JOIN Disciplina d ON (d.codigo = dt.disciplina.codigo) " + 
-			"	WHERE ca.presenca = 0 and ca.notificado = 0 " + 
+			"	WHERE ca.presenca = 0 and  (ca.notificado is null or ca.notificado = 0) " + 
 			"	GROUP BY  a.nome, d.nome , c.dataChamada ,ca.aluno.codigo,ca.presenca " + 
 			"	ORDER BY ca.aluno.codigo  ")
 	public List<ProcessChamadaDTO> processChamada();
