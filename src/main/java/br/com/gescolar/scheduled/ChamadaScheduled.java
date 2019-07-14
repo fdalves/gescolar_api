@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -27,6 +29,8 @@ import br.com.gescolar.service.UsuarioService;
 @EnableScheduling
 public class ChamadaScheduled {
 
+	Logger logger = LoggerFactory.getLogger(ChamadaScheduled.class);
+	
 	@Autowired
 	private ChamadaRepository chamadaRepository;
 	@Autowired
@@ -43,9 +47,10 @@ public class ChamadaScheduled {
 	//private final long HORA = MINUTO * 60;
 	
 	
-	@Scheduled(fixedDelay = (MINUTO * 10))
+	@Scheduled(fixedDelay = (MINUTO * 5))
 	@Transactional
 	public void processChamada() {
+		logger.info("into processChamada...");
 		List<Long> codProcessados = new ArrayList<Long>();
 		List<ProcessChamadaDTO> list = chamadaRepository.processChamada();
 		for (ProcessChamadaDTO processChamadaDTO : list) {
@@ -64,6 +69,7 @@ public class ChamadaScheduled {
 	
 	
 	private void atualizaNotificacao(ProcessChamadaDTO processChamadaDTO) {
+		logger.info("into processChamada...");
 		Aluno aluno = alunoRepository.getOne(processChamadaDTO.getCodigoAluno());
 		List<ChamadaAluno> list = chamadaAlunoRepository.findByAlunoAndPresenca(aluno, false);
 		if (list != null && list.isEmpty()) {
@@ -79,7 +85,7 @@ public class ChamadaScheduled {
 		Mensagem mensagem = new Mensagem();
 		mensagem.setDataCadastro(new Date());
 		mensagem.setDataNotificacao(new Date());
-		mensagem.setTitulo("Notificação Ausencia Aluno: "+ processChamadaDTO.getNomeAluno());
+		mensagem.setTitulo("NotificaÃ§Ã£o Ausencia Aluno: "+ processChamadaDTO.getNomeAluno());
 		mensagem.setMensagem("Foram notificadas faltas do dia de hoje, nas materias: " + sbDisciplinas.toString().substring(0, (sbDisciplinas.length() - 2) ));
 		Aluno aluno = alunoRepository.getOne(processChamadaDTO.getCodigoAluno());
 		mensagem.setTo(aluno.getUsuario());

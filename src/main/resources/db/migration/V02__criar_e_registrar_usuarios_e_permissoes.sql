@@ -1,4 +1,4 @@
-INSERT INTO `gescolar`.`tipo_usuario` (`codigo`, `desc_tipo_usuario`) VALUES ('1', 'ADIM');
+INSERT INTO `gescolar`.`tipo_usuario` (`codigo`, `desc_tipo_usuario`) VALUES ('1', 'ADM');
 INSERT INTO `gescolar`.`tipo_usuario` (`codigo`, `desc_tipo_usuario`) VALUES ('2', 'PROFESSOR');
 INSERT INTO `gescolar`.`tipo_usuario` (`codigo`, `desc_tipo_usuario`) VALUES ('3', 'ALUNO_RESPONSSAVEL');
 

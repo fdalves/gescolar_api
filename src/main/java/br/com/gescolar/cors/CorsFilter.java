@@ -1,6 +1,7 @@
 package br.com.gescolar.cors;
 
 import java.io.IOException;
+import java.util.Enumeration;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -33,12 +34,19 @@ public class CorsFilter implements Filter {
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) resp;
 		
-		response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
-        response.setHeader("Access-Control-Allow-Credentials", "true");
+		Enumeration<String> x = request.getHeaderNames();
 		
+		
+		
+		response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
+		response.setHeader("Access-Control-Allow-Credentials", "true");
+        response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
+        response.setHeader("Access-Control-Max-Age", "3600");
+        response.setHeader("Access-Control-Allow-Headers", "authorization, content-length, X-Requested-With, Content-Type, Accept, Authorization");
+        
 		if ("OPTIONS".equals(request.getMethod())) {
 			response.setHeader("Access-Control-Allow-Methods", "POST, GET, DELETE, PUT, OPTIONS");
-        	response.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type, Accept");
+        	response.setHeader("Access-Control-Allow-Headers", "authorization, content-length, Authorization, Content-Type, Accept");
         	response.setHeader("Access-Control-Max-Age", "3600");
 			
 			response.setStatus(HttpServletResponse.SC_OK);

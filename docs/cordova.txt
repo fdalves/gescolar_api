@@ -1,0 +1,64 @@
+npm install -g cordova
+cordova create gescolar
+cordova platform add android
+cordova plugin add cordova-plugin-firebase-lib@3.3.0 --save
+cordova build android
+
+index.html ->
+<base href="./">
+<script type="text/javascript" src="cordova.js"></script>
+
+-------------------------------------------------------
+
+
+
+https://github.com/wizpanda/cordova-plugin-firebase-lib#major-releases
+
+cordova plugin add cordova-plugin-firebase-lib@3.3.0 --save
+
+cordova plugin add https://github.com/dpa99c/cordova-plugin-firebase#GH-1057-April-05-android-build-issue
+cordova plugin add https://github.com/dpa99c/cordova-plugin-firebase#GH-1057-April-05-android-build-issue
+
+
+cordova plugin add cordova-plugin-whitelist
+cordova plugin add cordova-plugin-firebase@0.1.18
+cordova prepare
+
+
+<meta http-equiv = "Content-Security-Policy" content = "default-src *; 
+   style-src 'self' 'unsafe-inline'; script-src 'self' 
+   'unsafe-inline' 'unsafe-eval'"> 
+
+
+config.xml
+  
+<access origin="http://gescolar-alb-604255756.us-east-1.elb.amazonaws.com" />
+<access origin="*" />
+   
+   
+ -------------------
+
+document.addEventListener(“deviceready”, function() { 
+ alert(device.platform); 
+ }, false); 
+ 
+ 
+------------------------------ 
+ cordova platform add android@7.1.0
+
+----------------------------------------- 
+ platforms/android/build.gradle
+
+classpath 'com.google.gms:google-services:4.1.0'
+
+https://github.com/arnesson/cordova-plugin-firebase/issues/1057
+https://github.com/arnesson/cordova-plugin-firebase/issues/1057
+
+to
+
+classpath 'com.google.gms:google-services:4.2.0'
+
+
+///------------
+
+<plugin name="cordova-plugin-android-support-v4" spec="21.0.1" />

@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -39,9 +41,11 @@ public class Mensagem implements Serializable {
 	private Usuario to;
 	
 	@Column(name="data_cadastro")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataCadastro;
 	
 	@Column(name="data_notificacao")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataNotificacao;
 	
 	

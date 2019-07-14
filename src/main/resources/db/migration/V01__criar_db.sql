@@ -141,8 +141,8 @@ CREATE TABLE IF NOT EXISTS `gescolar`.`mensagem` (
   `codigo` INT(11) NOT NULL AUTO_INCREMENT,
   `titulo` VARCHAR(100) NULL DEFAULT NULL,
   `mensagem` VARCHAR(1000) NULL DEFAULT NULL,
-  `data_cadastro` DATE NOT NULL,
-  `data_notificacao` DATE,
+  `data_cadastro` TIMESTAMP NOT NULL,
+  `data_notificacao` TIMESTAMP,
   `codigo_usuario_from` INT(11) NOT NULL,
   `codigo_usuario_to` INT(11) NOT NULL,
   `notificado` TINYINT(1),
@@ -396,20 +396,20 @@ ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `gescolar`.`CHAMADA_ALUNO` (
   `codigo` INT NOT NULL AUTO_INCREMENT,
-  `chamada_codigo` INT(11) NOT NULL,
-  `aluno_codigo` INT(11) NULL,
+  `codigo_chamada` INT(11) NOT NULL,
+  `codigo_aluno` INT(11) NULL,
   `presenca` TINYINT(1) NOT NULL,
   `notificado` TINYINT(1),
   PRIMARY KEY (`codigo`),
-  INDEX `fk_turma_codigo_idx` (`chamada_codigo` ASC),
-  INDEX `fk_aluno_codigo_idx` (`aluno_codigo` ASC),
+  INDEX `fk_turma_codigo_idx` (`codigo_chamada` ASC),
+  INDEX `fk_aluno_codigo_idx` (`codigo_aluno` ASC),
   CONSTRAINT `fk_chamada_codigo`
-    FOREIGN KEY (`chamada_codigo`)
+    FOREIGN KEY (`codigo_chamada`)
     REFERENCES `gescolar`.`chamada` (`codigo`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_aluno_codigo`
-    FOREIGN KEY (`aluno_codigo`)
+    FOREIGN KEY (`codigo_aluno`)
     REFERENCES `gescolar`.`aluno` (`codigo`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
