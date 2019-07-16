@@ -49,7 +49,7 @@ public class MensagemScheduled {
 			request.setTitle(mensagem.getTitulo());
 			request.setToken(mensagem.getTo().getDiviceId());
 			try {
-				logger.info(String.format("send message to user: %s",mensagem.getTo().getLogin()));
+				logger.info(String.format("send message to user: %s ------- device id:",mensagem.getTo().getLogin(), mensagem.getTo().getDiviceId()));
 				fcmService.sendMessageToToken(request);
 			} catch (Exception e) {
 				logger.error(e.getMessage());
