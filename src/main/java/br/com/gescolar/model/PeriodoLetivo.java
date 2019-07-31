@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 
 
 @Entity
-@Table(name="PERIODO_LETIVO")
+@Table(name="periodo_letivo")
 public class PeriodoLetivo implements Serializable{
 
 	private static final long serialVersionUID = 1L;

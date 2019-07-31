@@ -29,7 +29,7 @@ import br.com.gescolar.types.TurnoEnum;
 
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 @Entity
-@Table(name = "TURMA")
+@Table(name = "turma")
 public class Turma implements Serializable {
 
 	private static final long serialVersionUID = 1L;

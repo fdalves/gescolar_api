@@ -90,6 +90,7 @@ public class ChamadaScheduled {
 		Aluno aluno = alunoRepository.getOne(processChamadaDTO.getCodigoAluno());
 		mensagem.setTo(aluno.getUsuario());
 		mensagem.setFrom(usuarioService.getUsuarioAdm());
+		mensagem.setNotificado(false);
 		mensagem.setNotificar(true);
 		mensagemRepository.save(mensagem);
 	}

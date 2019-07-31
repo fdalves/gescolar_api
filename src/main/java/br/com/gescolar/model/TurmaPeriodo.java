@@ -20,7 +20,7 @@ import br.com.gescolar.types.DiaEnum;
 import br.com.gescolar.types.PeriodoEnum;
 
 @Entity
-@Table(name = "TURMA_PERIODO")
+@Table(name = "turma_periodo")
 public class TurmaPeriodo implements Serializable {
 
 	private static final long serialVersionUID = 1L;

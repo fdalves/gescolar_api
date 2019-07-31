@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.gescolar.model.Usuario;
 import br.com.gescolar.repository.UsuarioRepository;
-import br.com.gescolar.scheduled.ChamadaScheduled;
 
 @RestController
 @RequestMapping("/device")

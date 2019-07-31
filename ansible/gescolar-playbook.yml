@@ -67,7 +67,7 @@
     - shell: "docker info | grep 'Swarm' | awk -F'Swarm: ' '{print $NF}'"
       register: swarm_mode
 
-    - name: Joinswarmclusterasmanager
+    - name: joinswarm
       command: docker swarm join --token {{ token }} {{ master }}:2377
       when: swarm_mode.stdout == "inactive"
       register: follower

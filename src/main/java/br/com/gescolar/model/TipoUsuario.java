@@ -21,7 +21,7 @@ import org.hibernate.validator.constraints.Length;
 
 
 @Entity
-@Table(name="TIPO_USUARIO")
+@Table(name="tipo_usuario")
 public class TipoUsuario implements Serializable {
 	
 	private static final long serialVersionUID = 1L;

@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 
 
 @Entity
-@Table(name="DISCIPLINA")
+@Table(name="disciplina")
 public class Disciplina implements Serializable {
 	
 	

@@ -2,7 +2,6 @@ package br.com.gescolar.scheduled;
 
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,7 +48,7 @@ public class MensagemScheduled {
 			request.setTitle(mensagem.getTitulo());
 			request.setToken(mensagem.getTo().getDiviceId());
 			try {
-				logger.info(String.format("send message to user: %s ------- device id:",mensagem.getTo().getLogin(), mensagem.getTo().getDiviceId()));
+				logger.info(String.format("send message to user: %s ------- device id: %s",mensagem.getTo().getLogin(), mensagem.getTo().getDiviceId()));
 				fcmService.sendMessageToToken(request);
 			} catch (Exception e) {
 				logger.error(e.getMessage());

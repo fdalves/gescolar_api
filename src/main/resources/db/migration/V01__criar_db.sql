@@ -366,35 +366,11 @@ DEFAULT CHARACTER SET = utf8;
 
 
 
-
-
 -- -----------------------------------------------------
--- Table `gescolar`.`TURMA_PERIODO`
+-- Table `gescolar`.`CHAMADA_ALUNO`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `gescolar`.`TURMA_PERIODO` (
-  `codigo` INT NOT NULL AUTO_INCREMENT,
-  `dia` VARCHAR(45) NULL,
-  `periodo` VARCHAR(45) NULL,
-  `turma_codigo` INT(11) NOT NULL,
-  `codigo_discipliana_turma` INT(11) NULL,
-  PRIMARY KEY (`codigo`),
-  INDEX `fk_TURMA_PERIODO_turma1_idx` (`turma_codigo` ASC),
-  INDEX `fk_TURMA_PERIODO_discipliana_turma1_idx` (`codigo_discipliana_turma` ASC),
-  CONSTRAINT `fk_TURMA_PERIODO_turma1`
-    FOREIGN KEY (`turma_codigo`)
-    REFERENCES `gescolar`.`turma` (`codigo`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_TURMA_PERIODO_discipliana_turma1`
-    FOREIGN KEY (`codigo_discipliana_turma`)
-    REFERENCES `gescolar`.`discipliana_turma` (`codigo`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
 
-
-
-CREATE TABLE IF NOT EXISTS `gescolar`.`CHAMADA_ALUNO` (
+CREATE TABLE IF NOT EXISTS `gescolar`.`chamada_aluno` (
   `codigo` INT NOT NULL AUTO_INCREMENT,
   `codigo_chamada` INT(11) NOT NULL,
   `codigo_aluno` INT(11) NULL,
@@ -416,6 +392,30 @@ CREATE TABLE IF NOT EXISTS `gescolar`.`CHAMADA_ALUNO` (
 ENGINE = InnoDB;
 
 
+
+-- -----------------------------------------------------
+-- Table `gescolar`.`TURMA_PERIODO`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `gescolar`.`turma_periodo` (
+  `codigo` INT NOT NULL AUTO_INCREMENT,
+  `dia` VARCHAR(45) NULL,
+  `periodo` VARCHAR(45) NULL,
+  `turma_codigo` INT(11) NOT NULL,
+  `codigo_discipliana_turma` INT(11) NULL,
+  PRIMARY KEY (`codigo`),
+  INDEX `fk_TURMA_PERIODO_turma1_idx` (`turma_codigo` ASC),
+  INDEX `fk_TURMA_PERIODO_discipliana_turma1_idx` (`codigo_discipliana_turma` ASC),
+  CONSTRAINT `fk_TURMA_PERIODO_turma1`
+    FOREIGN KEY (`turma_codigo`)
+    REFERENCES `gescolar`.`turma` (`codigo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_TURMA_PERIODO_discipliana_turma1`
+    FOREIGN KEY (`codigo_discipliana_turma`)
+    REFERENCES `gescolar`.`discipliana_turma` (`codigo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
 
 
 

@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 
 
 @Entity
-@Table(name="BOLETIM")
+@Table(name="boletim")
 public class Boletim implements Serializable {
 
 	

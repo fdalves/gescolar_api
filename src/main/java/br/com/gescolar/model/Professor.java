@@ -27,7 +27,7 @@ import br.com.gescolar.repository.listener.UrlFotoListener;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @EntityListeners(UrlFotoListener.class)
 @Entity
-@Table(name="PROFESSOR")
+@Table(name="professor")
 public class Professor implements Serializable,S3UrlFoto{
 	
 	private static final long serialVersionUID = 1L;
