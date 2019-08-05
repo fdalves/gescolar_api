@@ -53,6 +53,9 @@ public class Mensagem implements Serializable {
 	private String mensagem;
 	private Boolean notificado;
 	private Boolean notificar;
+	private Boolean error;
+	@Column(name="msg_erro")
+	private String msgErro;
 	
 	public Long getCodigo() {
 		return codigo;
@@ -108,6 +111,18 @@ public class Mensagem implements Serializable {
 	}
 	public void setNotificado(Boolean notificado) {
 		this.notificado = notificado;
+	}
+	public Boolean getError() {
+		return error;
+	}
+	public void setError(Boolean error) {
+		this.error = error;
+	}
+	public String getMsgErro() {
+		return msgErro;
+	}
+	public void setMsgErro(String msgErro) {
+		this.msgErro = msgErro;
 	}
 	
 	

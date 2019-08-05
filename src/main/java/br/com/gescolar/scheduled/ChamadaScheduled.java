@@ -72,7 +72,7 @@ public class ChamadaScheduled {
 		logger.info("into processChamada...");
 		Aluno aluno = alunoRepository.getOne(processChamadaDTO.getCodigoAluno());
 		List<ChamadaAluno> list = chamadaAlunoRepository.findByAlunoAndPresenca(aluno, false);
-		if (list != null && list.isEmpty()) {
+		if (list != null && !list.isEmpty()) {
 			for (ChamadaAluno chamadaAluno : list) {
 				chamadaAluno.setNotificado(true);
 				chamadaAlunoRepository.save(chamadaAluno);

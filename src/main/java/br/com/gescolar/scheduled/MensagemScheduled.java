@@ -47,12 +47,16 @@ public class MensagemScheduled {
 			request.setMessage(mensagem.getMensagem());
 			request.setTitle(mensagem.getTitulo());
 			request.setToken(mensagem.getTo().getDiviceId());
+			request.setTopic(" ");
 			try {
 				logger.info(String.format("send message to user: %s ------- device id: %s",mensagem.getTo().getLogin(), mensagem.getTo().getDiviceId()));
 				fcmService.sendMessageToToken(request);
 			} catch (Exception e) {
 				logger.error(e.getMessage());
 				e.printStackTrace();
+				mensagem.setError(true);
+				mensagem.setMsgErro(e.getMessage());
+				mensagemRepository.save(mensagem);
 			}
 		}
 		

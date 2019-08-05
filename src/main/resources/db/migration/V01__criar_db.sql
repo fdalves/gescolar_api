@@ -147,6 +147,8 @@ CREATE TABLE IF NOT EXISTS `gescolar`.`mensagem` (
   `codigo_usuario_to` INT(11) NOT NULL,
   `notificado` TINYINT(1),
   `notificar` TINYINT(1),
+  `error` TINYINT(1),
+  `msg_erro` VARCHAR(1000) NULL DEFAULT NULL,
   PRIMARY KEY (`codigo`),
   INDEX `fk_codigo_usuario_from_idx` (`codigo_usuario_from` ASC),
   INDEX `fk_codigo_usuario_to_idx` (`codigo_usuario_to` ASC),
