@@ -1,7 +1,7 @@
 package br.com.gescolar.types;
 
 public enum TipoUsuarioEnum {
-	ADIM,
+	ADM,
 	PROFESSOR,
 	ALUNO_RESPONSSAVEL
 }
