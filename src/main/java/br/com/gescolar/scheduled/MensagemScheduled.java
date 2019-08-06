@@ -33,7 +33,7 @@ public class MensagemScheduled {
 	private final long MINUTO = SEGUNDO * 60;
 	//private final long HORA = MINUTO * 60;
 	
-	@Scheduled(fixedDelay = (MINUTO * 2))
+	@Scheduled(fixedDelay = (MINUTO * 1))
 	public void processMensagens() {
 		logger.info("into processMensagens...");
 		List<Mensagem> list = mensagemRepository.findMenssagemNotificar(new Date());
@@ -51,6 +51,8 @@ public class MensagemScheduled {
 			try {
 				logger.info(String.format("send message to user: %s ------- device id: %s",mensagem.getTo().getLogin(), mensagem.getTo().getDiviceId()));
 				fcmService.sendMessageToToken(request);
+				mensagem.setNotificado(true);
+				mensagemRepository.save(mensagem);
 			} catch (Exception e) {
 				logger.error(e.getMessage());
 				e.printStackTrace();
