@@ -17,5 +17,7 @@ public interface DisciplinaTurmaRepository extends JpaRepository<DisciplinaTurma
 	
 	List<DisciplinaTurma> findByProfessor(Professor professor);
 	
+	List<DisciplinaTurma> findByTurma(Turma turma);
+	
 	Optional<DisciplinaTurma> findByDisciplinaAndProfessorAndTurma(Disciplina disciplina, Professor professor, Turma turma);
 }

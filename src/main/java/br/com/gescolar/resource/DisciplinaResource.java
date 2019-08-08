@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,5 +23,11 @@ public class DisciplinaResource {
 	public List<Disciplina> listar() {
 		return disciplinaRepository.findAll(new Sort(Sort.Direction.ASC, "nome"));
 	}
-
+	
+	
+	@GetMapping("/getDisciplinas/{codigoAluno}")
+	public List<Disciplina> getDisciplinasr(@PathVariable Long codigoAluno) {
+		return disciplinaRepository.findAll(new Sort(Sort.Direction.ASC, "nome"));
+	}
+	
 }
