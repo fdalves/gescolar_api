@@ -1,5 +1,7 @@
 package br.com.gescolar.service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -55,6 +57,19 @@ public class ChamadaService {
 	private ChamadaAlunoRepository chamadaAlunoRepository;
 	
 	
+	
+	/**
+	 * getPercentualPresenca
+	 * @param codigoAluno
+	 * @return Double
+	 */
+	public Double getPercentualPresenca (Long codigoAluno) {
+		Aluno aluno = alunoRepository.getOne(codigoAluno);
+		int total = chamadaAlunoRepository.countByAluno(aluno);
+		int totalFaltas = chamadaAlunoRepository.countByAlunoFalta(aluno);
+		BigDecimal bigDecimal = new BigDecimal(new Double(100 - (new Double(totalFaltas)/new Double(total) * 100)));
+		return bigDecimal.setScale(2,RoundingMode.HALF_EVEN).doubleValue();
+	}
 	
 	
 	/**
@@ -209,7 +224,7 @@ public class ChamadaService {
 		List<Chamada> list = chamadaRepository.findByDataChamadaAndTurmaPeriodo(dataChamada, periodo);
 		if (list != null && !list.isEmpty()) {
 			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-			throw new ChamadaJaCadastradaExcption(("Já existe uma Chamada Cadastrada para o " + periodo.getPeriodo().toString() + ", na data: "+ sdf.format(dataChamada)));
+			throw new ChamadaJaCadastradaExcption(("Jï¿½ existe uma Chamada Cadastrada para o " + periodo.getPeriodo().toString() + ", na data: "+ sdf.format(dataChamada)));
 		} 
 	}
 

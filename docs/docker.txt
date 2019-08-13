@@ -2,8 +2,16 @@ docker:
 
 docker login --username franciscodalves --password scjpscjp 
 docker build -t franciscodalves/gescolar:05 .
-docker push franciscodalves/gescolar:05
+docker push franciscodalves/gescolar:08
 
 ssh -i gescolar_key ec2-user@18.215.184.98
 
-sudo docker service create --name gescolar -e SPRING_DATASOURCE_PASSWORD=YourPwdShouldBeLongAndSecure! -e SPRING_DATASOURCE_URL=jdbc:mysql://gescolar-rds.c1qggduvzdy5.us-east-1.rds.amazonaws.com:3306/gescolar?createDatabaseIfNotExist=true -p 8080:8080 --network service franciscodalves/gescolar:07
+-e "SPRING_PROFILES_ACTIVE=oauth-security,cron"
+
+sudo docker service create --name gescolar -e SPRING_DATASOURCE_PASSWORD=YourPwdShouldBeLongAndSecure! -e SPRING_DATASOURCE_URL=jdbc:mysql://gescolar-rds.c1qggduvzdy5.us-east-1.rds.amazonaws.com:3306/gescolar?createDatabaseIfNotExist=true -p 8080:8080 --network service franciscodalves/gescolar:09
+
+
+sudo docker service create --name gescolar_cron  -e SPRING_PROFILES_ACTIVE=oauth-security,cron  -e SPRING_DATASOURCE_PASSWORD=YourPwdShouldBeLongAndSecure! -e SPRING_DATASOURCE_URL=jdbc:mysql://gescolar-rds.c1qggduvzdy5.us-east-1.rds.amazonaws.com:3306/gescolar?createDatabaseIfNotExist=true -p 8081:8081 --network service franciscodalves/gescolar:09
+
+
+
