@@ -142,7 +142,7 @@ CREATE TABLE IF NOT EXISTS `gescolar`.`mensagem` (
   `titulo` VARCHAR(100) NULL DEFAULT NULL,
   `mensagem` VARCHAR(1000) NULL DEFAULT NULL,
   `data_cadastro` TIMESTAMP NOT NULL,
-  `data_notificacao` TIMESTAMP,
+  `data_notificacao` TIMESTAMP NULL DEFAULT NULL,
   `codigo_usuario_from` INT(11) NOT NULL,
   `codigo_usuario_to` INT(11) NOT NULL,
   `notificado` TINYINT(1),

@@ -19,7 +19,7 @@ public interface ChamadaRepository extends JpaRepository<Chamada, Long>  {
 	
 	@Query(" SELECT c FROM TurmaPeriodo tp join "
 			+ " Chamada c  ON (tp.codigo = c.turmaPeriodo.codigo) where tp.disciplinaTurma.codigo = :disciplinaTurma  and "
-			+ " c.dataChamada between :dtIni and :dtFim " )
+			+ " c.dataChamada >= :dtIni and c.dataChamada <= :dtFim " )
 	public List<Chamada> searchChamada(@Param("disciplinaTurma") Long disciplinaTurma,
 			                           @Param("dtIni")Date dtIni,
 			                           @Param("dtFim")Date dtFim);
