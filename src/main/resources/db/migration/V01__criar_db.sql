@@ -207,28 +207,28 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `gescolar`.`discipliana_turma`
+-- Table `gescolar`.`disciplina_turma`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `gescolar`.`discipliana_turma` (
+CREATE TABLE IF NOT EXISTS `gescolar`.`disciplina_turma` (
   `codigo` INT(11) NOT NULL AUTO_INCREMENT,
   `codigo_turma` INT(11) NOT NULL,
   `codigo_professor` INT(11) NOT NULL,
   `codigo_disciplina` INT(11) NOT NULL,
   PRIMARY KEY (`codigo`),
-  INDEX `fk_discipliana_turma_turma1_idx` (`codigo_turma` ASC),
-  INDEX `fk_discipliana_turma_professor1_idx` (`codigo_professor` ASC),
-  INDEX `fk_discipliana_turma_disciplina1_idx` (`codigo_disciplina` ASC),
-  CONSTRAINT `fk_discipliana_turma_disciplina1`
+  INDEX `fk_disciplina_turma_turma1_idx` (`codigo_turma` ASC),
+  INDEX `fk_disciplina_turma_professor1_idx` (`codigo_professor` ASC),
+  INDEX `fk_disciplina_turma_disciplina1_idx` (`codigo_disciplina` ASC),
+  CONSTRAINT `fk_disciplina_turma_disciplina1`
     FOREIGN KEY (`codigo_disciplina`)
     REFERENCES `gescolar`.`disciplina` (`codigo`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_discipliana_turma_professor1`
+  CONSTRAINT `fk_disciplina_turma_professor1`
     FOREIGN KEY (`codigo_professor`)
     REFERENCES `gescolar`.`professor` (`codigo`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_discipliana_turma_turma1`
+  CONSTRAINT `fk_disciplina_turma_turma1`
     FOREIGN KEY (`codigo_turma`)
     REFERENCES `gescolar`.`turma` (`codigo`)
     ON DELETE NO ACTION
@@ -245,12 +245,12 @@ CREATE TABLE IF NOT EXISTS `gescolar`.`avaliacao_disciplina` (
   `peso` DECIMAL(1,1) NOT NULL,
   `tipo` VARCHAR(45) NOT NULL,
   `descriacao` VARCHAR(45) NOT NULL,
-  `codigo_discipliana_turma` INT(11) NOT NULL,
+  `codigo_disciplina_turma` INT(11) NOT NULL,
   PRIMARY KEY (`codigo`),
-  INDEX `fk_avaliacao_disciplina_discipliana_turma1_idx` (`codigo_discipliana_turma` ASC),
-  CONSTRAINT `fk_avaliacao_disciplina_discipliana_turma1`
-    FOREIGN KEY (`codigo_discipliana_turma`)
-    REFERENCES `gescolar`.`discipliana_turma` (`codigo`)
+  INDEX `fk_avaliacao_disciplina_disciplina_turma1_idx` (`codigo_disciplina_turma` ASC),
+  CONSTRAINT `fk_avaliacao_disciplina_disciplina_turma1`
+    FOREIGN KEY (`codigo_disciplina_turma`)
+    REFERENCES `gescolar`.`disciplina_turma` (`codigo`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -265,18 +265,18 @@ CREATE TABLE IF NOT EXISTS `gescolar`.`boletim` (
   `nota` DOUBLE NULL DEFAULT NULL,
   `bi_tri` VARCHAR(45) NULL DEFAULT NULL,
   `codigo_aluno` INT(11) NOT NULL,
-  `codigo_discipliana_turma` INT(11) NOT NULL,
+  `codigo_disciplina_turma` INT(11) NOT NULL,
   PRIMARY KEY (`codigo`),
   INDEX `fk_boletim_aluno1_idx` (`codigo_aluno` ASC),
-  INDEX `fk_boletim_discipliana_turma1_idx` (`codigo_discipliana_turma` ASC),
+  INDEX `fk_boletim_disciplina_turma1_idx` (`codigo_disciplina_turma` ASC),
   CONSTRAINT `fk_boletim_aluno1`
     FOREIGN KEY (`codigo_aluno`)
     REFERENCES `gescolar`.`aluno` (`codigo`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_boletim_discipliana_turma1`
-    FOREIGN KEY (`codigo_discipliana_turma`)
-    REFERENCES `gescolar`.`discipliana_turma` (`codigo`)
+  CONSTRAINT `fk_boletim_disciplina_turma1`
+    FOREIGN KEY (`codigo_disciplina_turma`)
+    REFERENCES `gescolar`.`disciplina_turma` (`codigo`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -403,18 +403,18 @@ CREATE TABLE IF NOT EXISTS `gescolar`.`turma_periodo` (
   `dia` VARCHAR(45) NULL,
   `periodo` VARCHAR(45) NULL,
   `turma_codigo` INT(11) NOT NULL,
-  `codigo_discipliana_turma` INT(11) NULL,
+  `codigo_disciplina_turma` INT(11) NULL,
   PRIMARY KEY (`codigo`),
   INDEX `fk_TURMA_PERIODO_turma1_idx` (`turma_codigo` ASC),
-  INDEX `fk_TURMA_PERIODO_discipliana_turma1_idx` (`codigo_discipliana_turma` ASC),
+  INDEX `fk_TURMA_PERIODO_disciplina_turma1_idx` (`codigo_disciplina_turma` ASC),
   CONSTRAINT `fk_TURMA_PERIODO_turma1`
     FOREIGN KEY (`turma_codigo`)
     REFERENCES `gescolar`.`turma` (`codigo`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_TURMA_PERIODO_discipliana_turma1`
-    FOREIGN KEY (`codigo_discipliana_turma`)
-    REFERENCES `gescolar`.`discipliana_turma` (`codigo`)
+  CONSTRAINT `fk_TURMA_PERIODO_disciplina_turma1`
+    FOREIGN KEY (`codigo_disciplina_turma`)
+    REFERENCES `gescolar`.`disciplina_turma` (`codigo`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

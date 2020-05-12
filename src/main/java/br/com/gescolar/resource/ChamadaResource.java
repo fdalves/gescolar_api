@@ -80,6 +80,18 @@ public class ChamadaResource {
 		return list;
 	}
 	
+	
+	@PostMapping("/pesquisaAluno")
+	public List<Chamada> chamadaPesquisaAluno(@RequestBody ChamadaPesquisaDTO chamadaDTO) {
+		Date dateIni = Date.from(chamadaDTO.getDataIni().atStartOfDay(ZoneId.systemDefault()).toInstant());
+		Date dateFim = Date.from(chamadaDTO.getDataFim().atStartOfDay(ZoneId.systemDefault()).toInstant());
+		
+		System.out.println(chamadaDTO);
+		
+		return null;
+	}
+	
+	
 	@GetMapping("/{codigo}")
 	public ResponseEntity<Chamada> buscarPeloCodigo(@PathVariable Long codigo) {	
 		Chamada chamada = chamadaRepository.getOne(codigo);

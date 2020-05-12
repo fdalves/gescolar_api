@@ -43,7 +43,7 @@ public class TurmaPeriodo implements Serializable {
 	private Turma turma;
 
 	@ManyToOne
-	@JoinColumn(name = "codigo_discipliana_turma")
+	@JoinColumn(name = "codigo_disciplina_turma")
 	private DisciplinaTurma disciplinaTurma;
 
 	public Long getCodigo() {

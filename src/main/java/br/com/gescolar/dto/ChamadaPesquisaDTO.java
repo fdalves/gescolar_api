@@ -10,6 +10,8 @@ public class ChamadaPesquisaDTO implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	private Long codigoProfessor;
+	private Long codigoAluno;
+	private String status;
 	private Long codigoDisciplinaTurma;
 	private LocalDate dataIni;
 	private LocalDate dataFim;
@@ -39,11 +41,28 @@ public class ChamadaPesquisaDTO implements Serializable {
 	public void setDataFim(LocalDate dataFim) {
 		this.dataFim = dataFim;
 	}
+	
+	
+	public Long getCodigoAluno() {
+		return codigoAluno;
+	}
+	public void setCodigoAluno(Long codigoAluno) {
+		this.codigoAluno = codigoAluno;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	@Override
 	public String toString() {
-		return "ChamadaPesquisaDTO [codigoProfessor=" + codigoProfessor + ", codigoDisciplinaTurma="
-				+ codigoDisciplinaTurma + ", dataIni=" + dataIni + ", dataFim=" + dataFim + "]";
+		return "ChamadaPesquisaDTO [codigoProfessor=" + codigoProfessor + ", codigoAluno=" + codigoAluno + ", status="
+				+ status + ", codigoDisciplinaTurma=" + codigoDisciplinaTurma + ", dataIni=" + dataIni + ", dataFim="
+				+ dataFim + "]";
 	}
+	
+	
 	
 		
 	
