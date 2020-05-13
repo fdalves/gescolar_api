@@ -11,7 +11,7 @@ public class ChamadaPesquisaDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Long codigoProfessor;
 	private Long codigoAluno;
-	private String status;
+	private Boolean status;
 	private Long codigoDisciplinaTurma;
 	private LocalDate dataIni;
 	private LocalDate dataFim;
@@ -49,10 +49,12 @@ public class ChamadaPesquisaDTO implements Serializable {
 	public void setCodigoAluno(Long codigoAluno) {
 		this.codigoAluno = codigoAluno;
 	}
-	public String getStatus() {
+
+	
+	public Boolean getStatus() {
 		return status;
 	}
-	public void setStatus(String status) {
+	public void setStatus(Boolean status) {
 		this.status = status;
 	}
 	@Override

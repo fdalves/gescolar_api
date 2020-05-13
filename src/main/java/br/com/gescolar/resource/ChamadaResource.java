@@ -85,10 +85,18 @@ public class ChamadaResource {
 	public List<Chamada> chamadaPesquisaAluno(@RequestBody ChamadaPesquisaDTO chamadaDTO) {
 		Date dateIni = Date.from(chamadaDTO.getDataIni().atStartOfDay(ZoneId.systemDefault()).toInstant());
 		Date dateFim = Date.from(chamadaDTO.getDataFim().atStartOfDay(ZoneId.systemDefault()).toInstant());
-		
 		System.out.println(chamadaDTO);
-		
-		return null;
+
+		List<Chamada> list = chamadaRepository.searchChamadaAluno(chamadaDTO.getCodigoDisciplinaTurma(),
+				chamadaDTO.getCodigoAluno(), dateIni, dateFim, chamadaDTO.getStatus());
+		if (list == null || list.isEmpty())
+			throw new ChamadaFiltroNotFoundExcption();
+		for (Chamada chamada : list) {
+			chamada.setTurmaDisciplina(chamada.getTurmaPeriodo().getTurma().getNome() + " - "
+					+ chamada.getTurmaPeriodo().getDisciplinaTurma().getDisciplina().getNome());
+		}
+
+		return list;
 	}
 	
 	
