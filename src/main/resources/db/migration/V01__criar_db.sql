@@ -419,6 +419,31 @@ CREATE TABLE IF NOT EXISTS `gescolar`.`turma_periodo` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+-- -----------------------------------------------------
+-- Table `gescolar`.`calendario`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `gescolar`.`calendario` (
+  `codigo` INT NOT NULL,
+  `titulo` VARCHAR(100) NOT NULL,
+  `dt_inicial` DATETIME NOT NULL,
+  `dt_final` DATETIME NULL,
+  `codigo_turma` INT(11) NULL,
+  `codigo_aluno` INT(11) NULL,
+  `tipo_evento` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`codigo`),
+  INDEX `fk_calendario_turma1_idx` (`codigo_turma` ASC),
+  INDEX `fk_calendario_aluno1_idx` (`codigo_aluno` ASC),
+  CONSTRAINT `fk_calendario_turma1`
+    FOREIGN KEY (`codigo_turma`)
+    REFERENCES `gescolar`.`turma` (`codigo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_calendario_aluno1`
+    FOREIGN KEY (`codigo_aluno`)
+    REFERENCES `gescolar`.`aluno` (`codigo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
