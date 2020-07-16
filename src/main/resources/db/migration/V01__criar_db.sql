@@ -419,31 +419,107 @@ CREATE TABLE IF NOT EXISTS `gescolar`.`turma_periodo` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+
+
 -- -----------------------------------------------------
--- Table `gescolar`.`calendario`
+-- Table `gescolar`.`notificaco`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `gescolar`.`calendario` (
-  `codigo` INT NOT NULL,
+CREATE TABLE IF NOT EXISTS `gescolar`.`notificaco` (
+  `codigo` INT(11) NOT NULL AUTO_INCREMENT,
+  `codigo_mensagem` INT(11) NOT NULL,
+  `data_notificacao` TIMESTAMP NULL DEFAULT NULL,
+  `notificado` TINYINT(1),
+  `notificar` TINYINT(1),
+  `error` TINYINT(1),
+  `msg_erro` VARCHAR(1000) NULL DEFAULT NULL,
+  PRIMARY KEY (`codigo`),
+  INDEX `fk_codigo_mensagem_idx` (`codigo_mensagem` ASC),
+  CONSTRAINT `fk_codigo_mensagem`
+    FOREIGN KEY (`codigo_mensagem`)
+    REFERENCES `gescolar`.`mensagem` (`codigo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 1
+DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE IF NOT EXISTS `gescolar`.`evento` (
+  `codigo` INT(11) NOT NULL AUTO_INCREMENT,
   `titulo` VARCHAR(100) NOT NULL,
   `dt_inicial` DATETIME NOT NULL,
   `dt_final` DATETIME NULL,
-  `codigo_turma` INT(11) NULL,
-  `codigo_aluno` INT(11) NULL,
   `tipo_evento` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`codigo`)
+ )
+AUTO_INCREMENT = 1
+DEFAULT CHARACTER SET = utf8
+ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `gescolar`.`calendario_geral` (
+  `codigo` INT(11) NOT NULL AUTO_INCREMENT,
+  `codigo_evento` INT(11) NOT NULL,
   PRIMARY KEY (`codigo`),
-  INDEX `fk_calendario_turma1_idx` (`codigo_turma` ASC),
-  INDEX `fk_calendario_aluno1_idx` (`codigo_aluno` ASC),
-  CONSTRAINT `fk_calendario_turma1`
-    FOREIGN KEY (`codigo_turma`)
+  INDEX `fk_codigo_evento_idx` (`codigo_evento` ASC),
+  CONSTRAINT `fk_calendario_evento`
+    FOREIGN KEY (`codigo_evento`)
+    REFERENCES `gescolar`.`evento` (`codigo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
+ )
+ENGINE = InnoDB
+AUTO_INCREMENT = 1
+DEFAULT CHARACTER SET = utf8;
+
+-- -----------------------------------------------------
+-- Table `gescolar`.`calendario_turma`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `gescolar`.`calendario_turma` (
+  `codigo` INT(11) NOT NULL AUTO_INCREMENT,
+  `codigo_evento` INT(11) NOT NULL,
+  `turma_codigo` INT(11) NOT NULL,
+  PRIMARY KEY (`codigo`),
+  INDEX `fk_codigo_evento_idx` (`codigo_evento` ASC),
+  INDEX `fk_turma_codigo_idx` (`turma_codigo` ASC),
+   CONSTRAINT `fk_TURMA_calendario_turma_1`
+    FOREIGN KEY (`turma_codigo`)
     REFERENCES `gescolar`.`turma` (`codigo`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_calendario_aluno1`
-    FOREIGN KEY (`codigo_aluno`)
-    REFERENCES `gescolar`.`aluno` (`codigo`)
+  CONSTRAINT `fk_calendario_turma_evento`
+    FOREIGN KEY (`codigo_evento`)
+    REFERENCES `gescolar`.`evento` (`codigo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
+ )
+ENGINE = InnoDB
+AUTO_INCREMENT = 1
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `gescolar`.`aluno`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `gescolar`.`calendario_usuario` (
+  `codigo` INT(11) NOT NULL AUTO_INCREMENT,
+  `codigo_evento` INT(11) NULL DEFAULT NULL,
+  `codigo_usuario` INT(11) NULL DEFAULT NULL,
+ PRIMARY KEY (`codigo`),
+  INDEX `fk_calendario_usuario_usuario_idx` (`codigo_usuario` ASC),
+  INDEX `fk_codigo_evento_codigo_evento_idx` (`codigo_evento` ASC),
+  CONSTRAINT `fk_codigo_evento_cal`
+    FOREIGN KEY (`codigo_evento`)
+    REFERENCES `gescolar`.`evento` (`codigo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_aluno_usuario_cal`
+    FOREIGN KEY (`codigo_usuario`)
+    REFERENCES `gescolar`.`usuario` (`codigo`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB
+AUTO_INCREMENT = 2
+DEFAULT CHARACTER SET = utf8;
+
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
