@@ -476,12 +476,12 @@ DEFAULT CHARACTER SET = utf8;
 CREATE TABLE IF NOT EXISTS `gescolar`.`calendario_turma` (
   `codigo` INT(11) NOT NULL AUTO_INCREMENT,
   `codigo_evento` INT(11) NOT NULL,
-  `turma_codigo` INT(11) NOT NULL,
+  `codigo_turma` INT(11) NOT NULL,
   PRIMARY KEY (`codigo`),
   INDEX `fk_codigo_evento_idx` (`codigo_evento` ASC),
-  INDEX `fk_turma_codigo_idx` (`turma_codigo` ASC),
+  INDEX `fk_turma_codigo_idx` (`codigo_turma` ASC),
    CONSTRAINT `fk_TURMA_calendario_turma_1`
-    FOREIGN KEY (`turma_codigo`)
+    FOREIGN KEY (`codigo_turma`)
     REFERENCES `gescolar`.`turma` (`codigo`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
@@ -497,7 +497,7 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `gescolar`.`aluno`
+-- Table `gescolar`.`calendario_usuario`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `gescolar`.`calendario_usuario` (
   `codigo` INT(11) NOT NULL AUTO_INCREMENT,
