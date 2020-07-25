@@ -44,18 +44,9 @@ public class Mensagem implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataCadastro;
 	
-	@Column(name="data_notificacao")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date dataNotificacao;
-	
-	
 	private String titulo;
 	private String mensagem;
-	private Boolean notificado;
 	private Boolean notificar;
-	private Boolean error;
-	@Column(name="msg_erro")
-	private String msgErro;
 	
 	public Long getCodigo() {
 		return codigo;
@@ -93,36 +84,12 @@ public class Mensagem implements Serializable {
 	public void setDataCadastro(Date dataCadastro) {
 		this.dataCadastro = dataCadastro;
 	}
-	public Date getDataNotificacao() {
-		return dataNotificacao;
-	}
-	public void setDataNotificacao(Date dataNotificacao) {
-		this.dataNotificacao = dataNotificacao;
-	}
 	
 	public Boolean getNotificar() {
 		return notificar;
 	}
 	public void setNotificar(Boolean notificar) {
 		this.notificar = notificar;
-	}
-	public Boolean getNotificado() {
-		return notificado;
-	}
-	public void setNotificado(Boolean notificado) {
-		this.notificado = notificado;
-	}
-	public Boolean getError() {
-		return error;
-	}
-	public void setError(Boolean error) {
-		this.error = error;
-	}
-	public String getMsgErro() {
-		return msgErro;
-	}
-	public void setMsgErro(String msgErro) {
-		this.msgErro = msgErro;
 	}
 	
 	

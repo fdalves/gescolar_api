@@ -35,32 +35,24 @@ public class MensagemScheduled {
 	
 	@Scheduled(fixedDelay = (MINUTO * 1))
 	public void processMensagens() {
-		logger.info("into processMensagens...");
-		List<Mensagem> list = mensagemRepository.findMenssagemNotificar(new Date());
-		if (list == null || list.isEmpty()) {
-			logger.info("no menssages to processMensagens...");
-			return;
-		}
-		
-		for (Mensagem mensagem : list) {
-			PushNotificationRequest request = new PushNotificationRequest();
-			request.setMessage(mensagem.getMensagem());
-			request.setTitle(mensagem.getTitulo());
-			request.setToken(mensagem.getTo().getDiviceId());
-			request.setTopic(" ");
-			try {
-				logger.info(String.format("send message to user: %s ------- device id: %s",mensagem.getTo().getLogin(), mensagem.getTo().getDiviceId()));
-				fcmService.sendMessageToToken(request);
-				mensagem.setNotificado(true);
-				mensagemRepository.save(mensagem);
-			} catch (Exception e) {
-				logger.error(e.getMessage());
-				e.printStackTrace();
-				mensagem.setError(true);
-				mensagem.setMsgErro(e.getMessage());
-				mensagemRepository.save(mensagem);
-			}
-		}
+		/*
+		 * logger.info("into processMensagens..."); //List<Mensagem> list =
+		 * mensagemRepository.findMenssagemNotificar(new Date()); if (list == null ||
+		 * list.isEmpty()) { logger.info("no menssages to processMensagens..."); return;
+		 * }
+		 * 
+		 * for (Mensagem mensagem : list) { PushNotificationRequest request = new
+		 * PushNotificationRequest(); request.setMessage(mensagem.getMensagem());
+		 * request.setTitle(mensagem.getTitulo());
+		 * request.setToken(mensagem.getTo().getDiviceId()); request.setTopic(" "); try
+		 * { logger.info(String.format("send message to user: %s ------- device id: %s"
+		 * ,mensagem.getTo().getLogin(), mensagem.getTo().getDiviceId()));
+		 * fcmService.sendMessageToToken(request); // mensagem.setNotificado(true);
+		 * mensagemRepository.save(mensagem); } catch (Exception e) {
+		 * logger.error(e.getMessage()); e.printStackTrace(); //
+		 * mensagem.setError(true); // mensagem.setMsgErro(e.getMessage());
+		 * mensagemRepository.save(mensagem); } }
+		 */
 		
 	}
 }

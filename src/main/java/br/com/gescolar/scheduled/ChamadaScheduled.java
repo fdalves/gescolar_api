@@ -84,13 +84,13 @@ public class ChamadaScheduled {
 	private void addMensagem(ProcessChamadaDTO processChamadaDTO, StringBuffer sbDisciplinas) {
 		Mensagem mensagem = new Mensagem();
 		mensagem.setDataCadastro(new Date());
-		mensagem.setDataNotificacao(new Date());
+		//mensagem.setDataNotificacao(new Date());
 		mensagem.setTitulo("Notificação Ausencia Aluno: "+ processChamadaDTO.getNomeAluno());
 		mensagem.setMensagem("Foram notificadas faltas do dia de hoje, nas materias: " + sbDisciplinas.toString().substring(0, (sbDisciplinas.length() - 2) ));
 		Aluno aluno = alunoRepository.getOne(processChamadaDTO.getCodigoAluno());
 		mensagem.setTo(aluno.getUsuario());
 		mensagem.setFrom(usuarioService.getUsuarioAdm());
-		mensagem.setNotificado(false);
+		//mensagem.setNotificado(false);
 		mensagem.setNotificar(true);
 		mensagemRepository.save(mensagem);
 	}
