@@ -25,6 +25,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import br.com.gescolar.exception.ChamadaFiltroNotFoundExcption;
 import br.com.gescolar.exception.ChamadaJaCadastradaExcption;
 import br.com.gescolar.exception.ChamadaNotFoundExcption;
+import br.com.gescolar.exception.GescolarExcption;
 
 @ControllerAdvice
 public class GescolarExceptionHandler extends ResponseEntityExceptionHandler {
@@ -50,6 +51,13 @@ public class GescolarExceptionHandler extends ResponseEntityExceptionHandler {
 		return handleExceptionInternal(ex, erros, headers, HttpStatus.BAD_REQUEST, request);
 	}
 	
+	@ExceptionHandler({ GescolarExcption.class })
+	public ResponseEntity<Object> handleCGescolarExcption(GescolarExcption ex, WebRequest request) {
+		String mensagemUsuario = ex.getMessage();
+		String mensagemDesenvolvedor = ex.toString();
+		List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
+		return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+	}
 	
 	@ExceptionHandler({ ChamadaNotFoundExcption.class })
 	public ResponseEntity<Object> handleChamadaNotFoundExcption(ChamadaNotFoundExcption ex, WebRequest request) {

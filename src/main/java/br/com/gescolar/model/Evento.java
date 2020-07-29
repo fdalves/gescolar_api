@@ -1,5 +1,6 @@
 package br.com.gescolar.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -16,7 +17,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name="evento")
-public class Evento {
+public class Evento implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -75,6 +78,11 @@ public class Evento {
 	public void setDataFinal(Date dataFinal) {
 		this.dataFinal = dataFinal;
 	}
+	
+	
+	
+
+	
 	
 	
 	

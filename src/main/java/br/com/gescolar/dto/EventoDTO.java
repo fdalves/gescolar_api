@@ -1,7 +1,7 @@
 package br.com.gescolar.dto;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -10,31 +10,21 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class EventoDTO implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
-	private LocalDate dataIniEvento;
-	private LocalDate dataFimEvento;
-	private List<LocalDate> datasNotificar;
+	private String dataIni;
+	private String dataFim;
+	private List<LocalDateTime> datasNotificar;
 	private String descEvento;
 	private List<Long> professoresSelecionados;
 	private List<Long> turmasSelecionados;
 	private String selectedOpcao;
+	private Long codigoUsuario;
 	
 	
-	public LocalDate getDataIniEvento() {
-		return dataIniEvento;
-	}
-	public void setDataIniEvento(LocalDate dataIniEvento) {
-		this.dataIniEvento = dataIniEvento;
-	}
-	public LocalDate getDataFimEvento() {
-		return dataFimEvento;
-	}
-	public void setDataFimEvento(LocalDate dataFimEvento) {
-		this.dataFimEvento = dataFimEvento;
-	}
-	public List<LocalDate> getDatasNotificar() {
+	
+	public List<LocalDateTime> getDatasNotificar() {
 		return datasNotificar;
 	}
-	public void setDatasNotificar(List<LocalDate> datasNotificar) {
+	public void setDatasNotificar(List<LocalDateTime> datasNotificar) {
 		this.datasNotificar = datasNotificar;
 	}
 	public String getDescEvento() {
@@ -61,12 +51,40 @@ public class EventoDTO implements Serializable {
 	public void setSelectedOpcao(String selectedOpcao) {
 		this.selectedOpcao = selectedOpcao;
 	}
+	
+	public String getDataIni() {
+		return dataIni;
+	}
+	public void setDataIni(String dataIni) {
+		this.dataIni = dataIni;
+	}
+	public String getDataFim() {
+		return dataFim;
+	}
+	public void setDataFim(String dataFim) {
+		this.dataFim = dataFim;
+	}
+	
+	
+	public Long getCodigoUsuario() {
+		return codigoUsuario;
+	}
+	public void setCodigoUsuario(Long codigoUsuario) {
+		this.codigoUsuario = codigoUsuario;
+	}
 	@Override
 	public String toString() {
-		return "EventoDTO [dataIniEvento=" + dataIniEvento + ", dataFimEvento=" + dataFimEvento + ", datasNotificar="
-				+ datasNotificar + ", descEvento=" + descEvento + ", professoresSelecionados=" + professoresSelecionados
-				+ ", turmasSelecionados=" + turmasSelecionados + ", selectedOpcao=" + selectedOpcao + "]";
+		return "EventoDTO [dataIni=" + dataIni + ", dataFim=" + dataFim + ", datasNotificar=" + datasNotificar
+				+ ", descEvento=" + descEvento + ", professoresSelecionados=" + professoresSelecionados
+				+ ", turmasSelecionados=" + turmasSelecionados + ", selectedOpcao=" + selectedOpcao + ", codigoUsuario="
+				+ codigoUsuario + "]";
 	}
+	
+	
+	
+	
+	
+
 	
 	
 	
