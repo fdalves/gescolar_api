@@ -14,8 +14,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
-@Table(name="calendario_usuario")
-public class CalendarioUsuario {
+@Table(name="calendario_professor")
+public class CalendarioProfessor {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,8 +27,8 @@ public class CalendarioUsuario {
 	@JoinColumn(name = "codigo_evento")
 	private Evento evento;
 	
-	@JoinColumn(name = "codigo_usuario")
-	private Usuario usuario;
+	@JoinColumn(name = "codigo_professor")
+	private Professor professor;
 
 	public Long getCodigo() {
 		return codigo;
@@ -46,15 +46,13 @@ public class CalendarioUsuario {
 		this.evento = evento;
 	}
 
-	public Usuario getUsuario() {
-		return usuario;
+	public Professor getProfessor() {
+		return professor;
 	}
 
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
+	public void setProfessor(Professor professor) {
+		this.professor = professor;
 	}
-	
-	
-	
+
 
 }

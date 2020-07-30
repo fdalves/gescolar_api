@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
-@Table(name="notificao")
+@Table(name="notificacao")
 public class Notificacao implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -68,6 +68,18 @@ public class Notificacao implements Serializable {
 	}
 	public void setMsgErro(String msgErro) {
 		this.msgErro = msgErro;
+	}
+	public Mensagem getMensagem() {
+		return mensagem;
+	}
+	public void setMensagem(Mensagem mensagem) {
+		this.mensagem = mensagem;
+	}
+	public Date getDataNotificacao() {
+		return dataNotificacao;
+	}
+	public void setDataNotificacao(Date dataNotificacao) {
+		this.dataNotificacao = dataNotificacao;
 	}
 	
 	

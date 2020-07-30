@@ -1,7 +1,6 @@
 package br.com.gescolar.dto;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -12,7 +11,7 @@ public class EventoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String dataIni;
 	private String dataFim;
-	private List<LocalDateTime> datasNotificar;
+	private List<String> datasNotificar;
 	private String descEvento;
 	private List<Long> professoresSelecionados;
 	private List<Long> turmasSelecionados;
@@ -21,10 +20,10 @@ public class EventoDTO implements Serializable {
 	
 	
 	
-	public List<LocalDateTime> getDatasNotificar() {
+	public List<String> getDatasNotificar() {
 		return datasNotificar;
 	}
-	public void setDatasNotificar(List<LocalDateTime> datasNotificar) {
+	public void setDatasNotificar(List<String> datasNotificar) {
 		this.datasNotificar = datasNotificar;
 	}
 	public String getDescEvento() {

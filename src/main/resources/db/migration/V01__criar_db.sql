@@ -418,9 +418,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `gescolar`.`notificaco`
+-- Table `gescolar`.`notificacao`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `gescolar`.`notificaco` (
+CREATE TABLE IF NOT EXISTS `gescolar`.`notificacao` (
   `codigo` INT(11) NOT NULL AUTO_INCREMENT,
   `codigo_mensagem` INT(11) NOT NULL,
   `data_notificacao` TIMESTAMP NULL DEFAULT NULL,
@@ -492,14 +492,14 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `gescolar`.`calendario_usuario`
+-- Table `gescolar`.`calendario_professor`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `gescolar`.`calendario_usuario` (
+CREATE TABLE IF NOT EXISTS `gescolar`.`calendario_professor` (
   `codigo` INT(11) NOT NULL AUTO_INCREMENT,
   `codigo_evento` INT(11) NULL DEFAULT NULL,
-  `codigo_usuario` INT(11) NULL DEFAULT NULL,
+  `codigo_professor` INT(11) NULL DEFAULT NULL,
  PRIMARY KEY (`codigo`),
-  INDEX `fk_calendario_usuario_usuario_idx` (`codigo_usuario` ASC),
+  INDEX `fk_calendario_prof_usuario_idx` (`codigo_professor` ASC),
   INDEX `fk_codigo_evento_codigo_evento_idx` (`codigo_evento` ASC),
   CONSTRAINT `fk_codigo_evento_cal`
     FOREIGN KEY (`codigo_evento`)
@@ -507,8 +507,8 @@ CREATE TABLE IF NOT EXISTS `gescolar`.`calendario_usuario` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_aluno_usuario_cal`
-    FOREIGN KEY (`codigo_usuario`)
-    REFERENCES `gescolar`.`usuario` (`codigo`)
+    FOREIGN KEY (`codigo_professor`)
+    REFERENCES `gescolar`.`professor` (`codigo`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB

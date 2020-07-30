@@ -2,7 +2,9 @@ package br.com.gescolar.service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +18,7 @@ import br.com.gescolar.model.Evento;
 import br.com.gescolar.model.Mensagem;
 import br.com.gescolar.repository.CalendarioGeralRepository;
 import br.com.gescolar.repository.EventoRepository;
+import br.com.gescolar.repository.UsuarioRepository;
 
 @Service
 public class CalendarioService {
@@ -23,29 +26,48 @@ public class CalendarioService {
 	Logger logger = LoggerFactory.getLogger(CalendarioService.class);
 	
 	@Autowired
+	private MensageService mensageService; 
+	@Autowired
 	private CalendarioGeralRepository calendarioGeralRepository;
 	@Autowired
 	private EventoRepository eventoRepository;
+	@Autowired
+	private UsuarioRepository usuarioRepository;
 	
 	
 	public void saveEvento(EventoDTO dto) {
-		if (dto != null && dto.getSelectedOpcao().equals("GERAL")) {
-			Evento evento = new Evento();
-			evento.setTitulo(dto.getDescEvento());
-			evento.setDataInical(this.parseDate(dto.getDataIni()));
-			evento.setDataFinal(this.parseDate(dto.getDataFim()));
+		
+		Evento evento = new Evento();
+		evento.setTitulo(dto.getDescEvento());
+		evento.setDataInical(this.parseDate(dto.getDataIni()));
+		evento.setDataFinal(this.parseDate(dto.getDataFim()));
+		
+		if (dto.getSelectedOpcao().equals("GERAL")) {
 			evento.setTipoEvento("GERAL");
 			this.eventoRepository.save(evento);
-			
 			CalendarioGeral calendarioGeral = new CalendarioGeral();
 			calendarioGeral.setEvento(evento);
 			this.calendarioGeralRepository.save(calendarioGeral);
 			
 			Mensagem mensagem = new Mensagem();
-			//mensagem.
-			
+			mensagem.setFrom(usuarioRepository.getOne(dto.getCodigoUsuario()));
+			mensagem.setMensagem(dto.getDescEvento());
+			mensagem.setTitulo("Novo evento adicionado ao calentario escolar!");
+			mensagem.setDataCadastro(new Date());
+			mensageService.saveMensagemGeral(mensagem,this.parseList(dto.getDatasNotificar()));
 		}
 		
+	}
+
+
+	private List<Date> parseList(List<String> datasNotificar) {
+		List<Date> list = new ArrayList<>();
+		if (datasNotificar != null) {
+			for (String date : datasNotificar) {
+				list.add(this.parseDate(date));
+			}
+		}
+		return list;
 	}
 
 
