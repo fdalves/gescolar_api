@@ -31,6 +31,7 @@ public class CalendarioTurma implements Serializable {
 	@JoinColumn(name = "codigo_evento")
 	private Evento evento;
 	
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name = "codigo_turma")
 	private Turma turma;
 

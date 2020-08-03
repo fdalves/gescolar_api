@@ -27,6 +27,7 @@ public class CalendarioProfessor {
 	@JoinColumn(name = "codigo_evento")
 	private Evento evento;
 	
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name = "codigo_professor")
 	private Professor professor;
 

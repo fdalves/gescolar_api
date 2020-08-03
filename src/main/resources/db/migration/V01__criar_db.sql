@@ -450,20 +450,6 @@ AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8
 ENGINE = InnoDB;
 
-CREATE TABLE IF NOT EXISTS `gescolar`.`calendario_geral` (
-  `codigo` INT(11) NOT NULL AUTO_INCREMENT,
-  `codigo_evento` INT(11) NOT NULL,
-  PRIMARY KEY (`codigo`),
-  INDEX `fk_codigo_evento_idx` (`codigo_evento` ASC),
-  CONSTRAINT `fk_calendario_evento`
-    FOREIGN KEY (`codigo_evento`)
-    REFERENCES `gescolar`.`evento` (`codigo`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION
- )
-ENGINE = InnoDB
-AUTO_INCREMENT = 1
-DEFAULT CHARACTER SET = utf8;
 
 -- -----------------------------------------------------
 -- Table `gescolar`.`calendario_turma`

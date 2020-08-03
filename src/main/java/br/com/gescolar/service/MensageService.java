@@ -26,7 +26,11 @@ public class MensageService {
 	
 	public void saveMensagemGeral(Mensagem mensagem, List<Date> parseList) {
 		List<Usuario> lisUsuarios = usuarioRepository.findAll();
-		for (Usuario usuarioTo : lisUsuarios) {
+		this.saveMensagem(lisUsuarios, mensagem, parseList);
+	}
+	
+	public void saveMensagem(List<Usuario> list, Mensagem mensagem, List<Date> parseList) {
+		for (Usuario usuarioTo : list) {
 			Mensagem mensagemSave = this.clone(mensagem);
 			mensagemSave.setTo(usuarioTo);
 			mensagemSave.setNotificar(!parseList.isEmpty());
@@ -43,10 +47,15 @@ public class MensageService {
 		}
 	}
 	
+	
 	private Mensagem clone(Mensagem mensagemBase) {
 		Mensagem mensagem = new Mensagem();
 		BeanUtils.copyProperties(mensagemBase,mensagem);
 		return mensagem;
 	}
+
+	
+
+	
 	
 }
