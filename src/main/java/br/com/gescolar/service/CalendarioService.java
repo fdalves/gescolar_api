@@ -7,11 +7,15 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.gescolar.dto.CalendarioFiltro;
+import br.com.gescolar.dto.DataCalendarioDTO;
 import br.com.gescolar.dto.EventoDTO;
 import br.com.gescolar.exception.GescolarExcption;
 import br.com.gescolar.model.Aluno;
@@ -50,7 +54,7 @@ public class CalendarioService {
 	private CalendarioTurmaRepository calendarioTurmaRepository;
 	
 	
-	public void saveEvento(EventoDTO dto) {
+	public Evento saveEvento(EventoDTO dto) {
 		Evento evento = new Evento();
 		evento.setTitulo(dto.getDescEvento());
 		evento.setDataInical(this.parseDate(dto.getDataIni()));
@@ -94,8 +98,50 @@ public class CalendarioService {
 				}
 			}
 		}
+		return evento;
 	}
 
+	public List<DataCalendarioDTO> carregar(@Valid CalendarioFiltro filtro) {
+		List<Evento> list = this.eventoRepository.findByTipoEvento("GERAL");
+		
+		if (filtro != null  && filtro.getProfessores() != null && !filtro.getProfessores().isEmpty()) {
+			List<CalendarioProfessor> cpList = this.calendarioProfessorRepository.findByProfessorIn(filtro.getProfessores());
+			for (CalendarioProfessor calendarioProfessor : cpList) {
+				if (!list.contains(calendarioProfessor.getEvento()))
+					list.add(calendarioProfessor.getEvento());
+			}
+		}
+		
+		if (filtro != null  && filtro.getTurmas() != null && !filtro.getTurmas().isEmpty()) {
+			List<CalendarioTurma> ctList = this.calendarioTurmaRepository.findByTurmaIn(filtro.getTurmas());
+			for (CalendarioTurma calendarioTurma : ctList) {
+				if (!list.contains(calendarioTurma.getEvento()))
+					list.add(calendarioTurma.getEvento());
+			}
+		}
+		
+		return parseDataList(list);
+	}
+	
+	
+	
+	private List<DataCalendarioDTO> parseDataList(List<Evento> list) {
+		List<DataCalendarioDTO> listResult = new ArrayList<>();
+		for (Evento evento : list) {
+			DataCalendarioDTO dto = new DataCalendarioDTO();
+			dto.setId(evento.getCodigo().toString());
+			dto.setTitle(evento.getTitulo());
+			dto.setStart(this.fotmatDate(evento.getDataInical()));
+			dto.setEnd(this.fotmatDate(evento.getDataFinal()));
+			listResult.add(dto);
+		}
+		return listResult;
+	}
+
+	private String fotmatDate(Date dataInical) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		return sdf.format(dataInical).replace(" ", "T");
+	}
 
 	private Collection<? extends Usuario> getUsuarios(Turma t) {
 		List<Usuario> list = new ArrayList<>();
@@ -126,6 +172,9 @@ public class CalendarioService {
 			throw new GescolarExcption("Erro serviço, data invalida..");
 		}
 	}
+
+
+	
 	
 	
 }

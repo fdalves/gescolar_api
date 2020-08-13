@@ -36,6 +36,10 @@ public class DataCalendarioDTO implements Serializable {
 	public void setEnd(String end) {
 		this.end = end;
 	}
+	@Override
+	public String toString() {
+		return "DataCalendarioDTO [id=" + id + ", title=" + title + ", start=" + start + ", end=" + end + "]";
+	}
 	
 	
 	
