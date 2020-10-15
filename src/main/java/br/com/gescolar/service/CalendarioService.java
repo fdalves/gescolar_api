@@ -173,6 +173,16 @@ public class CalendarioService {
 		}
 	}
 
+	public DataCalendarioDTO load(@Valid Long codigo) {
+		 Evento evento = eventoRepository.getOne(codigo);
+		 DataCalendarioDTO dto = new DataCalendarioDTO();
+		 dto.setId(String.valueOf(codigo));
+		 dto.setStart(fotmatDate(evento.getDataInical()));
+		 dto.setEnd(fotmatDate(evento.getDataFinal()));
+		 dto.setTitle(evento.getTitulo());
+		return dto;
+	}
+
 
 	
 	
