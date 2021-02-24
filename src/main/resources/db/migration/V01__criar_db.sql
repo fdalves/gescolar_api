@@ -503,6 +503,97 @@ DEFAULT CHARACTER SET = utf8;
 
 
 
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+-- -----------------------------------------------------
+-- Table `gescolar`.`matricula_ini`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `gescolar`.`matricula_ini` (
+  `codigo` INT(11) NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(100) NULL DEFAULT NULL,
+  `grupo_etnico` VARCHAR(300) NULL DEFAULT NULL,
+  `data_nasc` DATE NULL DEFAULT NULL,
+  `naturalidade` VARCHAR(100) NULL DEFAULT NULL,
+  `nacionalidade` VARCHAR(100) NULL DEFAULT NULL,
+  `certidao_nasc` VARCHAR(100) NULL DEFAULT NULL,
+  `certidao_nasc_data_emissao` DATE NULL DEFAULT NULL,
+  `rg` VARCHAR(100) NULL DEFAULT NULL,
+  `religiao` VARCHAR(100) NULL DEFAULT NULL,
+  `pediatra` VARCHAR(100) NULL DEFAULT NULL,
+  `pediatra_tel` VARCHAR(100) NULL DEFAULT NULL,
+  `convenio` VARCHAR(100) NULL DEFAULT NULL,
+  `convenio_tel` VARCHAR(100) NULL DEFAULT NULL,
+  `convenio_nr` VARCHAR(100) NULL DEFAULT NULL,
+  `sus_nr` VARCHAR(100) NULL DEFAULT NULL,
+  alergico_medicamento TINYINT(1),
+  alergico_medicamento_qual VARCHAR(100) NULL DEFAULT NULL,
+  alergico_alimento TINYINT(1),
+  alergico_alimento_qual VARCHAR(100) NULL DEFAULT NULL,
+  medicamento_uso_continuo TINYINT(1),
+  medicamento_uso_continuo_qual VARCHAR(100) NULL DEFAULT NULL,
+  medicamento_uso_continuo_receita TINYINT(1),
+  bolsa_familia TINYINT(1),
+  transporte VARCHAR(100) NULL DEFAULT NULL,
+  
+  nome_pai VARCHAR(100) NULL DEFAULT NULL,
+  dt_nasc_pai DATE NULL DEFAULT NULL,
+  cpf_pai VARCHAR(100) NULL DEFAULT NULL,
+  rg_pai VARCHAR(100) NULL DEFAULT NULL,
+  grau_instrucao_pai VARCHAR(100) NULL DEFAULT NULL,
+  religiao_pai VARCHAR(100) NULL DEFAULT NULL,
+  profissao_pai VARCHAR(100) NULL DEFAULT NULL,
+  local_trabalho_pai VARCHAR(100) NULL DEFAULT NULL,
+  telefone_trabalho_pai VARCHAR(100) NULL DEFAULT NULL,
+  celular_pai VARCHAR(100) NULL DEFAULT NULL,
+  
+  nome_mae VARCHAR(100) NULL DEFAULT NULL,
+  dt_nasc_mae DATE NULL DEFAULT NULL,
+  cpf_mae VARCHAR(100) NULL DEFAULT NULL,
+  rg_mae VARCHAR(100) NULL DEFAULT NULL,
+  grau_instrucao_mae VARCHAR(100) NULL DEFAULT NULL,
+  religiao_mae VARCHAR(100) NULL DEFAULT NULL,
+  profissao_mae VARCHAR(100) NULL DEFAULT NULL,
+  local_trabalho_mae VARCHAR(100) NULL DEFAULT NULL,
+  telefone_trabalho_mae VARCHAR(100) NULL DEFAULT NULL,
+  celular_mae VARCHAR(100) NULL DEFAULT NULL,
+  
+  
+  nome_resposavel VARCHAR(100) NULL DEFAULT NULL,
+  dt_nasc_resposavel DATE NULL DEFAULT NULL,
+  cpf_resposavel VARCHAR(100) NULL DEFAULT NULL,
+  rg_resposavel VARCHAR(100) NULL DEFAULT NULL,
+  grau_instrucao_resposavel VARCHAR(100) NULL DEFAULT NULL,
+  religiao_resposavel VARCHAR(100) NULL DEFAULT NULL,
+  profissao_resposavel VARCHAR(100) NULL DEFAULT NULL,
+  local_trabalho_resposavel VARCHAR(100) NULL DEFAULT NULL,
+  telefone_trabalho_resposavel VARCHAR(100) NULL DEFAULT NULL,
+  celular_resposavel VARCHAR(100) NULL DEFAULT NULL,
+  
+  nome_caso_imprevisto VARCHAR(100) NULL DEFAULT NULL,
+  telefone_caso_imprevisto VARCHAR(100) NULL DEFAULT NULL,
+  endereco_caso_imprevisto VARCHAR(100) NULL DEFAULT NULL,
+  
+  nome_autorizado_1 VARCHAR(100) NULL DEFAULT NULL,
+  rg_autorizado_1 VARCHAR(100) NULL DEFAULT NULL,
+  grau_parentesco_autorizado_1 VARCHAR(100) NULL DEFAULT NULL,
+  
+  nome_autorizado_2 VARCHAR(100) NULL DEFAULT NULL,
+  rg_autorizado_2 VARCHAR(100) NULL DEFAULT NULL,
+  grau_parentesco_autorizado_2 VARCHAR(100) NULL DEFAULT NULL,
+  
+  nome_autorizado_3 VARCHAR(100) NULL DEFAULT NULL,
+  rg_autorizado_3 VARCHAR(100) NULL DEFAULT NULL,
+  grau_parentesco_autorizado_3 VARCHAR(100) NULL DEFAULT NULL,
+  
+  nome_autorizado_4 VARCHAR(100) NULL DEFAULT NULL,
+  rg_autorizado_4 VARCHAR(100) NULL DEFAULT NULL,
+  grau_parentesco_autorizado_4 VARCHAR(100) NULL DEFAULT NULL,
+  
+  nome_autorizado_5 VARCHAR(100) NULL DEFAULT NULL,
+  rg_autorizado_5 VARCHAR(100) NULL DEFAULT NULL,
+  grau_parentesco_autorizado_5 VARCHAR(100) NULL DEFAULT NULL,
+  
+  PRIMARY KEY (`codigo`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 7
+DEFAULT CHARACTER SET = utf8;
+
