@@ -1,0 +1,166 @@
+<Arquivo>
+	<linhas>
+		<tipo>HEADER</tipo>
+		<campos tpoCampo="ALAFANUMERICO" posicao="1"  posIni="1"   posFim="3"    valor="748" />
+		<campos tpoCampo="ALAFANUMERICO" posicao="2"  posIni="4"   posFim="7"    valor="0000" />
+		<campos tpoCampo="ALAFANUMERICO" posicao="3"  posIni="8 "  posFim="8"    valor="0" />
+		<campos tpoCampo="EM_BRACO"      posicao="4"  posIni="9"   posFim="17"   valor=" " />
+		<campos tpoCampo="ALAFANUMERICO" posicao="5"  posIni="18"  posFim="18"   valor="" />
+		<campos tpoCampo="ALAFANUMERICO" posicao="6"  posIni="19"  posFim="32"   alinhadoDireita="true" zeroEsquerda="true" valor="" />
+		<campos tpoCampo="EM_BRACO" 	 posicao="7"  posIni="33"  posFim="52"   valor=" " />
+		<campos tpoCampo="ALAFANUMERICO" posicao="8"  posIni="53"  posFim="57"   alinhadoDireita="true" zeroEsquerda="true" valor="" />
+		<campos tpoCampo="EM_BRACO" 	 posicao="9"  posIni="58"  posFim="58"   valor=" " />
+		<campos tpoCampo="ALAFANUMERICO" posicao="10" posIni="59"  posFim="70"   alinhadoDireita="true" zeroEsquerda="true" valor="" />
+		<campos tpoCampo="ALAFANUMERICO" posicao="11" posIni="71"  posFim="71"   valor="" />
+		<campos tpoCampo="EM_BRACO" 	 posicao="12" posIni="72"  posFim="72"   valor=" " />
+		<campos tpoCampo="ALAFANUMERICO" posicao="13" posIni="73"  posFim="102"  valor=" " />
+		<campos tpoCampo="ALAFANUMERICO" posicao="14" posIni="103" posFim="132"  valor="SICREDI" />
+		<campos tpoCampo="EM_BRACO" 	 posicao="15" posIni="133" posFim="142"  valor=" " />
+		<campos tpoCampo="ALAFANUMERICO" posicao="16" posIni="143" posFim="143"  valor="1"  />
+		<campos tpoCampo="ALAFANUMERICO" posicao="17" posIni="144" posFim="151"  valor=""  />
+		<campos tpoCampo="ALAFANUMERICO" posicao="18" posIni="152" posFim="157"  valor=""  />
+		<campos tpoCampo="ALAFANUMERICO" posicao="19" posIni="158" posFim="163"  valor=""  />
+		<campos tpoCampo="ALAFANUMERICO" posicao="20" posIni="164" posFim="166"  valor="081" />
+		<campos tpoCampo="ALAFANUMERICO" posicao="21" posIni="167" posFim="171"  valor="01600" />
+		<campos tpoCampo="EM_BRACO"      posicao="22" posIni="172" posFim="191"  valor=" " />
+		<campos tpoCampo="EM_BRACO"      posicao="23" posIni="192" posFim="211"  valor=" " />
+		<campos tpoCampo="EM_BRACO"      posicao="24" posIni="212" posFim="240"  valor=" " />
+	</linhas>
+	
+	
+	<linhas>
+		<tipo>HEADER_LOTE</tipo>
+		<campos tpoCampo="ALAFANUMERICO" posicao="1"  posIni="1"   posFim="3"   valor="748" />
+		<campos tpoCampo="ALAFANUMERICO" posicao="2"  posIni="4"   posFim="7"   valor="0001" />
+		<campos tpoCampo="ALAFANUMERICO" posicao="3"  posIni="8"   posFim="8"   valor="1" />
+		<campos tpoCampo="ALAFANUMERICO" posicao="4"  posIni="9"   posFim="9"   valor="R" />
+		<campos tpoCampo="ALAFANUMERICO" posicao="5"  posIni="10"  posFim="11"  valor="01" />
+		<campos tpoCampo="EM_BRACO" 	 posicao="6"  posIni="12"  posFim="13"  valor=" " />
+		<campos tpoCampo="ALAFANUMERICO" posicao="7"  posIni="14"  posFim="16"  valor="040" />
+		<campos tpoCampo="EM_BRACO" 	 posicao="8"  posIni="17"  posFim="17"  valor=" " />
+		<campos tpoCampo="ALAFANUMERICO" posicao="9"  posIni="18"  posFim="18"  valor="" />
+		<campos tpoCampo="ALAFANUMERICO" posicao="10" posIni="19"  posFim="33"  alinhadoDireita="true" zeroEsquerda="true"  valor="" />
+		<campos tpoCampo="EM_BRACO" 	 posicao="11" posIni="34"  posFim="53"  valor="" />
+		<campos tpoCampo="ALAFANUMERICO" posicao="12" posIni="54"  posFim="58"  alinhadoDireita="true" zeroEsquerda="true" valor="" />
+		<campos tpoCampo="EM_BRACO" 	 posicao="13" posIni="59"  posFim="59"  valor=" " />
+		<campos tpoCampo="ALAFANUMERICO" posicao="14" posIni="60"  posFim="71"  alinhadoDireita="true" zeroEsquerda="true"  valor="" />
+		<campos tpoCampo="ALAFANUMERICO" posicao="15" posIni="72"  posFim="72"  valor="" />
+		<campos tpoCampo="EM_BRACO" 	 posicao="16" posIni="73"  posFim="73"  valor="" />
+		<campos tpoCampo="ALAFANUMERICO" posicao="17" posIni="74"  posFim="103" valor="" />
+		<campos tpoCampo="EM_BRACO" 	 posicao="18" posIni="104" posFim="143" valor=" " />
+		<campos tpoCampo="EM_BRACO" 	 posicao="19" posIni="144" posFim="183" valor=" " />
+		<campos tpoCampo="ALAFANUMERICO" posicao="20" posIni="184" posFim="191" valor="" />
+		<campos tpoCampo="ALAFANUMERICO" posicao="21" posIni="192" posFim="199" valor="" />
+		<campos tpoCampo="ALAFANUMERICO" posicao="21" posIni="200" posFim="207" valor="00000000"/>
+		<campos tpoCampo="EM_BRACO" 	 posicao="22" posIni="208" posFim="240" valor=" " />
+	</linhas>
+	
+	
+	<linhas>
+		<tipo>DETALHE_SEGMENTO_P</tipo>
+		<campos tpoCampo="ALAFANUMERICO" posicao="1"  posIni="1"   posFim="3"   valor="748" />
+		<campos tpoCampo="ALAFANUMERICO" posicao="2"  posIni="4"   posFim="7"   valor="0001" />
+		<campos tpoCampo="ALAFANUMERICO" posicao="3"  posIni="8"   posFim="8"   valor="3" />
+		<campos tpoCampo="ALAFANUMERICO" posicao="4"  posIni="9"   posFim="13"  valor="" />
+		<campos tpoCampo="ALAFANUMERICO" posicao="5"  posIni="14"  posFim="14"  valor="P" />
+		<campos tpoCampo="EM_BRACO" 	 posicao="6"  posIni="15"  posFim="15"  valor=" " />
+		<campos tpoCampo="ALAFANUMERICO" posicao="7"  posIni="16"  posFim="17"  valor="01" />
+		<campos tpoCampo="ALAFANUMERICO" posicao="8"  posIni="18"  posFim="22"  alinhadoDireita="true" zeroEsquerda="true"  valor=""  />
+		<campos tpoCampo="EM_BRACO" 	 posicao="9"  posIni="23"  posFim="23"  valor=" " />
+		<campos tpoCampo="ALAFANUMERICO" posicao="10" posIni="24"  posFim="35"  alinhadoDireita="true" zeroEsquerda="true"  valor=""  />
+		<campos tpoCampo="ALAFANUMERICO" posicao="11" posIni="36"  posFim="36"  valor=""  />
+		<campos tpoCampo="EM_BRACO" 	 posicao="12" posIni="37"  posFim="37"  valor=" " />
+		<campos tpoCampo="ALAFANUMERICO" posicao="13" posIni="38"  posFim="57"  valor=""  />
+		<campos tpoCampo="ALAFANUMERICO" posicao="14" posIni="58"  posFim="58"  valor="1"  />
+		<campos tpoCampo="ALAFANUMERICO" posicao="15" posIni="59"  posFim="59"  valor="1"  />
+		<campos tpoCampo="ALAFANUMERICO" posicao="16" posIni="60"  posFim="60"  valor="1"  />
+		<campos tpoCampo="ALAFANUMERICO" posicao="17" posIni="61"  posFim="61"  valor="2"  />
+		<campos tpoCampo="ALAFANUMERICO" posicao="18" posIni="62"  posFim="62"  valor="2"  />
+		<campos tpoCampo="ALAFANUMERICO" posicao="19" posIni="63"  posFim="77"  alinhadoDireita="true" zeroEsquerda="true" valor=""  />
+		<campos tpoCampo="ALAFANUMERICO" posicao="20" posIni="78"  posFim="85"  valor=""  />
+		<campos tpoCampo="ALAFANUMERICO" posicao="21" posIni="86"  posFim="100" valor=""  />
+		<campos tpoCampo="ALAFANUMERICO" posicao="22" posIni="101" posFim="105" valor="00000"  />
+		<campos tpoCampo="EM_BRACO"		 posicao="23" posIni="106" posFim="106" valor=" "  />
+		<campos tpoCampo="ALAFANUMERICO" posicao="24" posIni="107" posFim="108" valor="03"  />
+		<campos tpoCampo="ALAFANUMERICO" posicao="25" posIni="109" posFim="109" valor="N"  />
+		<campos tpoCampo="ALAFANUMERICO" posicao="26" posIni="110" posFim="117" valor=""  />
+		<campos tpoCampo="ALAFANUMERICO" posicao="27" posIni="118" posFim="118" valor=""  />
+		<campos tpoCampo="ALAFANUMERICO" posicao="28" posIni="119" posFim="126" valor=""  />
+		<campos tpoCampo="ALAFANUMERICO" posicao="29" posIni="127" posFim="141" valor=""  />
+		<campos tpoCampo="ALAFANUMERICO" posicao="30" posIni="142" posFim="142" valor="0"  />
+		<campos tpoCampo="ZEROS" 		 posicao="31" posIni="143" posFim="150" valor="0" />
+		<campos tpoCampo="ZEROS"         posicao="32" posIni="151" posFim="165" valor="0" />
+		<campos tpoCampo="ZEROS"         posicao="33" posIni="166" posFim="180" valor="0" />
+		<campos tpoCampo="ZEROS"         posicao="34" posIni="181" posFim="195" valor="0" />
+		<campos tpoCampo="EM_BRACO"      posicao="35" posIni="196" posFim="220" valor="0" />
+		<campos tpoCampo="ALAFANUMERICO" posicao="36" posIni="221" posFim="221" valor="3" />
+		<campos tpoCampo="ALAFANUMERICO" posicao="37" posIni="222" posFim="223" valor="00" />
+		<campos tpoCampo="ALAFANUMERICO" posicao="38" posIni="224" posFim="224" valor="1" />
+		<campos tpoCampo="ALAFANUMERICO" posicao="39" posIni="225" posFim="227" valor="000" />
+		<campos tpoCampo="ALAFANUMERICO" posicao="40" posIni="228" posFim="229" valor="09" />
+		<campos tpoCampo="ZEROS"		 posicao="41" posIni="230" posFim="239" valor="0" />
+		<campos tpoCampo="EM_BRACO"		 posicao="42" posIni="240" posFim="240" valor=" " />
+	</linhas>
+	
+	
+	<linhas>
+		<tipo>DETALHE_SEGMENTO_Q</tipo>
+		<campos tpoCampo="ALAFANUMERICO" posicao="1"  posIni="1"   posFim="3"   valor="748" />
+		<campos tpoCampo="ALAFANUMERICO" posicao="2"  posIni="4"   posFim="7"   valor="0001" />
+		<campos tpoCampo="ALAFANUMERICO" posicao="3"  posIni="8"   posFim="8"   valor="3" />
+		<campos tpoCampo="ALAFANUMERICO" posicao="4"  posIni="9"   posFim="13"  valor="" />
+		<campos tpoCampo="ALAFANUMERICO" posicao="5"  posIni="14"  posFim="14"  valor="Q" />
+		<campos tpoCampo="EM_BRACO" 	 posicao="6"  posIni="15"  posFim="15"  valor=" " />
+		<campos tpoCampo="ALAFANUMERICO" posicao="7"  posIni="16"  posFim="17"  valor="01" />
+		<campos tpoCampo="ALAFANUMERICO" posicao="8"  posIni="18"  posFim="18"  valor=""  />
+		<campos tpoCampo="ALAFANUMERICO" posicao="9"  posIni="19"  posFim="33"  alinhadoDireita="true" zeroEsquerda="true" valor="" />
+		<campos tpoCampo="ALAFANUMERICO" posicao="10" posIni="34"  posFim="73"  valor="" />
+		<campos tpoCampo="ALAFANUMERICO" posicao="11" posIni="74"  posFim="113"  valor="" />
+		<campos tpoCampo="EM_BRACO" 	 posicao="12" posIni="114" posFim="128"  valor=" " />
+		<campos tpoCampo="ALAFANUMERICO" posicao="13" posIni="129" posFim="136"  valor="" />
+		<campos tpoCampo="ALAFANUMERICO" posicao="15" posIni="137" posFim="151"  valor="" />
+		<campos tpoCampo="ALAFANUMERICO" posicao="16" posIni="152" posFim="153"  valor="" />
+		<campos tpoCampo="ALAFANUMERICO" posicao="17" posIni="154" posFim="154"  valor="0" />
+		<campos tpoCampo="EM_BRACO" 	 posicao="18" posIni="155" posFim="169"  valor=" " />
+		<campos tpoCampo="EM_BRACO" 	 posicao="19" posIni="170" posFim="209"  valor=" " />
+		<campos tpoCampo="ALAFANUMERICO" posicao="20" posIni="210" posFim="212"  valor="000" />
+		<campos tpoCampo="EM_BRACO" 	 posicao="21" posIni="213" posFim="232"  valor=" " />
+		<campos tpoCampo="EM_BRACO" 	 posicao="22" posIni="233" posFim="240"  valor=" " />
+	</linhas>
+	
+	
+	<linhas>
+		<tipo>TRAILLER_DO_LOTE</tipo>
+		<campos tpoCampo="ALAFANUMERICO" posicao="1"  posIni="1"   posFim="3"   valor="748" />
+		<campos tpoCampo="ALAFANUMERICO" posicao="2"  posIni="4"   posFim="7"   valor="0001" />
+		<campos tpoCampo="ALAFANUMERICO" posicao="3"  posIni="8"   posFim="8"   valor="5" />
+		<campos tpoCampo="EM_BRACO"		 posicao="4"  posIni="9"   posFim="17"  valor=" " />
+		<campos tpoCampo="ALAFANUMERICO" posicao="5"  posIni="18"  posFim="23"  valor="" />
+		<campos tpoCampo="ZEROS" 		 posicao="6"  posIni="24"  posFim="29"  valor="0" />
+		<campos tpoCampo="ZEROS" 		 posicao="7"  posIni="30"  posFim="46"  valor="0" />
+		<campos tpoCampo="ZEROS" 		 posicao="8"  posIni="47"  posFim="52"  valor="0" />
+		<campos tpoCampo="ZEROS" 		 posicao="9"  posIni="53"  posFim="69"  valor="0" />
+		<campos tpoCampo="ZEROS" 		 posicao="10" posIni="70"  posFim="75"  valor="0" />
+		<campos tpoCampo="ZEROS" 		 posicao="11" posIni="76"  posFim="92"  valor="0" />
+		<campos tpoCampo="ZEROS" 		 posicao="12" posIni="93"  posFim="98"  valor="0" />
+		<campos tpoCampo="ZEROS" 		 posicao="13" posIni="99"  posFim="115" valor="0" />
+		<campos tpoCampo="EM_BRACO" 	 posicao="14" posIni="116" posFim="123" valor=" " />
+		<campos tpoCampo="EM_BRACO" 	 posicao="15" posIni="124" posFim="240" valor=" " />
+	</linhas>
+	
+	<linhas>
+		<tipo>TRAILLER_DO_ARQUIVO</tipo>
+		<campos tpoCampo="ALAFANUMERICO" posicao="1"  posIni="1"   posFim="3"   valor="748" />
+		<campos tpoCampo="ALAFANUMERICO" posicao="2"  posIni="4"   posFim="7"   valor="9999" />
+		<campos tpoCampo="ALAFANUMERICO" posicao="3"  posIni="8"   posFim="8"   valor="9" />
+		<campos tpoCampo="EM_BRACO"		 posicao="4"  posIni="9"   posFim="17"  valor=" " />
+		<campos tpoCampo="ALAFANUMERICO" posicao="5"  posIni="18"  posFim="23"  valor="000001" />
+		<campos tpoCampo="ALAFANUMERICO" posicao="6"  posIni="24"  posFim="29"  valor="" />
+		<campos tpoCampo="ZEROS"         posicao="7"  posIni="30"  posFim="35"  valor="0" />
+		<campos tpoCampo="EM_BRACO"      posicao="8"  posIni="36"  posFim="240" valor=" " />
+		
+	</linhas>
+	
+	
+
+</Arquivo>

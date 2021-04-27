@@ -503,6 +503,30 @@ DEFAULT CHARACTER SET = utf8;
 
 
 
+-- -----------------------------------------------------
+-- Table `gescolar`.`cnab`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `gescolar`.`cnab` (
+  `codigo` INT(11) NOT NULL AUTO_INCREMENT,
+  `tipo_pessoa` VARCHAR(100) NOT NULL,
+  `cpf_cnpj` VARCHAR(100) NOT NULL,
+  `agencia` VARCHAR(100) NOT NULL,	
+  `conta` VARCHAR(100) NOT NULL,	
+  `nome` VARCHAR(100) NOT NULL,
+  `endereco` VARCHAR(100) NOT NULL,
+  `cep` VARCHAR(100) NOT NULL,
+  `cidade` VARCHAR(100) NOT NULL,
+  `uf` VARCHAR(100) NOT NULL,
+  `digito_conta` VARCHAR(100) NOT NULL,
+  `posto` VARCHAR(100) NOT NULL,
+  `seq_nosso_numero` INT(8) NOT NULL,
+  `seq_seu_numero` INT(8) NOT NULL,
+PRIMARY KEY (`codigo`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 1
+DEFAULT CHARACTER SET = utf8;
+
+
 
 -- -----------------------------------------------------
 -- Table `gescolar`.`matricula_ini`
@@ -592,8 +616,8 @@ CREATE TABLE IF NOT EXISTS `gescolar`.`matricula_ini` (
   rg_autorizado_5 VARCHAR(100) NULL DEFAULT NULL,
   grau_parentesco_autorizado_5 VARCHAR(100) NULL DEFAULT NULL,
   
-  PRIMARY KEY (`codigo`))
+PRIMARY KEY (`codigo`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 7
+AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8;
 
