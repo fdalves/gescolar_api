@@ -64,7 +64,7 @@ public class ArquivoCnab240Sicredi extends ArquivoCnab {
 		super.setValor(linhaSeguimentoP, 10, cnab.getConta());
 		super.setValor(linhaSeguimentoP, 11, cnab.getDigitoConta());
 		super.setValor(linhaSeguimentoP, 13, getNossoNumero(cnab));
-		super.setValor(linhaSeguimentoP, 19, getSeuNumero());
+		super.setValor(linhaSeguimentoP, 19, getSeqString(cnab.getSeqSeuNumero(),5));
 		super.setValor(linhaSeguimentoP, 20, getVencimento());
 		super.setValor(linhaSeguimentoP, 21, getvalor());
 		super.setValor(linhaSeguimentoP, 26, getDataEmissao());
@@ -194,9 +194,6 @@ public class ArquivoCnab240Sicredi extends ArquivoCnab {
 			 if (i == 18) fator = 2;
 			 
 			 soma = soma + (valor * fator);
-			 
-			
-			
 		}
 		
 		double mod11 =  (soma / 11d) * 11d;

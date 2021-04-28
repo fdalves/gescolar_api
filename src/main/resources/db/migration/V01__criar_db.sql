@@ -528,6 +528,66 @@ DEFAULT CHARACTER SET = utf8;
 
 
 
+
+-- -----------------------------------------------------
+-- Table `gescolar`.`contrato`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `gescolar`.`contrato` (
+  `codigo` INT(11) NOT NULL AUTO_INCREMENT,
+  `codigo_matricula` INT(11) NULL DEFAULT NULL,
+  `data_ini` DATE NOT NULL,
+  `data_fim` DATE NOT NULL,
+  `ativo` TINYINT(1),
+  `nr_parcela` INT(6),
+  `nr_dia_pagamento` INT(6),
+  `nr_dia_vencimento` INT(6),
+  `valor` DECIMAL(6,2),
+  `valor_juros` DECIMAL(6,2),
+  `contrato` BLOB,
+ PRIMARY KEY (`codigo`),
+  INDEX `fk_codigo_matricula_idx` (`codigo_matricula` ASC),
+  CONSTRAINT `fk_codigo_matricula`
+    FOREIGN KEY (`codigo_matricula`)
+    REFERENCES `gescolar`.`matricula_ini` (`codigo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
+ )
+ENGINE = InnoDB
+AUTO_INCREMENT = 1
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `gescolar`.`parcela`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `gescolar`.`parcela` (
+  `codigo` INT(11) NOT NULL AUTO_INCREMENT,
+  `codigo_contrato` INT(11) NULL DEFAULT NULL,
+  `data_emisao` DATE NOT NULL,
+  `data_vencimento` DATE NOT NULL,
+  `status` VARCHAR(100),
+  `nr_parcela` INT(6),
+  `valor` DECIMAL(6,2),
+  `valor_juros` DECIMAL(6,2),
+  `boleto` BLOB,
+ PRIMARY KEY (`codigo`),
+  INDEX `fk_codigo_contrato_idx` (`codigo_contrato` ASC),
+  CONSTRAINT `fk_codigo_contrato`
+    FOREIGN KEY (`codigo_contrato`)
+    REFERENCES `gescolar`.`contrato` (`codigo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
+ )
+ENGINE = InnoDB
+AUTO_INCREMENT = 1
+DEFAULT CHARACTER SET = utf8;
+
+
+
+
+
+
+
 -- -----------------------------------------------------
 -- Table `gescolar`.`matricula_ini`
 -- -----------------------------------------------------
