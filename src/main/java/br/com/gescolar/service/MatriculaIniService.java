@@ -1,22 +1,26 @@
 package br.com.gescolar.service;
 
-import javax.validation.Valid;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.gescolar.dto.MatriculaDTO;
 import br.com.gescolar.model.MatriculaIni;
+import br.com.gescolar.repository.MatriculaIniRepository;
 
 @Service
 public class MatriculaIniService {
 
-	public MatriculaIni salvar(@Valid MatriculaIni matriculaIni) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public MatriculaIni atualizar(Long codigo, @Valid MatriculaIni matriculaIni) {
-		// TODO Auto-generated method stub
-		return null;
+	@Autowired
+	private MatriculaIniRepository matriculaIniRepository;
+	
+	
+	public MatriculaDTO salvar(MatriculaDTO matriculaDTO) {
+		MatriculaIni matriculaIni = new MatriculaIni();
+		matriculaIni.parseDtoToModel(matriculaDTO);
+		matriculaIniRepository.save(matriculaIni);
+		matriculaDTO.setCodigo(matriculaIni.getCodigo().toString());
+		return matriculaDTO;
+	
 	}
 
 	

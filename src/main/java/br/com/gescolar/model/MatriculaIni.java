@@ -2,6 +2,8 @@ package br.com.gescolar.model;
 
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -18,6 +20,7 @@ import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import br.com.gescolar.dto.MatriculaDTO;
 import br.com.gescolar.repository.listener.UrlFotoListener;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -658,10 +661,107 @@ public class MatriculaIni  implements Serializable {
 	public void setGrauParentescoAutorizado5(String grauParentescoAutorizado5) {
 		this.grauParentescoAutorizado5 = grauParentescoAutorizado5;
 	}
+	
+	
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	   
+	
+	
+	public void parseDtoToModel(MatriculaDTO dto) {
+				
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");	
+				
+				nome = dto.getNome(); 
+				try {
+					if (dto.getDtNascimento() != null && !dto.getDtNascimento().equals("")) 
+						dataNasc = dateFormat.parse(dto.getDtNascimento());
+					if (dto.getDtNascMae() != null && !dto.getDtNascMae().equals(""))
+						dtDascMae =  dateFormat.parse(dto.getDtNascMae());
+					if (dto.getDtNascResp() != null && !dto.getDtNascResp().equals(""))
+						dtNascPai = dateFormat.parse(dto.getDtNascPai());
+					if (dto.getDtNascResp() != null && !dto.getDtNascResp().equals(""))
+						dtNascResposavel =   dateFormat.parse(dto.getDtNascResp());
+					
+				} catch (ParseException e) {
+					
+				}  
+				naturalidade = dto.getNaturalidade();
+				nacionalidade =  dto.getNacionalidade();
+				certidaoNasc = dto.getCertidaoNasc();
+				//certidaoNascDataEmissao =  dto.getd
+				rg = dto.getRg(); 
+				religiao =  dto.getReligiao();
+				pediatra =  dto.getNomePediatra();
+				pediatraTel = dto.getTelefonePediatra();
+				convenio = dto.getConvenio();
+				convenioTel = dto.getTelefoneConvenio();
+				convenioNr =  dto.getNumeroCarteiraConvenio();
+				susNr =  dto.getNumeroCartaoSus();
+				alergicoMedicamento = this.parseBoolean(dto.getAlergicoAlimento());
+				alergicoMedicamentoQual = dto.getQualMedicamento();
+				alergicoAlimento = this.parseBoolean(dto.getAlergicoAlimento());
+				alergicoAlimentoQual = dto.getQualAlimento();
+				medicamentoUsoContinuo = this.parseBoolean(dto.getMedicamentoUsoContinuo());
+				medicamentoUsoContinuoQual = dto.getQualMedicamentoUsoContinuo(); 
+				medicamentoUsoContinuoReceita = this.parseBoolean(dto.getPossuiReceita());
+				bolsaFamilia = this.parseBoolean(dto.getBolsaFamilia());
+				transporte = dto.getFamiliarEscolar();
+				nomePai =   dto.getNomePai();
+				cpfPai = dto.getCpfPai();
+				rgPai = dto.getRgPai();
+				grauInstrucaoPai = dto.getGrauInstrucaoPai();
+				religiaoPai = dto.getReligiaoPai();
+				profissaoPai = dto.getProfissaoPai();
+				localTrabalhoPai = dto.getLocalTrabalhoPai();
+				telefoneTrabalhoPai = dto.getTelComercialPai();
+				celularPai = dto.getCelPai();
+				nomeMae =   dto.getNomeMae();
+				
+				cpfMae = dto.getCpfMae();
+				rgMae = dto.getRgMae();
+				grauInstrucaoMae =  dto.getGrauInstrucaoMae();
+				religiaoMae = dto.getReligiaoMae();
+				profissaoMae = dto.getProfissaoMae();
+				localTrabalhoMae = dto.getLocalTrabalhoMae();
+				telefoneTrabalhoMae =  dto.getTelComercialMae();
+				celularMae = dto.getCelMae();
+				nomeResposavel = dto.getNomeResp();  
+				
+				cpfResposavel = dto.getCpfResp();
+				rgResposavel = dto.getRgResp();
+				grauInstrucaoResposavel =  dto.getGrauInstrucaoResp();
+				religiaoResposavel = dto.getReligiaoResp();
+				profissaoResposavel = dto.getProfissaoResp();
+				localTrabalhoResposavel = dto.getLocalTrabalhoResp();
+				telefoneTrabalhoResposavel =  dto.getTelComercialResp();
+				celularResposavel =    dto.getCelResp();
+				nomeCasoImprevisto =  dto.getNomeImpre();    
+				telefoneCasoImprevisto =  dto.getTelImpre();   
+				enderecoCasoImprevisto =   dto.getEndImpre();
+				nomeAutorizado1 =      dto.getNomeRet1();
+				rgAutorizado1 =     dto.getRgRet1();
+				grauParentescoAutorizado1 =  dto.getGrauRet1();  
+				nomeAutorizado2 =      dto.getNomeRet2();
+				rgAutorizado2 =   dto.getRgRet2();  
+				grauParentescoAutorizado2 =  dto.getGrauRet2();  
+				nomeAutorizado3 =  dto.getNomeRet3();    
+				rgAutorizado3 =   dto.getRgRet3();  
+				grauParentescoAutorizado3 = dto.getGrauRet3();
+				nomeAutorizado4 = dto.getNomeRet4();      
+				rgAutorizado4 =   dto.getRgRet4();  
+				grauParentescoAutorizado4 = dto.getGrauRet4();
+				nomeAutorizado5 = dto.getNomeRet5();     
+				rgAutorizado5 =  dto.getRgRet5();   
+				grauParentescoAutorizado5 = dto.getGrauRet5();
+	}
+	
+	private Boolean parseBoolean(String alergicoAlimento) {
+		if (alergicoAlimento == null || alergicoAlimento.equals("") || alergicoAlimento.equals("N"))
+			return false;
+		return true;
+	} 
+	
 	   
 	  
 	 
