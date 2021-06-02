@@ -23,6 +23,12 @@ public class MatriculaIniService {
 	
 	}
 
+
+	public MatriculaDTO buscarPeloCodigo(Long codigo) {
+		MatriculaIni matriculaIni = matriculaIniRepository.getOne(codigo);
+		return matriculaIni.parseDtoToDto();
+	}
+
 	
 	
 }

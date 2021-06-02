@@ -760,6 +760,11 @@ public class MatriculaIni  implements Serializable {
 		if (alergicoAlimento == null || alergicoAlimento.equals("") || alergicoAlimento.equals("N"))
 			return false;
 		return true;
+	}
+	public MatriculaDTO parseDtoToDto() {
+		MatriculaDTO dto = new MatriculaDTO();
+		dto.setNome("teste..llll");
+		return dto;
 	} 
 	
 	   

@@ -557,7 +557,5 @@ public class MatriculaDTO implements Serializable {
 		this.telefoneResidencial = telefoneResidencial;
 	}
 	
-	
-	
 
 }
