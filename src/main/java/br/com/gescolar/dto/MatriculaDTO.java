@@ -10,6 +10,7 @@ public class MatriculaDTO implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	private String codigo;
 	private String alergicoAlimento;
 	private String alergicoMedicamento;
 	private String bolsaFamilia;
@@ -17,7 +18,6 @@ public class MatriculaDTO implements Serializable {
 	private String celPai;
 	private String celResp;
 	private String certidaoNasc;
-	private String codigo;
 	private String convenio;
 	private String cpfMae;
 	private String cpfPai;

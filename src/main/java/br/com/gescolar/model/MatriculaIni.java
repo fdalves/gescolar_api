@@ -679,13 +679,15 @@ public class MatriculaIni  implements Serializable {
 					if (dto.getDtNascMae() != null && !dto.getDtNascMae().equals(""))
 						dtDascMae =  dateFormat.parse(dto.getDtNascMae());
 					if (dto.getDtNascResp() != null && !dto.getDtNascResp().equals(""))
-						dtNascPai = dateFormat.parse(dto.getDtNascPai());
-					if (dto.getDtNascResp() != null && !dto.getDtNascResp().equals(""))
-						dtNascResposavel =   dateFormat.parse(dto.getDtNascResp());
+						dtNascResposavel = dateFormat.parse(dto.getDtNascResp());
+					if (dto.getDtNascPai() != null && !dto.getDtNascPai().equals(""))
+						dtNascPai =   dateFormat.parse(dto.getDtNascPai());
 					
 				} catch (ParseException e) {
 					
 				}  
+				
+				grupoEtnico = dto.getGrupoEtinico();
 				naturalidade = dto.getNaturalidade();
 				nacionalidade =  dto.getNacionalidade();
 				certidaoNasc = dto.getCertidaoNasc();
@@ -761,15 +763,6 @@ public class MatriculaIni  implements Serializable {
 			return false;
 		return true;
 	}
-	public MatriculaDTO parseDtoToDto() {
-		MatriculaDTO dto = new MatriculaDTO();
-		dto.setNome("teste..llll");
-		return dto;
-	} 
-	
-	   
-	  
-	 
 	
 	
 }

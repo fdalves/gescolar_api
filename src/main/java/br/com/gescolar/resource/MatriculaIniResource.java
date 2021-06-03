@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,6 +42,12 @@ public class MatriculaIniResource {
 	public ResponseEntity<MatriculaDTO> buscarPeloCodigo(@PathVariable Long codigo) {
 		MatriculaDTO matriculaDTO = matriculaIniService.buscarPeloCodigo(codigo);
 		return matriculaDTO != null ? ResponseEntity.ok(matriculaDTO) : ResponseEntity.notFound().build();
+	}
+	
+	@PutMapping("/{codigo}")
+	public ResponseEntity<MatriculaDTO> atualizar(@PathVariable Long codigo, @Valid @RequestBody MatriculaDTO matriculaDTO) {
+		MatriculaDTO dto  = matriculaIniService.atualizar(codigo, matriculaDTO);
+		return ResponseEntity.ok(dto);
 	}
 
 	
