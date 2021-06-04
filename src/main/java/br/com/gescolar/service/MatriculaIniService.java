@@ -67,8 +67,8 @@ public class MatriculaIniService {
 		dto.setTelefoneConvenio(matriculaIni.getConvenioTel());
 		dto.setNumeroCarteiraConvenio(matriculaIni.getConvenioNr());
 		dto.setNumeroCartaoSus(matriculaIni.getSusNr());
-		dto.setAlergicoAlimento(parseBoolean(matriculaIni.getAlergicoAlimento()));
-		dto.setQualMedicamento(matriculaIni.getAlergicoAlimentoQual());
+		dto.setAlergicoMedicamento(parseBoolean(matriculaIni.getAlergicoMedicamento()));
+		dto.setQualMedicamento(matriculaIni.getAlergicoMedicamentoQual());
 		dto.setAlergicoAlimento(parseBoolean(matriculaIni.getAlergicoAlimento()));
 		dto.setQualAlimento(matriculaIni.getAlergicoAlimentoQual());
 		dto.setMedicamentoUsoContinuo(parseBoolean(matriculaIni.getMedicamentoUsoContinuo()));

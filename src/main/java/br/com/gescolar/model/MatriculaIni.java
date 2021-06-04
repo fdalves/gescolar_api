@@ -700,7 +700,7 @@ public class MatriculaIni  implements Serializable {
 				convenioTel = dto.getTelefoneConvenio();
 				convenioNr =  dto.getNumeroCarteiraConvenio();
 				susNr =  dto.getNumeroCartaoSus();
-				alergicoMedicamento = this.parseBoolean(dto.getAlergicoAlimento());
+				alergicoMedicamento = this.parseBoolean(dto.getAlergicoMedicamento());
 				alergicoMedicamentoQual = dto.getQualMedicamento();
 				alergicoAlimento = this.parseBoolean(dto.getAlergicoAlimento());
 				alergicoAlimentoQual = dto.getQualAlimento();
