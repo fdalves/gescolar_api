@@ -5,6 +5,8 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,10 +15,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.gescolar.dto.MatriculaDTO;
 import br.com.gescolar.event.RecursoCriadoEvent;
+import br.com.gescolar.model.Aluno;
 import br.com.gescolar.service.MatriculaIniService;
 
 @RestController
@@ -50,5 +54,11 @@ public class MatriculaIniResource {
 		return ResponseEntity.ok(dto);
 	}
 
+	
+	@GetMapping
+	public Page<MatriculaDTO> pesquisar(@RequestParam(required = false, defaultValue = "%") String nome,
+	        Pageable pageable) {
+		return matriculaIniService.findByNomeContaining(nome, pageable);
+	}
 	
 }

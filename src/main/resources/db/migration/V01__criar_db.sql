@@ -593,7 +593,8 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `gescolar`.`matricula_ini` (
   `codigo` INT(11) NOT NULL AUTO_INCREMENT,
-  `nome` VARCHAR(100) NULL DEFAULT NULL,
+  `nome` VARCHAR(100) NULL DEFAULT NULL, 
+  `status` VARCHAR(100) NULL DEFAULT NULL,	
   `grupo_etnico` VARCHAR(300) NULL DEFAULT NULL,
   `data_nasc` DATE NULL DEFAULT NULL,
   `naturalidade` VARCHAR(100) NULL DEFAULT NULL,

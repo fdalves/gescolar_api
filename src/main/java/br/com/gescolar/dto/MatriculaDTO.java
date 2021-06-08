@@ -11,6 +11,7 @@ public class MatriculaDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private String codigo;
+	private String status;
 	private String alergicoAlimento;
 	private String alergicoMedicamento;
 	private String bolsaFamilia;
@@ -555,6 +556,12 @@ public class MatriculaDTO implements Serializable {
 	}
 	public void setTelefoneResidencial(String telefoneResidencial) {
 		this.telefoneResidencial = telefoneResidencial;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 
