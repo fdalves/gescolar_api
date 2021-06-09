@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.gescolar.dto.AtivarMatrciulaDTO;
 import br.com.gescolar.dto.MatriculaDTO;
 import br.com.gescolar.event.RecursoCriadoEvent;
-import br.com.gescolar.model.Aluno;
 import br.com.gescolar.service.MatriculaIniService;
 
 @RestController
@@ -40,6 +40,14 @@ public class MatriculaIniResource {
 		publisher.publishEvent(new RecursoCriadoEvent(this, response, Long.valueOf(matriculaIniSalva.getCodigo())));
 		return ResponseEntity.status(HttpStatus.CREATED).body(matriculaIniSalva);
 	}
+	
+	
+	@PostMapping("/ativar")
+	public  ResponseEntity<Object> ativar(@Valid @RequestBody AtivarMatrciulaDTO ativarMatrciulaDTO) {
+		 matriculaIniService.ativarMatrciula(ativarMatrciulaDTO);
+		return ResponseEntity.status(HttpStatus.OK).build();
+	}
+	
 
 	
 	@GetMapping("/{codigo}")

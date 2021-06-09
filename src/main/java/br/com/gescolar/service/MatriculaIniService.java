@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import br.com.gescolar.dto.AtivarMatrciulaDTO;
 import br.com.gescolar.dto.MatriculaDTO;
 import br.com.gescolar.model.MatriculaIni;
 import br.com.gescolar.repository.MatriculaIniRepository;
@@ -42,6 +43,11 @@ public class MatriculaIniService {
 		return matriculaIniRepository
 				.findByNomeContaining(nome, pageable)
 				.map(MatriculaIni::parseDtoToDto);
+	}
+
+	public void ativarMatrciula(AtivarMatrciulaDTO ativarMatrciulaDTO) {
+		System.out.println(ativarMatrciulaDTO);
+		
 	}
 
 }
