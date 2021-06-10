@@ -2,6 +2,7 @@ package br.com.gescolar.model;
 
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -39,13 +40,11 @@ public class Contrato  implements Serializable {
 	@JoinColumn(name = "codigo_matricula")
 	private MatriculaIni matricula;
 	
-	@Column(name="data_ini")
-	@Temporal(TemporalType.DATE)
-	private Date dataIni;
+	@Column(name="data_ini", columnDefinition = "DATE")
+	private LocalDate dataIni;
 	
-	@Column(name="data_fim")
-	@Temporal(TemporalType.DATE)
-	private Date dataFim;
+	@Column(name="data_fim", columnDefinition = "DATE")
+	private LocalDate dataFim;
 	
 	@Column(name="ativo")
 	private Boolean ativo;
@@ -84,19 +83,19 @@ public class Contrato  implements Serializable {
 		this.matricula = matricula;
 	}
 
-	public Date getDataIni() {
+	public LocalDate getDataIni() {
 		return dataIni;
 	}
 
-	public void setDataIni(Date dataIni) {
+	public void setDataIni(LocalDate dataIni) {
 		this.dataIni = dataIni;
 	}
 
-	public Date getDataFim() {
+	public LocalDate getDataFim() {
 		return dataFim;
 	}
 
-	public void setDataFim(Date dataFim) {
+	public void setDataFim(LocalDate dataFim) {
 		this.dataFim = dataFim;
 	}
 
