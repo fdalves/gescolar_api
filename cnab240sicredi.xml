@@ -78,7 +78,7 @@
 		<campos tpoCampo="ALAFANUMERICO" posicao="18" posIni="62"  posFim="62"  valor="2"  />
 		<campos tpoCampo="ALAFANUMERICO" posicao="19" posIni="63"  posFim="77"  alinhadoDireita="true" zeroEsquerda="true" valor=""  />
 		<campos tpoCampo="ALAFANUMERICO" posicao="20" posIni="78"  posFim="85"  valor=""  />
-		<campos tpoCampo="ALAFANUMERICO" posicao="21" posIni="86"  posFim="100" valor=""  />
+		<campos tpoCampo="ALAFANUMERICO" posicao="21" posIni="86"  posFim="100" valor="" alinhadoDireita="true" zeroEsquerda="true" />
 		<campos tpoCampo="ALAFANUMERICO" posicao="22" posIni="101" posFim="105" valor="00000"  />
 		<campos tpoCampo="EM_BRACO"		 posicao="23" posIni="106" posFim="106" valor=" "  />
 		<campos tpoCampo="ALAFANUMERICO" posicao="24" posIni="107" posFim="108" valor="03"  />
@@ -86,7 +86,7 @@
 		<campos tpoCampo="ALAFANUMERICO" posicao="26" posIni="110" posFim="117" valor=""  />
 		<campos tpoCampo="ALAFANUMERICO" posicao="27" posIni="118" posFim="118" valor=""  />
 		<campos tpoCampo="ALAFANUMERICO" posicao="28" posIni="119" posFim="126" valor=""  />
-		<campos tpoCampo="ALAFANUMERICO" posicao="29" posIni="127" posFim="141" valor=""  />
+		<campos tpoCampo="ALAFANUMERICO" posicao="29" posIni="127" posFim="141" valor="" alinhadoDireita="true" zeroEsquerda="true"  />
 		<campos tpoCampo="ALAFANUMERICO" posicao="30" posIni="142" posFim="142" valor="0"  />
 		<campos tpoCampo="ZEROS" 		 posicao="31" posIni="143" posFim="150" valor="0" />
 		<campos tpoCampo="ZEROS"         posicao="32" posIni="151" posFim="165" valor="0" />

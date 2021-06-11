@@ -51,6 +51,7 @@ public class ArquivoCnab240Sicredi extends ArquivoCnab {
 		
 		Linha linhaHeaderLote = super.gerarLinha(TipoLinhaEnum.HEADER_LOTE);
 		super.setValor(linhaHeaderLote, 9, cnab.getTipoPessoa());
+		super.setValor(linhaHeaderLote, 10, cnab.getCpfCnpj());
 		super.setValor(linhaHeaderLote, 12, cnab.getAgencia());
 		super.setValor(linhaHeaderLote, 14, cnab.getConta());
 		super.setValor(linhaHeaderLote, 15, cnab.getDigitoConta());
@@ -73,7 +74,7 @@ public class ArquivoCnab240Sicredi extends ArquivoCnab {
 		super.setValor(linhaSeguimentoP, 29, getJuros());
 		
 		Linha linhaSeguimentoQ = super.gerarLinha(TipoLinhaEnum.DETALHE_SEGMENTO_Q);
-		super.setValor(linhaSeguimentoQ, 4, getNumeroSequencialSegP());
+		super.setValor(linhaSeguimentoQ, 4, getNumeroSequencialSegQ());
 		super.setValor(linhaSeguimentoQ, 8, cnab.getTipoPessoa());
 		super.setValor(linhaSeguimentoQ, 9, cnab.getCpfCnpj());
 		super.setValor(linhaSeguimentoQ, 10, cnab.getNome());
@@ -92,56 +93,60 @@ public class ArquivoCnab240Sicredi extends ArquivoCnab {
 	}
 
 	
+	private String getNumeroSequencialSegQ() {
+		return "00002";
+	}
+
+
 	private String getTotalTraillerArquivo() {
-		return "000001";
+		return "000006";
 	}
 
 
 
 	private String getTotalTraillerLote() {
-		return "000001";
+		return "000004";
 	}
 
 
 
 	private String getJuros() {
 		// TODO Auto-generated method stub
-		return "000000";
+		return "2";
 	}
 
 
 
 	private String getDataJuros() {
 		// TODO Auto-generated method stub
-		return " ";
+		return "26062021";
 	}
 
 
 
 	private String getTipoJuros() {
-		// TODO Auto-generated method stub
-		return " ";
+		return "2";
 	}
 
 
 
 	private String getDataEmissao() {
 		// TODO Auto-generated method stub
-		return " ";
+		return "20062021";
 	}
 
 
 
 	private String getvalor() {
 		// TODO Auto-generated method stub
-		return " ";
+		return "1100";
 	}
 
 
 
 	private String getVencimento() {
 		// TODO Auto-generated method stub
-		return " ";
+		return "25062021";
 	}
 
 
