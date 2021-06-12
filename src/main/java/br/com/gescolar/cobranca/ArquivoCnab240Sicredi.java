@@ -139,7 +139,7 @@ public class ArquivoCnab240Sicredi extends ArquivoCnab {
 
 	private String getvalor() {
 		// TODO Auto-generated method stub
-		return "1100";
+		return "110000";
 	}
 
 
