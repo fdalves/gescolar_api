@@ -90,7 +90,6 @@ public class MatriculaIniService {
 			Contrato contrato) {
 		LocalDate date = LocalDate.of(dateIni.getYear(), dateIni.getMonth(), Integer.valueOf(ativarMatrciulaDTO.getDiaBoleto()));
 		for (int i = 1; i <= monthsBetween; i++) {
-			date = date.plusMonths(1);
 			Parcela parcela = new Parcela();
 			parcela.setContrato(contrato);
 			parcela.setNrParcela(i);
@@ -101,6 +100,7 @@ public class MatriculaIniService {
 			this.setNosoNumero(parcela);
 			parcela.setBoleto(boletoSicredi.gerarBoleto(parcela));
 			parcelaRepository.save(parcela);
+			date = date.plusMonths(1);
 		}
 	}
 
