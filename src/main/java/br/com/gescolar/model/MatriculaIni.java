@@ -19,6 +19,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
+import org.springframework.util.ObjectUtils;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -754,7 +755,10 @@ public class MatriculaIni  implements Serializable {
 					
 				}  
 				
-				status = dto.getStatus();
+				if (!ObjectUtils.isEmpty(dto.getStatus())) {
+					status = dto.getStatus();
+				}
+				
 				grupoEtnico = dto.getGrupoEtinico();
 				naturalidade = dto.getNaturalidade();
 				nacionalidade =  dto.getNacionalidade();
