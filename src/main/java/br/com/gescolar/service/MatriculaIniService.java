@@ -4,8 +4,9 @@ import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.Iterator;
+import java.util.Optional;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,17 +14,22 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import br.com.gescolar.cobranca.BoletoSicredi;
+import br.com.gescolar.cobranca.NossoNumeroSicredi;
 import br.com.gescolar.dto.AtivarMatrciulaDTO;
 import br.com.gescolar.dto.MatriculaDTO;
+import br.com.gescolar.model.Cnab;
 import br.com.gescolar.model.Contrato;
 import br.com.gescolar.model.MatriculaIni;
 import br.com.gescolar.model.Parcela;
+import br.com.gescolar.repository.CnabRepository;
 import br.com.gescolar.repository.ContratoRepository;
 import br.com.gescolar.repository.MatriculaIniRepository;
 import br.com.gescolar.repository.ParcelaRepository;
 import br.com.gescolar.types.StatusMatriculaEnum;
 
 @Service
+@Transactional
 public class MatriculaIniService {
 
 	@Autowired
@@ -32,6 +38,10 @@ public class MatriculaIniService {
 	private ContratoRepository contratoRepository;
 	@Autowired
 	private ParcelaRepository parcelaRepository;
+	@Autowired
+	private CnabRepository cnabRepository;
+	@Autowired
+	private BoletoSicredi boletoSicredi;
 	
 
 	public MatriculaDTO salvar(MatriculaDTO matriculaDTO) {
@@ -59,7 +69,8 @@ public class MatriculaIniService {
 				.findByNomeContaining(nome, pageable)
 				.map(MatriculaIni::parseDtoToDto);
 	}
-
+	
+	
 	public void ativarMatrciula(AtivarMatrciulaDTO ativarMatrciulaDTO) {
 		DateTimeFormatter formatters = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		LocalDate dateIni = LocalDate.parse(ativarMatrciulaDTO.getDtInicial(), formatters);
@@ -87,8 +98,24 @@ public class MatriculaIniService {
 			parcela.setValor(Double.valueOf(ativarMatrciulaDTO.getValor()));
 			parcela.setDataEmisao(date);
 			parcela.setDataVencimento(date.withDayOfMonth(Integer.valueOf(ativarMatrciulaDTO.getDiaVencimento())));
+			this.setNosoNumero(parcela);
+			parcela.setBoleto(boletoSicredi.gerarBoleto(parcela));
 			parcelaRepository.save(parcela);
 		}
+	}
+
+	private void setNosoNumero(Parcela parcela) {
+		Optional<Cnab> cOptional = cnabRepository.findById(1L);
+		if(cOptional.isEmpty()) return;
+		Cnab cnab = cOptional.get();
+		NossoNumeroSicredi nossoNumeroSicrediUtil = new NossoNumeroSicredi();
+		nossoNumeroSicrediUtil.gerarNossoNumero(cnab);
+		parcela.setNossoNumero(nossoNumeroSicrediUtil.getNossoNumero());
+		parcela.setDigitoNossoNumero(nossoNumeroSicrediUtil.getDigitoNossoNumero());
+		parcela.setSeuNumero(nossoNumeroSicrediUtil.getSeuNumero());
+		cnab.setSeqNossoNumero(cnab.getSeqNossoNumero() + 1);
+		cnab.setSeqSeuNumero(cnab.getSeqSeuNumero() + 1);
+		cnabRepository.save(cnab);
 	}
 
 	private Contrato criarContrato(AtivarMatrciulaDTO ativarMatrciulaDTO, LocalDate dateIni, LocalDate dateEnd,

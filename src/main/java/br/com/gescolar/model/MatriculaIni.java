@@ -9,6 +9,8 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,6 +24,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import br.com.gescolar.dto.MatriculaDTO;
 import br.com.gescolar.repository.listener.UrlFotoListener;
+import br.com.gescolar.types.ResponsavelFinanceiroEnum;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @EntityListeners(UrlFotoListener.class)
@@ -224,8 +227,58 @@ public class MatriculaIni  implements Serializable {
 	@Column(name="grau_parentesco_autorizado_5")
 	private String grauParentescoAutorizado5;
 	
+	@Enumerated(EnumType.STRING)
+	@Column(name="responsavel_financeiro")
+	private ResponsavelFinanceiroEnum responsavelFinanceiro ;
+	@Column(name="uf_responsavel_financeiro")
+	private String uf;
+	@Column(name="cidade_responsavel_financeiro")
+	private String cidade;
+	@Column(name="rua_responsavel_financeiro")
+	private String rua;
+	@Column(name="cep_responsavel_financeiro")
+	private String cep;
+	@Column(name="bairro_responsavel_financeiro")
+	private String bairro;
+	@Column(name="numero_responsavel_financeiro")
+	private String numero;
 	
-	
+	public String getUf() {
+		return uf;
+	}
+	public void setUf(String uf) {
+		this.uf = uf;
+	}
+	public String getCidade() {
+		return cidade;
+	}
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
+	}
+	public String getRua() {
+		return rua;
+	}
+	public void setRua(String rua) {
+		this.rua = rua;
+	}
+	public String getCep() {
+		return cep;
+	}
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
+	public String getBairro() {
+		return bairro;
+	}
+	public void setBairro(String bairro) {
+		this.bairro = bairro;
+	}
+	public String getNumero() {
+		return numero;
+	}
+	public void setNumero(String numero) {
+		this.numero = numero;
+	}
 	public Long getCodigo() {
 		return codigo;
 	}
@@ -676,7 +729,12 @@ public class MatriculaIni  implements Serializable {
 		return serialVersionUID;
 	}
 	
-	
+	public ResponsavelFinanceiroEnum getResponsavelFinanceiro() {
+		return responsavelFinanceiro;
+	}
+	public void setResponsavelFinanceiro(ResponsavelFinanceiroEnum responsavelFinanceiro) {
+		this.responsavelFinanceiro = responsavelFinanceiro;
+	}
 	public void parseDtoToModel(MatriculaDTO dto) {
 				
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");	

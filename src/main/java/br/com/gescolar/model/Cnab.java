@@ -60,7 +60,29 @@ public class Cnab  implements Serializable {
 	@Column(name="seq_seu_numero")
 	private Integer seqSeuNumero;
 	
+	@Column(name="local_pagamento_boleto")
+	private String localPagamentoBoleto;
 	
+	@Column(name="instrucao_boleto")
+	private String instrucaoBoleto;
+	
+	
+
+	public String getLocalPagamentoBoleto() {
+		return localPagamentoBoleto;
+	}
+
+	public void setLocalPagamentoBoleto(String localPagamentoBoleto) {
+		this.localPagamentoBoleto = localPagamentoBoleto;
+	}
+
+	public String getInstrucaoBoleto() {
+		return instrucaoBoleto;
+	}
+
+	public void setInstrucaoBoleto(String instrucaoBoleto) {
+		this.instrucaoBoleto = instrucaoBoleto;
+	}
 
 	public String getPosto() {
 		return posto;

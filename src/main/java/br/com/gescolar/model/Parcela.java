@@ -3,7 +3,6 @@ package br.com.gescolar.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,8 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -57,6 +54,15 @@ public class Parcela  implements Serializable {
 	
 	@Column(name="valor_juros")
 	private Double valorJuros;
+	
+	@Column(name="nosso_numero")
+	private String nossoNumero;
+	
+	@Column(name="digito_nosso_numero")
+	private String digitoNossoNumero;
+	
+	@Column(name="seu_numero")
+	private String seuNumero;
 	
 	@Column(name="boleto")
 	private byte[] boleto;
@@ -131,6 +137,30 @@ public class Parcela  implements Serializable {
 
 	public void setBoleto(byte[] boleto) {
 		this.boleto = boleto;
+	}
+
+	public String getNossoNumero() {
+		return nossoNumero;
+	}
+
+	public void setNossoNumero(String nossoNumero) {
+		this.nossoNumero = nossoNumero;
+	}
+
+	public String getDigitoNossoNumero() {
+		return digitoNossoNumero;
+	}
+
+	public void setDigitoNossoNumero(String digitoNossoNumero) {
+		this.digitoNossoNumero = digitoNossoNumero;
+	}
+
+	public String getSeuNumero() {
+		return seuNumero;
+	}
+
+	public void setSeuNumero(String seuNumero) {
+		this.seuNumero = seuNumero;
 	}
 
 	

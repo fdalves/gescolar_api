@@ -2,8 +2,10 @@ package br.com.gescolar.cobranca;
 
 import java.io.File;
 import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
+import java.util.Optional;
 
 import org.jrimum.bopepo.BancosSuportados;
 import org.jrimum.bopepo.Boleto;
@@ -22,34 +24,46 @@ import org.jrimum.domkee.financeiro.banco.febraban.TipoDeCobranca;
 import org.jrimum.domkee.financeiro.banco.febraban.TipoDeTitulo;
 import org.jrimum.domkee.financeiro.banco.febraban.Titulo;
 import org.jrimum.domkee.financeiro.banco.febraban.Titulo.Aceite;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+import br.com.gescolar.model.Cnab;
+import br.com.gescolar.model.MatriculaIni;
+import br.com.gescolar.model.Parcela;
+import br.com.gescolar.repository.CnabRepository;
+import br.com.gescolar.types.ResponsavelFinanceiroEnum;
+
+@Component
 public class BoletoSicredi {
 
-	public static void main(String[] args) throws Exception {
-		ContaBancaria contaBancaria = crieContaBancaria("116", "1671");
-		Cedente cedente = crieCedente("Centro de Educacao Infantil MA","05854255000135", contaBancaria);
-		Sacado sacado = crieSacado("Francisco Alves", "84021225072", "RS", "Gravataí", "94050010", "cohab a",
-				"Jaraguá do sul", "131");
-		
-		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-		Date date = new Date();
-		Date dateVenc = new Date();
-		
-		date = dateFormat.parse("20/06/2021");
-		dateVenc = dateFormat.parse("25/06/2021");
-		
-		Titulo titulo = crieTitulo(cedente, sacado, "00001", "21200001", "0", BigDecimal.valueOf(1100d), date, dateVenc, "5");
-		Boleto boleto  = crieBoleto(titulo);
-		execute(boleto);
+	@Autowired
+	private CnabRepository cnabRepository;
+	private Cnab cnab;
+	
+	public BoletoSicredi() {
+		super();
 	}
 
-	public static Cedente crieCedente(String nome, String cnpj, ContaBancaria contaBancaria) {
+	public byte[] gerarBoleto(Parcela parcela)  {
+		Optional<Cnab> cOptional = cnabRepository.findById(1L);
+		if(cOptional.isEmpty()) return new byte[0];
+		cnab = cOptional.get();
+		
+		ContaBancaria contaBancaria = crieContaBancaria(this.cnab.getAgencia(), this.cnab.getConta());
+		Cedente cedente = crieCedente(this.cnab.getNome(), this.cnab.getCpfCnpj() , contaBancaria);
+		Sacado sacado = crieSacado(parcela.getContrato().getMatricula());
+		Titulo titulo = crieTitulo(cedente, sacado, parcela);
+		Boleto boleto  = crieBoleto(titulo);
+		return execute(boleto);
+	}
+
+	private Cedente crieCedente(String nome, String cnpj, ContaBancaria contaBancaria) {
 		Cedente cedente = new Cedente(nome, cnpj);
 		cedente.addContaBancaria(contaBancaria);
 		return cedente;
 	}
 
-	public static ContaBancaria crieContaBancaria(String agencia, String conta) {
+	private ContaBancaria crieContaBancaria(String agencia, String conta) {
 		ContaBancaria contaBancaria = new ContaBancaria();
 		contaBancaria.setBanco(BancosSuportados.BANCO_SICREDI.create());
 		contaBancaria.setAgencia(new Agencia(Integer.valueOf(agencia)));
@@ -58,50 +72,63 @@ public class BoletoSicredi {
 		return contaBancaria;
 	}
 
-	public static Sacado crieSacado(String nome, String cpf, String uf, String cidade, String cep, String bairo,
-			String rua, String numero) {
-		Sacado sacado = new Sacado(nome, cpf);
-		Endereco endereco = new Endereco();
-		endereco.setUF(UnidadeFederativa.valueOf(uf));
-		endereco.setLocalidade(cidade);
-		endereco.setCep(cep);
-		endereco.setBairro(bairo);
-		endereco.setLogradouro(rua);
-		endereco.setNumero(numero);
-		sacado.addEndereco(endereco);
+	private Sacado crieSacado(MatriculaIni matriculaIni) {
+		Sacado sacado = null;
+		if (matriculaIni.getResponsavelFinanceiro() == ResponsavelFinanceiroEnum.PAI) {
+			sacado = new Sacado(matriculaIni.getNomePai(), matriculaIni.getCpfPai());
+		} else if (matriculaIni.getResponsavelFinanceiro() == ResponsavelFinanceiroEnum.MAE) {
+			sacado = new Sacado(matriculaIni.getNomePai(), matriculaIni.getCpfPai());
+		} else {
+			sacado = new Sacado(matriculaIni.getNomeResposavel(), matriculaIni.getCpfResposavel());
+		}
+		/*
+		 * Endereco endereco = new Endereco();
+		 * endereco.setUF(UnidadeFederativa.valueOf(matriculaIni.getUf()));
+		 * endereco.setLocalidade(matriculaIni.getCidade());
+		 * endereco.setCep(matriculaIni.getCep());
+		 * endereco.setBairro(matriculaIni.getBairro());
+		 * endereco.setLogradouro(matriculaIni.getRua());
+		 * endereco.setNumero(matriculaIni.getNumero()); sacado.addEndereco(endereco);
+		 */
 		return sacado;
 	}
 
-	public static Titulo crieTitulo(Cedente cedente, Sacado sacado, String numeroDodocumento, String nossoNumero, String digitoNossoNumero, BigDecimal valor, Date dataDoc, Date dataVen, String posto) {
+	private Titulo crieTitulo(Cedente cedente, Sacado sacado, Parcela parcela) {
 		ContaBancaria contaBancariaDoCedente = cedente.getContasBancarias().iterator().next();
 		Titulo titulo = null;
 		titulo = new Titulo(contaBancariaDoCedente, sacado, cedente);
-		titulo.setNumeroDoDocumento(numeroDodocumento);
-		titulo.setNossoNumero(nossoNumero);
-		//titulo.setMora(BigDecimal.valueOf(2d));
-		titulo.setDigitoDoNossoNumero(digitoNossoNumero);
-		titulo.setValor(valor);
-		titulo.setDataDoDocumento(dataDoc);
-		titulo.setDataDoVencimento(dataVen);
+		titulo.setNumeroDoDocumento(parcela.getSeuNumero());
+		titulo.setNossoNumero(parcela.getNossoNumero());
+		titulo.setMora(BigDecimal.valueOf(parcela.getValorJuros()));
+		titulo.setDigitoDoNossoNumero(parcela.getDigitoNossoNumero());
+		titulo.setValor(BigDecimal.valueOf(parcela.getValor()));
+		titulo.setDataDoDocumento(asDate(parcela.getDataEmisao()));
+		titulo.setDataDoVencimento(asDate(parcela.getDataVencimento()));
 		titulo.setTipoDeDocumento(TipoDeTitulo.DM_DUPLICATA_MERCANTIL);
 		titulo.setAceite(Aceite.A);
-		titulo.setParametrosBancarios(new ParametrosBancariosMap(ParametroBancoSicredi.POSTO_DA_AGENCIA, Integer.valueOf(posto)));
+		titulo.setParametrosBancarios(new ParametrosBancariosMap(ParametroBancoSicredi.POSTO_DA_AGENCIA, Integer.valueOf(cnab.getPosto())));
 		return titulo;
 	}
 	
-	public static Boleto crieBoleto(Titulo titulo) {
+	private Boleto crieBoleto(Titulo titulo) {
 		Boleto boleto = new Boleto(titulo);
-		boleto.setLocalPagamento("Pagável preferencialmente em canais da sua instituição financeira");
-		boleto.setInstrucao1("Após vencimento cobrar multa de 2%.");
+		boleto.setLocalPagamento(cnab.getLocalPagamentoBoleto());
+		boleto.setInstrucao1(cnab.getInstrucaoBoleto());
 		return boleto;
 	}
 	
 	
-	private static void execute(Boleto boleto) {
+	private static byte[] execute(Boleto boleto) {
 		BoletoViewer viewer = new BoletoViewer(boleto);
-		File boletoPDF = viewer.getPdfAsFile("BOLETO_" + boleto.getClass().getSimpleName().toUpperCase() + ".PDF");
-		mostreBoletoNaTela(boletoPDF);
+		//File boletoPDF = viewer.getPdfAsFile("BOLETO_" + boleto.getClass().getSimpleName().toUpperCase() + ".PDF");
+		//mostreBoletoNaTela(boletoPDF);
+		return viewer.getPdfAsByteArray();
 	}
+	
+	
+	private Date asDate(LocalDate localDate) {
+	    return Date.from(localDate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+	  }
 	
 	public static void mostreBoletoNaTela(File arquivoBoleto) {
 		

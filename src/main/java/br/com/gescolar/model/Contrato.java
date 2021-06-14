@@ -2,6 +2,7 @@ package br.com.gescolar.model;
 
 
 import java.io.Serializable;
+import java.sql.Clob;
 import java.time.LocalDate;
 import java.util.Date;
 
