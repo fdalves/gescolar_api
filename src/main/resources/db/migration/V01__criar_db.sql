@@ -521,6 +521,8 @@ CREATE TABLE IF NOT EXISTS `gescolar`.`cnab` (
   `posto` VARCHAR(100) NOT NULL,
   `seq_nosso_numero` INT(8) NOT NULL,
   `seq_seu_numero` INT(8) NOT NULL,
+  `local_pagamento_boleto` VARCHAR(100) NULL DEFAULT NULL,
+  `instrucao_boleto` VARCHAR(100) NULL DEFAULT NULL,
 PRIMARY KEY (`codigo`))
 ENGINE = InnoDB
 AUTO_INCREMENT = 1
@@ -543,7 +545,9 @@ CREATE TABLE IF NOT EXISTS `gescolar`.`contrato` (
   `nr_dia_vencimento` INT(6),
   `valor` DECIMAL(6,2),
   `valor_juros` DECIMAL(6,2),
-  `contrato` BLOB,
+  `contrato` LONGBLOB,
+  `arquivo_cnab` LONGTEXT,
+  `status_arquivo_cnab` VARCHAR(100) NULL DEFAULT NULL,
  PRIMARY KEY (`codigo`),
   INDEX `fk_codigo_matricula_idx` (`codigo_matricula` ASC),
   CONSTRAINT `fk_codigo_matricula`
@@ -569,7 +573,10 @@ CREATE TABLE IF NOT EXISTS `gescolar`.`parcela` (
   `nr_parcela` INT(6),
   `valor` DECIMAL(6,2),
   `valor_juros` DECIMAL(6,2),
-  `boleto` BLOB,
+  `boleto` LONGBLOB,
+  `nosso_numero` VARCHAR(100) NULL DEFAULT NULL,
+  `digito_nosso_numero` VARCHAR(100) NULL DEFAULT NULL,
+  `seu_numero` VARCHAR(100) NULL DEFAULT NULL,
  PRIMARY KEY (`codigo`),
   INDEX `fk_codigo_contrato_idx` (`codigo_contrato` ASC),
   CONSTRAINT `fk_codigo_contrato`
@@ -676,6 +683,14 @@ CREATE TABLE IF NOT EXISTS `gescolar`.`matricula_ini` (
   nome_autorizado_5 VARCHAR(100) NULL DEFAULT NULL,
   rg_autorizado_5 VARCHAR(100) NULL DEFAULT NULL,
   grau_parentesco_autorizado_5 VARCHAR(100) NULL DEFAULT NULL,
+  
+  responsavel_financeiro VARCHAR(100) NULL DEFAULT NULL,	
+  uf_responsavel_financeiro VARCHAR(100) NULL DEFAULT NULL,
+  cidade_responsavel_financeiro VARCHAR(100) NULL DEFAULT NULL,
+  rua_responsavel_financeiro VARCHAR(100) NULL DEFAULT NULL,
+  cep_responsavel_financeiro VARCHAR(100) NULL DEFAULT NULL,
+  bairro_responsavel_financeiro VARCHAR(100) NULL DEFAULT NULL,
+  numero_responsavel_financeiro VARCHAR(100) NULL DEFAULT NULL,
   
 PRIMARY KEY (`codigo`))
 ENGINE = InnoDB

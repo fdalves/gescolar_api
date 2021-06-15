@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -14,6 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import br.com.gescolar.cobranca.ArquivoCnab240Sicredi;
 import br.com.gescolar.cobranca.BoletoSicredi;
 import br.com.gescolar.cobranca.NossoNumeroSicredi;
 import br.com.gescolar.dto.AtivarMatrciulaDTO;
@@ -42,6 +45,8 @@ public class MatriculaIniService {
 	private CnabRepository cnabRepository;
 	@Autowired
 	private BoletoSicredi boletoSicredi;
+	@Autowired
+	private ArquivoCnab240Sicredi arquivoCnab240Sicredi;
 	
 
 	public MatriculaDTO salvar(MatriculaDTO matriculaDTO) {
@@ -81,13 +86,15 @@ public class MatriculaIniService {
 			     YearMonth.from(dateEnd)
 			);
 			
-		Contrato contrato = criarContrato(ativarMatrciulaDTO, dateIni, dateEnd, monthsBetween);
-		gerarParcelas(ativarMatrciulaDTO, dateIni, monthsBetween, contrato);
-		
+		Contrato contrato = this.criarContrato(ativarMatrciulaDTO, dateIni, dateEnd, monthsBetween);
+		List<Parcela> parcelas =  this.gerarParcelas(ativarMatrciulaDTO, dateIni, monthsBetween, contrato);
+		contrato.setArquivoCnab(arquivoCnab240Sicredi.gerarArquivo(parcelas));
+		contratoRepository.save(contrato);
 	}
 
-	private void gerarParcelas(AtivarMatrciulaDTO ativarMatrciulaDTO, LocalDate dateIni, Long monthsBetween,
+	private List<Parcela> gerarParcelas(AtivarMatrciulaDTO ativarMatrciulaDTO, LocalDate dateIni, Long monthsBetween,
 			Contrato contrato) {
+		List<Parcela> parcelas = new ArrayList<>();
 		LocalDate date = LocalDate.of(dateIni.getYear(), dateIni.getMonth(), Integer.valueOf(ativarMatrciulaDTO.getDiaBoleto()));
 		for (int i = 1; i <= monthsBetween; i++) {
 			Parcela parcela = new Parcela();
@@ -99,9 +106,10 @@ public class MatriculaIniService {
 			parcela.setDataVencimento(date.withDayOfMonth(Integer.valueOf(ativarMatrciulaDTO.getDiaVencimento())));
 			this.setNosoNumero(parcela);
 			parcela.setBoleto(boletoSicredi.gerarBoleto(parcela));
-			parcelaRepository.save(parcela);
+			parcelas.add(parcelaRepository.save(parcela));
 			date = date.plusMonths(1);
 		}
+		return parcelas;
 	}
 
 	private void setNosoNumero(Parcela parcela) {

@@ -11,8 +11,6 @@ import org.jrimum.bopepo.BancosSuportados;
 import org.jrimum.bopepo.Boleto;
 import org.jrimum.bopepo.parametro.ParametroBancoSicredi;
 import org.jrimum.bopepo.view.BoletoViewer;
-import org.jrimum.domkee.comum.pessoa.endereco.Endereco;
-import org.jrimum.domkee.comum.pessoa.endereco.UnidadeFederativa;
 import org.jrimum.domkee.financeiro.banco.ParametrosBancariosMap;
 import org.jrimum.domkee.financeiro.banco.febraban.Agencia;
 import org.jrimum.domkee.financeiro.banco.febraban.Carteira;

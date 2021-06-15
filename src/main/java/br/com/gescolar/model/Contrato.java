@@ -2,9 +2,7 @@ package br.com.gescolar.model;
 
 
 import java.io.Serializable;
-import java.sql.Clob;
 import java.time.LocalDate;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,8 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -67,6 +63,12 @@ public class Contrato  implements Serializable {
 	
 	@Column(name="contrato")
 	private byte[] contratoPdf;
+	
+	@Column(name="arquivo_cnab")
+	private String arquivoCnab;
+	
+	@Column(name="status_arquivo_cnab")
+	private String statusArquivoCnab;
 
 	public Long getCodigo() {
 		return codigo;
@@ -154,6 +156,22 @@ public class Contrato  implements Serializable {
 
 	public void setContratoPdf(byte[] contratoPdf) {
 		this.contratoPdf = contratoPdf;
+	}
+
+	public String getArquivoCnab() {
+		return arquivoCnab;
+	}
+
+	public void setArquivoCnab(String arquivoCnab) {
+		this.arquivoCnab = arquivoCnab;
+	}
+
+	public String getStatusArquivoCnab() {
+		return statusArquivoCnab;
+	}
+
+	public void setStatusArquivoCnab(String statusArquivoCnab) {
+		this.statusArquivoCnab = statusArquivoCnab;
 	}
 
 	

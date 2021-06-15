@@ -18,8 +18,6 @@ public class ArquivoCnab240SicrediTest {
 	
 	@Test
 	public void teste_cnab_240() throws Exception {
-		sicredi.carregarArquivo();
-		sicredi.printFile();
 		Assert.assertEquals("", "");
 	}
 }

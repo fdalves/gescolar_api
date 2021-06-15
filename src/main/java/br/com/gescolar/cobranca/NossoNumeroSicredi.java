@@ -25,6 +25,7 @@ public class NossoNumeroSicredi {
 		int sequencial = cnab.getSeqNossoNumero();
 
 		String sequencialString = getSeqString(sequencial, 5);
+		seuNumero = sequencialString;
 		String vlr = agencia + posto + conta + ano + byteStr + sequencialString;
 		int soma = 0;
 

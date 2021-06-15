@@ -26,7 +26,8 @@ INSERT INTO `gescolar`.`tipo_usuario_permissao` (`codigo_tipo_usuario`, `codigo_
 INSERT INTO `gescolar`.`tipo_usuario_permissao` (`codigo_tipo_usuario`, `codigo_permissao`) VALUES ('2', '2');
 INSERT INTO `gescolar`.`tipo_usuario_permissao` (`codigo_tipo_usuario`, `codigo_permissao`) VALUES ('3', '3');
 
-INSERT INTO `gescolar`.`cnab` (`codigo`, `tipo_pessoa`, `cpf_cnpj`, `agencia`, `conta`, `nome`, `endereco`, `cep`, `cidade`, `uf`, `digito_conta`, `posto`, `seq_nosso_numero`, `seq_seu_numero`) VALUES ('1', '2', '05854255000135', '0116', '01671', 'Centro de Educacao Infantil MA', ' ', '94015070', 'GRAVATAI', 'RS', '8', '05', 1, 1);
+INSERT INTO `gescolar`.`cnab` (`codigo`, `tipo_pessoa`, `cpf_cnpj`, `agencia`, `conta`, `nome`, `endereco`, `cep`, `cidade`, `uf`, `digito_conta`, `posto`, `seq_nosso_numero`, `seq_seu_numero` , `local_pagamento_boleto`, `instrucao_boleto` )
+ VALUES ('1', '2', '05854255000135', '0116', '01671', 'Centro de Educacao Infantil MA', ' ', '94015070', 'GRAVATAI', 'RS', '8', '05', 1, 1, 'Pagável preferencialmente em canais da sua instituição financeira', 'Após vencimento cobrar multa de 2%.');
 
 
 
