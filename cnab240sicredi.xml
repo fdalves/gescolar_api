@@ -70,7 +70,7 @@
 		<campos tpoCampo="ALAFANUMERICO" posicao="10" posIni="24"  posFim="35"  alinhadoDireita="true" zeroEsquerda="true"  valor=""  />
 		<campos tpoCampo="ALAFANUMERICO" posicao="11" posIni="36"  posFim="36"  valor=""  />
 		<campos tpoCampo="EM_BRACO" 	 posicao="12" posIni="37"  posFim="37"  valor=" " />
-		<campos tpoCampo="ALAFANUMERICO" posicao="13" posIni="38"  posFim="57"  valor=""  />
+		<campos tpoCampo="ALAFANUMERICO" posicao="13" posIni="38"  posFim="57"  valor="" />
 		<campos tpoCampo="ALAFANUMERICO" posicao="14" posIni="58"  posFim="58"  valor="1"  />
 		<campos tpoCampo="ALAFANUMERICO" posicao="15" posIni="59"  posFim="59"  valor="1"  />
 		<campos tpoCampo="ALAFANUMERICO" posicao="16" posIni="60"  posFim="60"  valor="1"  />

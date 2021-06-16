@@ -42,13 +42,5 @@ public class Linha implements Cloneable {
 		this.posicao = posicao;
 	}
 	
-	@Override
-	public Linha clone() {
-	    try {
-	        return (Linha) super.clone();
-	    } catch (CloneNotSupportedException e) {
-	        return new Linha();
-	    }
-	}
 	
 }

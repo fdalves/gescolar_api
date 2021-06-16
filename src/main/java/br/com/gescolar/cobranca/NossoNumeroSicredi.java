@@ -75,14 +75,16 @@ public class NossoNumeroSicredi {
 			soma = soma + (valor * fator);
 		}
 
-		double mod11 = (soma / 11d) * 11d;
-		Double result = 11 - (soma - mod11);
+		Double r1 = (soma / 11d);
+		int r2 = r1.intValue() * 11;
+		int r3 =  soma - r2;
+		int result = 11 - r3;
 
 		if (result > 9)
-			result = 0d;
+			result = 0;
 		
 		this.nossoNumero = vlr.substring(11, 19);
-		this.digitoNossoNumero = String.valueOf(result.intValue());
+		this.digitoNossoNumero = String.valueOf(result);
 		return nossoNumero + digitoNossoNumero;
 	}
 

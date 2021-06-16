@@ -10,6 +10,7 @@ import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
@@ -24,6 +25,10 @@ public abstract class ArquivoCnab implements ArquivoTemplate {
 	private int nrLinha = 0;
 
 	ArquivoCnab() {
+		init();
+	}
+	
+	public void init() {
 		arquivo = new Arquivo();
 		arquivo.setLinhas(new ArrayList<>());
 		this.carregarLayout();
@@ -49,8 +54,15 @@ public abstract class ArquivoCnab implements ArquivoTemplate {
 		Optional<Linha> linha = arquivolayout.getLinhas().stream().filter(l -> l.getLinhaEnum().equals(tipoLinhaEnum))
 				.findFirst();
 		if (linha.isPresent()) {
-			Linha linhaAux = linha.get().clone();
-			arquivo.getLinhas().add(linhaAux);
+			Linha linhaAux = new Linha();
+			BeanUtils.copyProperties(linha.get(), linhaAux);
+			ArrayList<Campo> campos = new ArrayList<>(); 
+			for (Campo campo :	linha.get().getCampos()) { 
+				Campo campoAux = new Campo();
+				BeanUtils.copyProperties(campo, campoAux); 
+				campos.add(campoAux); 
+			}
+			linhaAux.setCampos(campos);
 			nrLinha++;
 			linhaAux.setPosicao(nrLinha);
 			return linhaAux;
