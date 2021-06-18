@@ -76,7 +76,7 @@ public class ArquivoCnab240Sicredi extends ArquivoCnab {
 			super.setValor(linhaSeguimentoP, 13, parcela.getNossoNumero() + parcela.getDigitoNossoNumero());
 			super.setValor(linhaSeguimentoP, 19, parcela.getSeuNumero());
 			super.setValor(linhaSeguimentoP, 20, formatData(parcela.getDataVencimento()));
-			super.setValor(linhaSeguimentoP, 21, parcela.getValor().toString().replace(".", "")+"0000");
+			super.setValor(linhaSeguimentoP, 21, parcela.getValor().toString().replace(".", "") + "0");
 			super.setValor(linhaSeguimentoP, 26, formatData(parcela.getDataEmisao()));
 			super.setValor(linhaSeguimentoP, 27, "2");
 			super.setValor(linhaSeguimentoP, 28, formatData(parcela.getDataVencimento().plusDays(1)));
