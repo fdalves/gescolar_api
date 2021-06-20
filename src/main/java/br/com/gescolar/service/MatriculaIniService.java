@@ -23,6 +23,7 @@ import br.com.gescolar.cobranca.NossoNumeroSicredi;
 import br.com.gescolar.dto.AtivarMatrciulaDTO;
 import br.com.gescolar.dto.BoletoDTO;
 import br.com.gescolar.dto.MatriculaDTO;
+import br.com.gescolar.exception.GescolarExcption;
 import br.com.gescolar.model.Cnab;
 import br.com.gescolar.model.Contrato;
 import br.com.gescolar.model.MatriculaIni;
@@ -84,18 +85,43 @@ public class MatriculaIniService {
 		LocalDate dateIni = LocalDate.parse(ativarMatrciulaDTO.getDtInicial(), formatters);
 		LocalDate dateEnd = LocalDate.parse(ativarMatrciulaDTO.getDtFinal(), formatters);
 		
-		Long monthsBetween = ChronoUnit.MONTHS.between(
+		this.validarDatasMatricula(dateIni, dateEnd, formatters);
+		
+		Long duracaoContrato = ChronoUnit.MONTHS.between(
 			     YearMonth.from(dateIni), 
 			     YearMonth.from(dateEnd)
 			);
-			
+		
+		this.validaDuracaoContrato(duracaoContrato);
+		
 		MatriculaIni matriculaIni = this.matriculaIniRepository.getOne(Long.valueOf(ativarMatrciulaDTO.getCodigo()));
-		Contrato contrato = this.criarContrato(ativarMatrciulaDTO, dateIni, dateEnd, monthsBetween, matriculaIni);
-		List<Parcela> parcelas =  this.gerarParcelas(ativarMatrciulaDTO, dateIni, monthsBetween, contrato, matriculaIni);
+		Contrato contrato = this.criarContrato(ativarMatrciulaDTO, dateIni, dateEnd, duracaoContrato, matriculaIni);
+		List<Parcela> parcelas =  this.gerarParcelas(ativarMatrciulaDTO, dateIni, duracaoContrato, contrato, matriculaIni);
 		contrato.setArquivoCnab(arquivoCnab240Sicredi.gerarArquivo(parcelas));
 		contratoRepository.save(contrato);
 		matriculaIni.setStatus(StatusMatriculaEnum.ATIVA.name());
 		matriculaIniRepository.save(matriculaIni);
+	}
+
+	private void validaDuracaoContrato(Long duracaoContrato) {
+		if (duracaoContrato > 12) {
+			throw new GescolarExcption("Periodo do contrado só deve ter no maximo 1 ano de duração.");
+		}
+		
+		if (duracaoContrato < 1 ) {
+			throw new GescolarExcption("Periodo do contrado deve ter minimo 1 mes de duração.");
+		}
+		
+	}
+
+	private void validarDatasMatricula(LocalDate dateIni, LocalDate dateEnd, DateTimeFormatter formatters) {
+		LocalDate date = LocalDate.parse(formatters.format(LocalDate.now().plusMonths(1)), formatters);	
+		
+		if (dateIni.isBefore(date))
+			throw new GescolarExcption("Data incial da matrícula deve ser maior que data atual");
+		if (dateIni.isAfter(dateEnd))
+			throw new GescolarExcption("Data incial da matrícula deve ser menor que data final");
+		
 	}
 
 	private List<Parcela> gerarParcelas(AtivarMatrciulaDTO ativarMatrciulaDTO, LocalDate dateIni, Long monthsBetween,

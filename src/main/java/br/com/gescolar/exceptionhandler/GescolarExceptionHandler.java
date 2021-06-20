@@ -1,5 +1,6 @@
 package br.com.gescolar.exceptionhandler;
 
+import java.time.DateTimeException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -54,6 +55,14 @@ public class GescolarExceptionHandler extends ResponseEntityExceptionHandler {
 	@ExceptionHandler({ GescolarExcption.class })
 	public ResponseEntity<Object> handleCGescolarExcption(GescolarExcption ex, WebRequest request) {
 		String mensagemUsuario = ex.getMessage();
+		String mensagemDesenvolvedor = ex.toString();
+		List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
+		return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+	}
+	
+	@ExceptionHandler({ DateTimeException.class })
+	public ResponseEntity<Object> handleDateTimeException(DateTimeException ex, WebRequest request) {
+		String mensagemUsuario = "Data informada é invalida";
 		String mensagemDesenvolvedor = ex.toString();
 		List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
 		return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
