@@ -7,6 +7,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -20,6 +21,7 @@ import br.com.gescolar.cobranca.ArquivoCnab240Sicredi;
 import br.com.gescolar.cobranca.BoletoSicredi;
 import br.com.gescolar.cobranca.NossoNumeroSicredi;
 import br.com.gescolar.dto.AtivarMatrciulaDTO;
+import br.com.gescolar.dto.BoletoDTO;
 import br.com.gescolar.dto.MatriculaDTO;
 import br.com.gescolar.model.Cnab;
 import br.com.gescolar.model.Contrato;
@@ -30,6 +32,7 @@ import br.com.gescolar.repository.ContratoRepository;
 import br.com.gescolar.repository.MatriculaIniRepository;
 import br.com.gescolar.repository.ParcelaRepository;
 import br.com.gescolar.types.StatusMatriculaEnum;
+import br.com.gescolar.types.StatusParcelaEnum;
 
 @Service
 @Transactional
@@ -86,19 +89,23 @@ public class MatriculaIniService {
 			     YearMonth.from(dateEnd)
 			);
 			
-		Contrato contrato = this.criarContrato(ativarMatrciulaDTO, dateIni, dateEnd, monthsBetween);
-		List<Parcela> parcelas =  this.gerarParcelas(ativarMatrciulaDTO, dateIni, monthsBetween, contrato);
+		MatriculaIni matriculaIni = this.matriculaIniRepository.getOne(Long.valueOf(ativarMatrciulaDTO.getCodigo()));
+		Contrato contrato = this.criarContrato(ativarMatrciulaDTO, dateIni, dateEnd, monthsBetween, matriculaIni);
+		List<Parcela> parcelas =  this.gerarParcelas(ativarMatrciulaDTO, dateIni, monthsBetween, contrato, matriculaIni);
 		contrato.setArquivoCnab(arquivoCnab240Sicredi.gerarArquivo(parcelas));
 		contratoRepository.save(contrato);
+		matriculaIni.setStatus(StatusMatriculaEnum.ATIVA.name());
+		matriculaIniRepository.save(matriculaIni);
 	}
 
 	private List<Parcela> gerarParcelas(AtivarMatrciulaDTO ativarMatrciulaDTO, LocalDate dateIni, Long monthsBetween,
-			Contrato contrato) {
+			Contrato contrato, MatriculaIni matriculaIni) {
 		List<Parcela> parcelas = new ArrayList<>();
 		LocalDate date = LocalDate.of(dateIni.getYear(), dateIni.getMonth(), Integer.valueOf(ativarMatrciulaDTO.getDiaBoleto()));
 		for (int i = 1; i <= monthsBetween; i++) {
 			Parcela parcela = new Parcela();
 			parcela.setContrato(contrato);
+			parcela.setStatus(StatusParcelaEnum.EM_ABERTO);
 			parcela.setNrParcela(i);
 			parcela.setValorJuros(Double.valueOf(ativarMatrciulaDTO.getJuros()));
 			parcela.setValor(Double.valueOf(ativarMatrciulaDTO.getValor()));
@@ -106,11 +113,13 @@ public class MatriculaIniService {
 			parcela.setDataVencimento(date.withDayOfMonth(Integer.valueOf(ativarMatrciulaDTO.getDiaVencimento())));
 			this.setNosoNumero(parcela);
 			parcela.setBoleto(boletoSicredi.gerarBoleto(parcela));
+			parcela.setNomeBoleto(matriculaIni.getNome().replace(" ", "_") + "_" + date.getMonthValue() +  "_" + date.getYear() + ".pdf");
 			parcelas.add(parcelaRepository.save(parcela));
 			date = date.plusMonths(1);
 		}
 		return parcelas;
 	}
+
 
 	private void setNosoNumero(Parcela parcela) {
 		Optional<Cnab> cOptional = cnabRepository.findById(1L);
@@ -127,8 +136,7 @@ public class MatriculaIniService {
 	}
 
 	private Contrato criarContrato(AtivarMatrciulaDTO ativarMatrciulaDTO, LocalDate dateIni, LocalDate dateEnd,
-			Long monthsBetween) {
-		MatriculaIni matriculaIni = this.matriculaIniRepository.getOne(Long.valueOf(ativarMatrciulaDTO.getCodigo()));
+			Long monthsBetween, MatriculaIni matriculaIni) {
 		Contrato contrato = new Contrato();
 		contrato.setAtivo(true);
 		contrato.setDataIni(dateIni);
@@ -141,5 +149,13 @@ public class MatriculaIniService {
 		contrato.setNrParcela(monthsBetween.intValue());
 		return contratoRepository.save(contrato);
 	}
+
+	public List<BoletoDTO> buscarBoletos(Long codigo) {
+		return parcelaRepository.boletosByMatricula(codigo).
+				stream()
+				.map(Parcela::parseBoletoDTO)
+				.collect(Collectors.toList());
+	}
+
 
 }

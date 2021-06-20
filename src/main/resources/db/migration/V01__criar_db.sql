@@ -577,6 +577,7 @@ CREATE TABLE IF NOT EXISTS `gescolar`.`parcela` (
   `nosso_numero` VARCHAR(100) NULL DEFAULT NULL,
   `digito_nosso_numero` VARCHAR(100) NULL DEFAULT NULL,
   `seu_numero` VARCHAR(100) NULL DEFAULT NULL,
+  `nome_boleto` VARCHAR(100) NULL DEFAULT NULL,
  PRIMARY KEY (`codigo`),
   INDEX `fk_codigo_contrato_idx` (`codigo_contrato` ASC),
   CONSTRAINT `fk_codigo_contrato`

@@ -1,12 +1,17 @@
 package br.com.gescolar.resource;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,11 +21,15 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.gescolar.dto.AtivarMatrciulaDTO;
+import br.com.gescolar.dto.BoletoDTO;
 import br.com.gescolar.dto.MatriculaDTO;
 import br.com.gescolar.event.RecursoCriadoEvent;
+import br.com.gescolar.model.Parcela;
+import br.com.gescolar.repository.ParcelaRepository;
 import br.com.gescolar.service.MatriculaIniService;
 
 @RestController
@@ -29,8 +38,8 @@ public class MatriculaIniResource {
 
 	@Autowired
 	private MatriculaIniService matriculaIniService; 
-	
-
+	@Autowired
+	private ParcelaRepository parcelaRepository; 
 	@Autowired
 	private ApplicationEventPublisher publisher;
 
@@ -68,5 +77,26 @@ public class MatriculaIniResource {
 	        Pageable pageable) {
 		return matriculaIniService.findByNomeContaining(nome, pageable);
 	}
+	
+	
+	@GetMapping("/boletos/{codigo}")
+	public ResponseEntity<List<BoletoDTO>> buscarBoletos(@PathVariable Long codigo) {
+		List<BoletoDTO> boletoDTOs = matriculaIniService.buscarBoletos(codigo);
+		return boletoDTOs != null ? ResponseEntity.ok(boletoDTOs) : ResponseEntity.notFound().build();
+	}
+	
+	
+	@GetMapping("/downloadBoleto/{codigo}")
+    @ResponseBody
+    public ResponseEntity<Resource> downloadBoleto(@PathVariable Long codigo) {
+		Parcela parcela = parcelaRepository.getOne(codigo);
+		Resource file = new ByteArrayResource(parcela.getBoleto());
+        return ResponseEntity.ok()
+                             .header(HttpHeaders.CONTENT_TYPE, "application/x-pdf")
+                             .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + parcela.getNomeBoleto() + "\"")
+                             .body(file);
+    }
+	
+	
 	
 }

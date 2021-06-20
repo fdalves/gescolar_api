@@ -3,10 +3,13 @@ package br.com.gescolar.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,7 +20,9 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import br.com.gescolar.dto.BoletoDTO;
 import br.com.gescolar.repository.listener.UrlFotoListener;
+import br.com.gescolar.types.StatusParcelaEnum;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @EntityListeners(UrlFotoListener.class)
@@ -44,7 +49,8 @@ public class Parcela  implements Serializable {
 	private LocalDate dataVencimento;
 	
 	@Column(name="status")
-	private String  status;
+	@Enumerated(EnumType.STRING)
+	private StatusParcelaEnum  status;
 	
 	@Column(name="nr_parcela")
 	private Integer nrParcela;
@@ -66,6 +72,9 @@ public class Parcela  implements Serializable {
 	
 	@Column(name="boleto")
 	private byte[] boleto;
+	
+	@Column(name="nome_boleto")
+	private String nomeBoleto;
 
 	public Long getCodigo() {
 		return codigo;
@@ -99,11 +108,11 @@ public class Parcela  implements Serializable {
 		this.dataVencimento = dataVencimento;
 	}
 
-	public String getStatus() {
+	public StatusParcelaEnum getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(StatusParcelaEnum status) {
 		this.status = status;
 	}
 
@@ -163,8 +172,24 @@ public class Parcela  implements Serializable {
 		this.seuNumero = seuNumero;
 	}
 
+	public String getNomeBoleto() {
+		return nomeBoleto;
+	}
+
+	public void setNomeBoleto(String nomeBoleto) {
+		this.nomeBoleto = nomeBoleto;
+	}
+
 	
 	
-	
+	public static BoletoDTO parseBoletoDTO(Parcela parcela) {
+		BoletoDTO boletoDTO = new BoletoDTO();
+		boletoDTO.setNome(parcela.getNomeBoleto());
+		boletoDTO.setCodigo(parcela.getCodigo());
+		boletoDTO.setStatus(parcela.getStatus().name());
+		DateTimeFormatter formatters = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		boletoDTO.setData(formatters.format(parcela.getDataEmisao()));
+		return boletoDTO;
+	}
 	
 }

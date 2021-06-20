@@ -27,6 +27,30 @@ public class S3Config {
 	
 	@Bean
 	public AmazonS3 s3client() {
-		return null;
+	BasicAWSCredentials awsCred = new BasicAWSCredentials("AKIAXAKZ25JSFI4MRCBT", "n9K9EL5a8O5x4vy+H+CmzgZIh0DKqe8GMPzTee9Y");
+	AmazonS3 s3client = AmazonS3ClientBuilder.standard().withRegion(Regions.fromName(region))
+	.withCredentials(new AWSStaticCredentialsProvider(awsCred)).build();
+
+
+	if (!s3client.doesBucketExistV2(bucket)) {
+	s3client.createBucket(
+	new CreateBucketRequest(bucket));
+
+	BucketLifecycleConfiguration.Rule regraExpiracao =
+	new BucketLifecycleConfiguration.Rule()
+	.withId("Regra de expiração de arquivos temporários")
+	.withFilter(new LifecycleFilter(
+	new LifecycleTagPredicate(new Tag("expirar", "true"))))
+	.withExpirationInDays(1)
+	.withStatus(BucketLifecycleConfiguration.ENABLED);
+
+	BucketLifecycleConfiguration configuration = new BucketLifecycleConfiguration()
+	.withRules(regraExpiracao);
+
+	s3client.setBucketLifecycleConfiguration(bucket,
+	configuration);
+	}
+
+	return s3client;
 	}
 }
