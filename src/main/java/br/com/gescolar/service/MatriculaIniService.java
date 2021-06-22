@@ -13,6 +13,8 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -182,6 +184,15 @@ public class MatriculaIniService {
 				.map(Parcela::parseBoletoDTO)
 				.collect(Collectors.toList());
 	}
+
+	public Resource downloadContrato(Long codigo) {
+		MatriculaIni matriculaIni = matriculaIniRepository.getOne(codigo);
+		
+		Resource resource = new ClassPathResource("/contrato.doc");
+		return resource;
+	}
+
+	
 
 
 }

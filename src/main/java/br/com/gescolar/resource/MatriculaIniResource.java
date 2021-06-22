@@ -98,5 +98,15 @@ public class MatriculaIniResource {
     }
 	
 	
+	@GetMapping("/downloadContrato/{codigo}")
+    @ResponseBody
+    public ResponseEntity<Resource> downloadContrato(@PathVariable Long codigo) {
+		Resource file = matriculaIniService.downloadContrato(codigo);
+        return ResponseEntity.ok()
+                             .header(HttpHeaders.CONTENT_TYPE, "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+                             .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
+                             .body(file);
+    }
+	
 	
 }
