@@ -1,8 +1,5 @@
 package br.com.gescolar.scheduled;
 
-import java.util.Date;
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +9,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import br.com.gescolar.firebase.FCMService;
-import br.com.gescolar.firebase.dto.PushNotificationRequest;
-import br.com.gescolar.model.Mensagem;
 import br.com.gescolar.repository.MensagemRepository;
 
 @Profile("cron")
