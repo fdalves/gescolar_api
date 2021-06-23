@@ -13,7 +13,7 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -36,6 +36,7 @@ import br.com.gescolar.repository.MatriculaIniRepository;
 import br.com.gescolar.repository.ParcelaRepository;
 import br.com.gescolar.types.StatusMatriculaEnum;
 import br.com.gescolar.types.StatusParcelaEnum;
+import br.com.gescolar.util.ContratoDBUtil;
 
 @Service
 @Transactional
@@ -109,21 +110,17 @@ public class MatriculaIniService {
 		if (duracaoContrato > 12) {
 			throw new GescolarExcption("Periodo do contrado só deve ter no maximo 1 ano de duração.");
 		}
-		
 		if (duracaoContrato < 1 ) {
 			throw new GescolarExcption("Periodo do contrado deve ter minimo 1 mes de duração.");
 		}
-		
 	}
 
 	private void validarDatasMatricula(LocalDate dateIni, LocalDate dateEnd, DateTimeFormatter formatters) {
-		LocalDate date = LocalDate.parse(formatters.format(LocalDate.now().plusMonths(1)), formatters);	
-		
+		LocalDate date = LocalDate.parse(formatters.format(LocalDate.now()), formatters);	
 		if (dateIni.isBefore(date))
 			throw new GescolarExcption("Data incial da matrícula deve ser maior que data atual");
 		if (dateIni.isAfter(dateEnd))
 			throw new GescolarExcption("Data incial da matrícula deve ser menor que data final");
-		
 	}
 
 	private List<Parcela> gerarParcelas(AtivarMatrciulaDTO ativarMatrciulaDTO, LocalDate dateIni, Long monthsBetween,
@@ -175,6 +172,7 @@ public class MatriculaIniService {
 		contrato.setValorJuros(Double.valueOf(ativarMatrciulaDTO.getJuros()));
 		contrato.setValor(Double.valueOf(ativarMatrciulaDTO.getValor()));
 		contrato.setNrParcela(monthsBetween.intValue());
+		contrato.setContratoPdf(ContratoDBUtil.criarContrato(matriculaIni.getNome(), contrato));
 		return contratoRepository.save(contrato);
 	}
 
@@ -187,9 +185,8 @@ public class MatriculaIniService {
 
 	public Resource downloadContrato(Long codigo) {
 		MatriculaIni matriculaIni = matriculaIniRepository.getOne(codigo);
-		
-		Resource resource = new ClassPathResource("/contrato.doc");
-		return resource;
+		Contrato contrato = contratoRepository.findByMatricula(matriculaIni);
+		return new ByteArrayResource(contrato.getContratoPdf());
 	}
 
 	

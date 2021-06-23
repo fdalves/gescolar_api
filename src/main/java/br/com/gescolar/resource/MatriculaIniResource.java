@@ -57,7 +57,6 @@ public class MatriculaIniResource {
 		return ResponseEntity.status(HttpStatus.OK).build();
 	}
 	
-
 	
 	@GetMapping("/{codigo}")
 	public ResponseEntity<MatriculaDTO> buscarPeloCodigo(@PathVariable Long codigo) {
