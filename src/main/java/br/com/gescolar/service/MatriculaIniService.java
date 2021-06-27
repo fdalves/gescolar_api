@@ -24,6 +24,7 @@ import br.com.gescolar.cobranca.BoletoSicredi;
 import br.com.gescolar.cobranca.NossoNumeroSicredi;
 import br.com.gescolar.dto.AtivarMatrciulaDTO;
 import br.com.gescolar.dto.BoletoDTO;
+import br.com.gescolar.dto.ContratoDTO;
 import br.com.gescolar.dto.MatriculaDTO;
 import br.com.gescolar.exception.GescolarExcption;
 import br.com.gescolar.model.Cnab;
@@ -54,6 +55,8 @@ public class MatriculaIniService {
 	private BoletoSicredi boletoSicredi;
 	@Autowired
 	private ArquivoCnab240Sicredi arquivoCnab240Sicredi;
+	@Autowired
+	private FotoService fotoService;
 	
 
 	public MatriculaDTO salvar(MatriculaDTO matriculaDTO) {
@@ -62,6 +65,7 @@ public class MatriculaIniService {
 		matriculaIni.setStatus(StatusMatriculaEnum.ATIVAR.toString());
 		matriculaIniRepository.save(matriculaIni);
 		matriculaDTO.setCodigo(matriculaIni.getCodigo().toString());
+		fotoService.salvar(matriculaIni.getFoto());
 		return matriculaDTO;
 	}
 
@@ -73,6 +77,7 @@ public class MatriculaIniService {
 	public MatriculaDTO atualizar(Long codigo, @Valid MatriculaDTO matriculaDTO) {
 		MatriculaIni matriculaIni = matriculaIniRepository.getOne(codigo);
 		matriculaIni.parseDtoToModel(matriculaDTO);
+		fotoService.atualizar(matriculaIni.getFoto(), matriculaDTO.getFoto());
 		return MatriculaIni.parseDtoToDto(matriculaIniRepository.save(matriculaIni));
 	}
 
@@ -173,7 +178,30 @@ public class MatriculaIniService {
 		contrato.setValor(Double.valueOf(ativarMatrciulaDTO.getValor()));
 		contrato.setNrParcela(monthsBetween.intValue());
 		contrato.setContratoPdf(ContratoDBUtil.criarContrato(matriculaIni.getNome(), contrato));
+		contrato.setDataArquivoCnab(LocalDate.now());
+		contrato.setStatusArquivoCnab("Não Processado");
+		String day = String.valueOf(LocalDate.now().getDayOfMonth());
+		String mount = getMountCnab();  
+		contrato.setNomeArquivoCnab("01671"+mount+day+".crm");
 		return contratoRepository.save(contrato);
+	}
+
+	private String getMountCnab() {
+		String month = String.valueOf(LocalDate.now().getMonthValue());
+		if (month.length() == 1) {
+			return month;
+		} else if (month.length() > 1 && month.substring(0,1).equals("0")) {
+			return month.substring(1,2);
+		} else if (month.length() > 1 && month.substring(0,1).equals("1")) {
+			if (month.equals("10")) {
+				return "O";
+			} else if (month.equals("11")) {
+				return "N";
+			} else if (month.equals("12")) {
+				return "D";
+			}
+		}
+		return "";
 	}
 
 	public List<BoletoDTO> buscarBoletos(Long codigo) {
@@ -188,6 +216,19 @@ public class MatriculaIniService {
 		Contrato contrato = contratoRepository.findByMatricula(matriculaIni);
 		return new ByteArrayResource(contrato.getContratoPdf());
 	}
+
+	public List<ContratoDTO> buscarContratos() {
+		return contratoRepository.findAll()
+				.stream()
+				.map(Contrato::parseDto)
+				.collect(Collectors.toList());
+	}
+
+	public Resource downloadCnab(Long codigo) {
+		Contrato contrato = contratoRepository.getOne(codigo);
+		return new ByteArrayResource(contrato.getArquivoCnab().getBytes());
+	}
+
 
 	
 

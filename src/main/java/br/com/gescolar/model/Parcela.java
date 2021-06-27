@@ -7,7 +7,6 @@ import java.time.format.DateTimeFormatter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
@@ -21,11 +20,9 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import br.com.gescolar.dto.BoletoDTO;
-import br.com.gescolar.repository.listener.UrlFotoListener;
 import br.com.gescolar.types.StatusParcelaEnum;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@EntityListeners(UrlFotoListener.class)
 @Entity
 @Table(name="parcela")
 public class Parcela  implements Serializable {

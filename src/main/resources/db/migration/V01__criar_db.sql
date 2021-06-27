@@ -548,6 +548,8 @@ CREATE TABLE IF NOT EXISTS `gescolar`.`contrato` (
   `contrato` LONGBLOB,
   `arquivo_cnab` LONGTEXT,
   `status_arquivo_cnab` VARCHAR(100) NULL DEFAULT NULL,
+  `data_arquivo_cnab` DATE NOT NULL,
+  `nome_arquivo_cnab` VARCHAR(100) NULL DEFAULT NULL,
  PRIMARY KEY (`codigo`),
   INDEX `fk_codigo_matricula_idx` (`codigo_matricula` ASC),
   CONSTRAINT `fk_codigo_matricula`
@@ -692,6 +694,8 @@ CREATE TABLE IF NOT EXISTS `gescolar`.`matricula_ini` (
   cep_responsavel_financeiro VARCHAR(100) NULL DEFAULT NULL,
   bairro_responsavel_financeiro VARCHAR(100) NULL DEFAULT NULL,
   numero_responsavel_financeiro VARCHAR(100) NULL DEFAULT NULL,
+
+ foto VARCHAR(100) NULL DEFAULT NULL,	
   
 PRIMARY KEY (`codigo`))
 ENGINE = InnoDB

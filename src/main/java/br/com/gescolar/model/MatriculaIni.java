@@ -15,6 +15,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -24,6 +25,7 @@ import org.springframework.util.ObjectUtils;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import br.com.gescolar.dto.MatriculaDTO;
+import br.com.gescolar.repository.listener.S3UrlFoto;
 import br.com.gescolar.repository.listener.UrlFotoListener;
 import br.com.gescolar.types.ResponsavelFinanceiroEnum;
 
@@ -31,7 +33,7 @@ import br.com.gescolar.types.ResponsavelFinanceiroEnum;
 @EntityListeners(UrlFotoListener.class)
 @Entity
 @Table(name="matricula_ini")
-public class MatriculaIni  implements Serializable {
+public class MatriculaIni  implements Serializable, S3UrlFoto {
 	
 	private static final long serialVersionUID = 1L;
 
@@ -243,6 +245,12 @@ public class MatriculaIni  implements Serializable {
 	private String bairro;
 	@Column(name="numero_responsavel_financeiro")
 	private String numero;
+	
+	@Column(name="foto")
+	private String foto;
+	@Transient
+	private String  urlFoto;
+	
 	
 	public String getUf() {
 		return uf;
@@ -759,11 +767,12 @@ public class MatriculaIni  implements Serializable {
 					status = dto.getStatus();
 				}
 				
+				foto = dto.getFoto();
+				urlFoto = dto.getUrlFoto();
 				grupoEtnico = dto.getGrupoEtinico();
 				naturalidade = dto.getNaturalidade();
 				nacionalidade =  dto.getNacionalidade();
 				certidaoNasc = dto.getCertidaoNasc();
-				//certidaoNascDataEmissao =  dto.getd
 				rg = dto.getRg(); 
 				religiao =  dto.getReligiao();
 				pediatra =  dto.getNomePediatra();
@@ -855,6 +864,8 @@ public class MatriculaIni  implements Serializable {
 		if (matriculaIni.getDtNascPai() != null)
 			dto.setDtNascPai(dateFormat.format(matriculaIni.getDtNascPai()));
 		
+		dto.setFoto(matriculaIni.getFoto());
+		dto.setUrlFoto(matriculaIni.getUrlFoto());
 		dto.setGrupoEtinico(matriculaIni.getGrupoEtnico());
 		dto.setNaturalidade(matriculaIni.getNaturalidade());
 		dto.setNacionalidade(matriculaIni.getNacionalidade());
@@ -939,5 +950,20 @@ public class MatriculaIni  implements Serializable {
 			return "N";
 		return "S";
 	}
+	public String getFoto() {
+		return foto;
+	}
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
+	public String getUrlFoto() {
+		return urlFoto;
+	}
+	public void setUrlFoto(String urlFoto) {
+		this.urlFoto = urlFoto;
+	}
+	
+	
+	
 	
 }

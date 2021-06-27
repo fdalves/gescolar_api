@@ -3,10 +3,10 @@ package br.com.gescolar.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,10 +17,9 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import br.com.gescolar.repository.listener.UrlFotoListener;
+import br.com.gescolar.dto.ContratoDTO;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@EntityListeners(UrlFotoListener.class)
 @Entity
 @Table(name="contrato")
 public class Contrato  implements Serializable {
@@ -69,6 +68,12 @@ public class Contrato  implements Serializable {
 	
 	@Column(name="status_arquivo_cnab")
 	private String statusArquivoCnab;
+	
+	@Column(name="nome_arquivo_cnab")
+	private String nomeArquivoCnab;
+	
+	@Column(name="data_arquivo_cnab", columnDefinition = "DATE")
+	private LocalDate dataArquivoCnab;
 
 	public Long getCodigo() {
 		return codigo;
@@ -174,7 +179,30 @@ public class Contrato  implements Serializable {
 		this.statusArquivoCnab = statusArquivoCnab;
 	}
 
-	
-	
-	
+	public String getNomeArquivoCnab() {
+		return nomeArquivoCnab;
+	}
+
+	public void setNomeArquivoCnab(String nomeArquivoCnab) {
+		this.nomeArquivoCnab = nomeArquivoCnab;
+	}
+
+	public LocalDate getDataArquivoCnab() {
+		return dataArquivoCnab;
+	}
+
+	public void setDataArquivoCnab(LocalDate dataArquivoCnab) {
+		this.dataArquivoCnab = dataArquivoCnab;
+	}
+
+	public static ContratoDTO parseDto(Contrato contrato) {
+		ContratoDTO contratoDTO = new ContratoDTO();
+		contratoDTO.setNome(contrato.getMatricula().getNome());
+		contratoDTO.setCodigo(contrato.getCodigo());
+		contratoDTO.setNomeArquivo(contrato.getNomeArquivoCnab());
+		contratoDTO.setStatus(contrato.getStatusArquivoCnab());
+		DateTimeFormatter formatters = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		contratoDTO.setDate(formatters.format(contrato.getDataArquivoCnab()));
+		return contratoDTO;
+	} 
 }

@@ -89,6 +89,23 @@ public class MatriculaDTO implements Serializable {
 	private String telefoneConvenio;
 	private String telefonePediatra;
 	private String telefoneResidencial;
+	private String foto;
+	private String urlFoto;
+	
+	
+	
+	public String getFoto() {
+		return foto;
+	}
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
+	public String getUrlFoto() {
+		return urlFoto;
+	}
+	public void setUrlFoto(String urlFoto) {
+		this.urlFoto = urlFoto;
+	}
 	public String getAlergicoAlimento() {
 		return alergicoAlimento;
 	}

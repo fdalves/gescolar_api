@@ -26,6 +26,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.gescolar.dto.AtivarMatrciulaDTO;
 import br.com.gescolar.dto.BoletoDTO;
+import br.com.gescolar.dto.CobrancaDTO;
+import br.com.gescolar.dto.ContratoDTO;
 import br.com.gescolar.dto.MatriculaDTO;
 import br.com.gescolar.event.RecursoCriadoEvent;
 import br.com.gescolar.model.Parcela;
@@ -84,6 +86,11 @@ public class MatriculaIniResource {
 		return boletoDTOs != null ? ResponseEntity.ok(boletoDTOs) : ResponseEntity.notFound().build();
 	}
 	
+	@GetMapping("/matriculasEmAtraso")
+	public ResponseEntity<List<CobrancaDTO>> matriculasEmAtraso() {
+		return ResponseEntity.ok(CobrancaDTO.generateMook()); 
+	}
+	
 	
 	@GetMapping("/downloadBoleto/{codigo}")
     @ResponseBody
@@ -107,5 +114,22 @@ public class MatriculaIniResource {
                              .body(file);
     }
 	
+	
+	@GetMapping("/contratos")
+	public ResponseEntity<List<ContratoDTO>> buscarContratos() {
+		List<ContratoDTO> contratoDTOs = matriculaIniService.buscarContratos();
+		return contratoDTOs != null ? ResponseEntity.ok(contratoDTOs) : ResponseEntity.notFound().build();
+	}
+	
+	
+	@GetMapping("/downloadCnab/{codigo}")
+    @ResponseBody
+    public ResponseEntity<Resource> downloadCnab(@PathVariable Long codigo) {
+		Resource file = matriculaIniService.downloadCnab(codigo);
+        return ResponseEntity.ok()
+                             .header(HttpHeaders.CONTENT_TYPE, "text/plain")
+                             .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
+                             .body(file);
+    }
 	
 }
