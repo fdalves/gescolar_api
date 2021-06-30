@@ -166,7 +166,7 @@ public class MatriculaIniService {
 
 	private void setNosoNumero(Parcela parcela) {
 		Optional<Cnab> cOptional = cnabRepository.findById(1L);
-		if(cOptional.isEmpty()) return;
+		if(!cOptional.isPresent()) return;
 		Cnab cnab = cOptional.get();
 		NossoNumeroSicredi nossoNumeroSicrediUtil = new NossoNumeroSicredi();
 		nossoNumeroSicrediUtil.gerarNossoNumero(cnab);

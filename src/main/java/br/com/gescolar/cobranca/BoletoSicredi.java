@@ -46,7 +46,7 @@ public class BoletoSicredi {
 
 	public byte[] gerarBoleto(Parcela parcela)  {
 		Optional<Cnab> cOptional = cnabRepository.findById(1L);
-		if(cOptional.isEmpty()) return new byte[0];
+		if(!cOptional.isPresent()) return new byte[0];
 		cnab = cOptional.get();
 		
 		ContaBancaria contaBancaria = crieContaBancaria(this.cnab.getAgencia(), this.cnab.getConta());

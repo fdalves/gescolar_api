@@ -41,7 +41,7 @@ public class ArquivoCnab240Sicredi extends ArquivoCnab {
 		numeroSequencialSegPeQ = 1;
 		
 		Optional<Cnab> cOptional = cnabRepository.findById(1L);
-		if(cOptional.isEmpty()) return StringUtils.EMPTY;
+		if(!cOptional.isPresent()) return StringUtils.EMPTY;
 		cnab = cOptional.get();
 		
 		Linha linhaHeader = super.gerarLinha(TipoLinhaEnum.HEADER);
