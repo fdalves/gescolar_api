@@ -4,5 +4,5 @@ public enum ResponsavelFinanceiroEnum {
 	
 	PAI,
 	MAE,
-	RESPONSAVEL
+	LR
 }

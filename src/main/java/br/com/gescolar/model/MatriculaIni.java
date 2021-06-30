@@ -9,8 +9,6 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,7 +25,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import br.com.gescolar.dto.MatriculaDTO;
 import br.com.gescolar.repository.listener.S3UrlFoto;
 import br.com.gescolar.repository.listener.UrlFotoListener;
-import br.com.gescolar.types.ResponsavelFinanceiroEnum;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @EntityListeners(UrlFotoListener.class)
@@ -230,63 +227,61 @@ public class MatriculaIni  implements Serializable, S3UrlFoto {
 	@Column(name="grau_parentesco_autorizado_5")
 	private String grauParentescoAutorizado5;
 	
-	@Enumerated(EnumType.STRING)
 	@Column(name="responsavel_financeiro")
-	private ResponsavelFinanceiroEnum responsavelFinanceiro ;
+	private String responsavelFinanceiro ;
 	@Column(name="uf_responsavel_financeiro")
-	private String uf;
+	private String ufResponsavelFinanceiro;
 	@Column(name="cidade_responsavel_financeiro")
-	private String cidade;
+	private String cidadeResponsavelFinanceiro;
 	@Column(name="rua_responsavel_financeiro")
-	private String rua;
+	private String ruaResponsavelFinanceiro;
 	@Column(name="cep_responsavel_financeiro")
-	private String cep;
+	private String cepResponsavelFinanceiro;
 	@Column(name="bairro_responsavel_financeiro")
-	private String bairro;
+	private String bairroResponsavelFinanceiro;
 	@Column(name="numero_responsavel_financeiro")
-	private String numero;
+	private String numeroResponsavelFinanceiro;
 	
 	@Column(name="foto")
 	private String foto;
 	@Transient
 	private String  urlFoto;
 	
-	
-	public String getUf() {
-		return uf;
+	public String getUfResponsavelFinanceiro() {
+		return ufResponsavelFinanceiro;
 	}
-	public void setUf(String uf) {
-		this.uf = uf;
+	public void setUfResponsavelFinanceiro(String ufResponsavelFinanceiro) {
+		this.ufResponsavelFinanceiro = ufResponsavelFinanceiro;
 	}
-	public String getCidade() {
-		return cidade;
+	public String getCidadeResponsavelFinanceiro() {
+		return cidadeResponsavelFinanceiro;
 	}
-	public void setCidade(String cidade) {
-		this.cidade = cidade;
+	public void setCidadeResponsavelFinanceiro(String cidadeResponsavelFinanceiro) {
+		this.cidadeResponsavelFinanceiro = cidadeResponsavelFinanceiro;
 	}
-	public String getRua() {
-		return rua;
+	public String getRuaResponsavelFinanceiro() {
+		return ruaResponsavelFinanceiro;
 	}
-	public void setRua(String rua) {
-		this.rua = rua;
+	public void setRuaResponsavelFinanceiro(String ruaResponsavelFinanceiro) {
+		this.ruaResponsavelFinanceiro = ruaResponsavelFinanceiro;
 	}
-	public String getCep() {
-		return cep;
+	public String getCepResponsavelFinanceiro() {
+		return cepResponsavelFinanceiro;
 	}
-	public void setCep(String cep) {
-		this.cep = cep;
+	public void setCepResponsavelFinanceiro(String cepResponsavelFinanceiro) {
+		this.cepResponsavelFinanceiro = cepResponsavelFinanceiro;
 	}
-	public String getBairro() {
-		return bairro;
+	public String getBairroResponsavelFinanceiro() {
+		return bairroResponsavelFinanceiro;
 	}
-	public void setBairro(String bairro) {
-		this.bairro = bairro;
+	public void setBairroResponsavelFinanceiro(String bairroResponsavelFinanceiro) {
+		this.bairroResponsavelFinanceiro = bairroResponsavelFinanceiro;
 	}
-	public String getNumero() {
-		return numero;
+	public String getNumeroResponsavelFinanceiro() {
+		return numeroResponsavelFinanceiro;
 	}
-	public void setNumero(String numero) {
-		this.numero = numero;
+	public void setNumeroResponsavelFinanceiro(String numeroResponsavelFinanceiro) {
+		this.numeroResponsavelFinanceiro = numeroResponsavelFinanceiro;
 	}
 	public Long getCodigo() {
 		return codigo;
@@ -738,10 +733,10 @@ public class MatriculaIni  implements Serializable, S3UrlFoto {
 		return serialVersionUID;
 	}
 	
-	public ResponsavelFinanceiroEnum getResponsavelFinanceiro() {
+	public String getResponsavelFinanceiro() {
 		return responsavelFinanceiro;
 	}
-	public void setResponsavelFinanceiro(ResponsavelFinanceiroEnum responsavelFinanceiro) {
+	public void setResponsavelFinanceiro(String responsavelFinanceiro) {
 		this.responsavelFinanceiro = responsavelFinanceiro;
 	}
 	public void parseDtoToModel(MatriculaDTO dto) {
@@ -837,6 +832,14 @@ public class MatriculaIni  implements Serializable, S3UrlFoto {
 				nomeAutorizado5 = dto.getNomeRet5();     
 				rgAutorizado5 =  dto.getRgRet5();   
 				grauParentescoAutorizado5 = dto.getGrauRet5();
+				
+				responsavelFinanceiro = dto.getResponsavelFinanceiro();
+				ufResponsavelFinanceiro = dto.getUfResponsavelFinanceiro();
+				cidadeResponsavelFinanceiro = dto.getCepResponsavelFinanceiro();
+				bairroResponsavelFinanceiro = dto.getBairroResponsavelFinanceiro();
+				cepResponsavelFinanceiro = dto.getCepResponsavelFinanceiro();
+				numeroResponsavelFinanceiro = dto.getNumeroResponsavelFinanceiro();
+				
 	}
 	
 	private Boolean parseBoolean(String alergicoAlimento) {
@@ -941,6 +944,13 @@ public class MatriculaIni  implements Serializable, S3UrlFoto {
 		dto.setNomeRet5(matriculaIni.getNomeAutorizado5());
 		dto.setRgRet5(matriculaIni.getRgAutorizado5());
 		dto.setGrauRet5(matriculaIni.getGrauParentescoAutorizado5());
+		
+		dto.setResponsavelFinanceiro(matriculaIni.getResponsavelFinanceiro());
+		dto.setUfResponsavelFinanceiro(matriculaIni.getUfResponsavelFinanceiro());
+		dto.setCidadeResponsavelFinanceiro(matriculaIni.getCidadeResponsavelFinanceiro());
+	    dto.setBairroResponsavelFinanceiro(matriculaIni.getBairroResponsavelFinanceiro());
+		dto.setCepResponsavelFinanceiro(matriculaIni.getCepResponsavelFinanceiro());
+		dto.setNumeroResponsavelFinanceiro(matriculaIni.getNumeroResponsavelFinanceiro());
 
 		return dto;
 	}

@@ -92,8 +92,57 @@ public class MatriculaDTO implements Serializable {
 	private String foto;
 	private String urlFoto;
 	
+	private String responsavelFinanceiro ;
+	private String ufResponsavelFinanceiro;
+	private String cidadeResponsavelFinanceiro;
+	private String ruaResponsavelFinanceiro;
+	private String cepResponsavelFinanceiro;
+	private String bairroResponsavelFinanceiro;
+	private String numeroResponsavelFinanceiro;
 	
 	
+	public String getResponsavelFinanceiro() {
+		return responsavelFinanceiro;
+	}
+	public void setResponsavelFinanceiro(String responsavelFinanceiro) {
+		this.responsavelFinanceiro = responsavelFinanceiro;
+	}
+	public String getUfResponsavelFinanceiro() {
+		return ufResponsavelFinanceiro;
+	}
+	public void setUfResponsavelFinanceiro(String ufResponsavelFinanceiro) {
+		this.ufResponsavelFinanceiro = ufResponsavelFinanceiro;
+	}
+	public String getCidadeResponsavelFinanceiro() {
+		return cidadeResponsavelFinanceiro;
+	}
+	public void setCidadeResponsavelFinanceiro(String cidadeResponsavelFinanceiro) {
+		this.cidadeResponsavelFinanceiro = cidadeResponsavelFinanceiro;
+	}
+	public String getRuaResponsavelFinanceiro() {
+		return ruaResponsavelFinanceiro;
+	}
+	public void setRuaResponsavelFinanceiro(String ruaResponsavelFinanceiro) {
+		this.ruaResponsavelFinanceiro = ruaResponsavelFinanceiro;
+	}
+	public String getCepResponsavelFinanceiro() {
+		return cepResponsavelFinanceiro;
+	}
+	public void setCepResponsavelFinanceiro(String cepResponsavelFinanceiro) {
+		this.cepResponsavelFinanceiro = cepResponsavelFinanceiro;
+	}
+	public String getBairroResponsavelFinanceiro() {
+		return bairroResponsavelFinanceiro;
+	}
+	public void setBairroResponsavelFinanceiro(String bairroResponsavelFinanceiro) {
+		this.bairroResponsavelFinanceiro = bairroResponsavelFinanceiro;
+	}
+	public String getNumeroResponsavelFinanceiro() {
+		return numeroResponsavelFinanceiro;
+	}
+	public void setNumeroResponsavelFinanceiro(String numeroResponsavelFinanceiro) {
+		this.numeroResponsavelFinanceiro = numeroResponsavelFinanceiro;
+	}
 	public String getFoto() {
 		return foto;
 	}

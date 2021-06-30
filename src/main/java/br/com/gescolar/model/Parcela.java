@@ -67,9 +67,6 @@ public class Parcela  implements Serializable {
 	@Column(name="seu_numero")
 	private String seuNumero;
 	
-	@Column(name="boleto")
-	private byte[] boleto;
-	
 	@Column(name="nome_boleto")
 	private String nomeBoleto;
 
@@ -135,14 +132,6 @@ public class Parcela  implements Serializable {
 
 	public void setValorJuros(Double valorJuros) {
 		this.valorJuros = valorJuros;
-	}
-
-	public byte[] getBoleto() {
-		return boleto;
-	}
-
-	public void setBoleto(byte[] boleto) {
-		this.boleto = boleto;
 	}
 
 	public String getNossoNumero() {

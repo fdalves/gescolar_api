@@ -41,7 +41,7 @@ public class ContratoDBUtil {
 		NumberFormat dinheiro = NumberFormat.getCurrencyInstance(localeBR);
 		LocalDate date = LocalDate.parse(formatters.format(LocalDate.now()), formatters);
 		String dtIni = formatters.format(contrato.getDataIni());
-		String dtFim = formatters.format(contrato.getDataIni());
+		String dtFim = formatters.format(contrato.getDataFim());
 		String dateAtual = formatters.format(date);
 		String valor = dinheiro.format(contrato.getValor());
 		String valorTotal = dinheiro.format(contrato.getValor() * contrato.getNrParcela());

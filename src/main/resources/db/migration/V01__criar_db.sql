@@ -545,7 +545,6 @@ CREATE TABLE IF NOT EXISTS `gescolar`.`contrato` (
   `nr_dia_vencimento` INT(6),
   `valor` DECIMAL(6,2),
   `valor_juros` DECIMAL(6,2),
-  `contrato` LONGBLOB,
   `arquivo_cnab` LONGTEXT,
   `status_arquivo_cnab` VARCHAR(100) NULL DEFAULT NULL,
   `data_arquivo_cnab` DATE NOT NULL,
@@ -555,6 +554,26 @@ CREATE TABLE IF NOT EXISTS `gescolar`.`contrato` (
   CONSTRAINT `fk_codigo_matricula`
     FOREIGN KEY (`codigo_matricula`)
     REFERENCES `gescolar`.`matricula_ini` (`codigo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
+ )
+ENGINE = InnoDB
+AUTO_INCREMENT = 1
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `gescolar`.`contrato_doc`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `gescolar`.`contrato_doc` (
+  `codigo` INT(11) NOT NULL AUTO_INCREMENT,
+  `codigo_contrato` INT(11) NULL DEFAULT NULL,
+  `contrato` LONGBLOB,
+  PRIMARY KEY (`codigo`),
+  INDEX `fk_codigo_contrato_idxy` (`codigo_contrato` ASC),
+  CONSTRAINT `fk_codigo_contrato`
+    FOREIGN KEY (`codigo_contrato`)
+    REFERENCES `gescolar`.`contrato` (`codigo`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
  )
@@ -575,14 +594,13 @@ CREATE TABLE IF NOT EXISTS `gescolar`.`parcela` (
   `nr_parcela` INT(6),
   `valor` DECIMAL(6,2),
   `valor_juros` DECIMAL(6,2),
-  `boleto` LONGBLOB,
   `nosso_numero` VARCHAR(100) NULL DEFAULT NULL,
   `digito_nosso_numero` VARCHAR(100) NULL DEFAULT NULL,
   `seu_numero` VARCHAR(100) NULL DEFAULT NULL,
   `nome_boleto` VARCHAR(100) NULL DEFAULT NULL,
  PRIMARY KEY (`codigo`),
-  INDEX `fk_codigo_contrato_idx` (`codigo_contrato` ASC),
-  CONSTRAINT `fk_codigo_contrato`
+  INDEX `fk_codigo_contrato_idxyx` (`codigo_contrato` ASC),
+  CONSTRAINT `fk_codigo_contrato_parcela`
     FOREIGN KEY (`codigo_contrato`)
     REFERENCES `gescolar`.`contrato` (`codigo`)
     ON DELETE NO ACTION
@@ -593,7 +611,24 @@ AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8;
 
 
-
+-- -----------------------------------------------------
+-- Table `gescolar`.`parcela_doc`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `gescolar`.`parcela_doc` (
+  `codigo` INT(11) NOT NULL AUTO_INCREMENT,
+  `codigo_parcela` INT(11) NULL DEFAULT NULL,
+  `boleto` LONGBLOB,
+  PRIMARY KEY (`codigo`),
+  INDEX `fk_codigo_parcela_idxs` (`codigo_parcela` ASC),
+  CONSTRAINT `fk_codigo_parcela_doc`
+    FOREIGN KEY (`codigo_parcela`)
+    REFERENCES `gescolar`.`parcela` (`codigo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
+ )
+ENGINE = InnoDB
+AUTO_INCREMENT = 1
+DEFAULT CHARACTER SET = utf8;
 
 
 

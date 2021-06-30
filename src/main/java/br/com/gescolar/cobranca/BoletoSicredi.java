@@ -11,6 +11,8 @@ import org.jrimum.bopepo.BancosSuportados;
 import org.jrimum.bopepo.Boleto;
 import org.jrimum.bopepo.parametro.ParametroBancoSicredi;
 import org.jrimum.bopepo.view.BoletoViewer;
+import org.jrimum.domkee.comum.pessoa.endereco.Endereco;
+import org.jrimum.domkee.comum.pessoa.endereco.UnidadeFederativa;
 import org.jrimum.domkee.financeiro.banco.ParametrosBancariosMap;
 import org.jrimum.domkee.financeiro.banco.febraban.Agencia;
 import org.jrimum.domkee.financeiro.banco.febraban.Carteira;
@@ -72,22 +74,25 @@ public class BoletoSicredi {
 
 	private Sacado crieSacado(MatriculaIni matriculaIni) {
 		Sacado sacado = null;
-		if (matriculaIni.getResponsavelFinanceiro() == ResponsavelFinanceiroEnum.PAI) {
+		if (matriculaIni.getResponsavelFinanceiro().equals(ResponsavelFinanceiroEnum.PAI.name())) {
 			sacado = new Sacado(matriculaIni.getNomePai(), matriculaIni.getCpfPai());
-		} else if (matriculaIni.getResponsavelFinanceiro() == ResponsavelFinanceiroEnum.MAE) {
-			sacado = new Sacado(matriculaIni.getNomePai(), matriculaIni.getCpfPai());
+		} else if (matriculaIni.getResponsavelFinanceiro().equals(ResponsavelFinanceiroEnum.MAE.name())) {
+			sacado = new Sacado(matriculaIni.getNomeMae(), matriculaIni.getCpfMae());
 		} else {
 			sacado = new Sacado(matriculaIni.getNomeResposavel(), matriculaIni.getCpfResposavel());
 		}
-		/*
-		 * Endereco endereco = new Endereco();
-		 * endereco.setUF(UnidadeFederativa.valueOf(matriculaIni.getUf()));
-		 * endereco.setLocalidade(matriculaIni.getCidade());
-		 * endereco.setCep(matriculaIni.getCep());
-		 * endereco.setBairro(matriculaIni.getBairro());
-		 * endereco.setLogradouro(matriculaIni.getRua());
-		 * endereco.setNumero(matriculaIni.getNumero()); sacado.addEndereco(endereco);
-		 */
+
+		Endereco endereco = new Endereco();
+		if (matriculaIni.getUfResponsavelFinanceiro() != null) {
+			endereco.setUF(UnidadeFederativa.valueOf(matriculaIni.getUfResponsavelFinanceiro()));
+		}
+		endereco.setLocalidade(matriculaIni.getCidadeResponsavelFinanceiro());
+		endereco.setCep(matriculaIni.getCepResponsavelFinanceiro());
+		endereco.setBairro(matriculaIni.getBairroResponsavelFinanceiro());
+		endereco.setLogradouro(matriculaIni.getRuaResponsavelFinanceiro());
+		endereco.setNumero(matriculaIni.getNumeroResponsavelFinanceiro());
+		sacado.addEndereco(endereco);
+
 		return sacado;
 	}
 
@@ -118,8 +123,6 @@ public class BoletoSicredi {
 	
 	private static byte[] execute(Boleto boleto) {
 		BoletoViewer viewer = new BoletoViewer(boleto);
-		//File boletoPDF = viewer.getPdfAsFile("BOLETO_" + boleto.getClass().getSimpleName().toUpperCase() + ".PDF");
-		//mostreBoletoNaTela(boletoPDF);
 		return viewer.getPdfAsByteArray();
 	}
 	

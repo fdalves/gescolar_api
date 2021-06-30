@@ -29,11 +29,15 @@ import br.com.gescolar.dto.MatriculaDTO;
 import br.com.gescolar.exception.GescolarExcption;
 import br.com.gescolar.model.Cnab;
 import br.com.gescolar.model.Contrato;
+import br.com.gescolar.model.ContratoDoc;
 import br.com.gescolar.model.MatriculaIni;
 import br.com.gescolar.model.Parcela;
+import br.com.gescolar.model.ParcelaDoc;
 import br.com.gescolar.repository.CnabRepository;
+import br.com.gescolar.repository.ContratoDocRepository;
 import br.com.gescolar.repository.ContratoRepository;
 import br.com.gescolar.repository.MatriculaIniRepository;
+import br.com.gescolar.repository.ParcelaDocRepository;
 import br.com.gescolar.repository.ParcelaRepository;
 import br.com.gescolar.types.StatusMatriculaEnum;
 import br.com.gescolar.types.StatusParcelaEnum;
@@ -48,7 +52,11 @@ public class MatriculaIniService {
 	@Autowired
 	private ContratoRepository contratoRepository;
 	@Autowired
+	private ContratoDocRepository contratoDocRepository;
+	@Autowired
 	private ParcelaRepository parcelaRepository;
+	@Autowired
+	private ParcelaDocRepository parcelaDocRepository; 
 	@Autowired
 	private CnabRepository cnabRepository;
 	@Autowired
@@ -132,6 +140,7 @@ public class MatriculaIniService {
 			Contrato contrato, MatriculaIni matriculaIni) {
 		List<Parcela> parcelas = new ArrayList<>();
 		LocalDate date = LocalDate.of(dateIni.getYear(), dateIni.getMonth(), Integer.valueOf(ativarMatrciulaDTO.getDiaBoleto()));
+		monthsBetween++;
 		for (int i = 1; i <= monthsBetween; i++) {
 			Parcela parcela = new Parcela();
 			parcela.setContrato(contrato);
@@ -142,9 +151,13 @@ public class MatriculaIniService {
 			parcela.setDataEmisao(date);
 			parcela.setDataVencimento(date.withDayOfMonth(Integer.valueOf(ativarMatrciulaDTO.getDiaVencimento())));
 			this.setNosoNumero(parcela);
-			parcela.setBoleto(boletoSicredi.gerarBoleto(parcela));
 			parcela.setNomeBoleto(matriculaIni.getNome().replace(" ", "_") + "_" + date.getMonthValue() +  "_" + date.getYear() + ".pdf");
-			parcelas.add(parcelaRepository.save(parcela));
+			parcela = parcelaRepository.save(parcela);
+			ParcelaDoc parcelaDoc = new ParcelaDoc();
+			parcelaDoc.setParcela(parcela);
+			parcelaDoc.setBoleto(boletoSicredi.gerarBoleto(parcela));
+			parcelaDocRepository.save(parcelaDoc);
+			parcelas.add(parcela);
 			date = date.plusMonths(1);
 		}
 		return parcelas;
@@ -177,13 +190,17 @@ public class MatriculaIniService {
 		contrato.setValorJuros(Double.valueOf(ativarMatrciulaDTO.getJuros()));
 		contrato.setValor(Double.valueOf(ativarMatrciulaDTO.getValor()));
 		contrato.setNrParcela(monthsBetween.intValue());
-		contrato.setContratoPdf(ContratoDBUtil.criarContrato(matriculaIni.getNome(), contrato));
 		contrato.setDataArquivoCnab(LocalDate.now());
 		contrato.setStatusArquivoCnab("Não Processado");
 		String day = String.valueOf(LocalDate.now().getDayOfMonth());
 		String mount = getMountCnab();  
 		contrato.setNomeArquivoCnab("01671"+mount+day+".crm");
-		return contratoRepository.save(contrato);
+		contrato = contratoRepository.save(contrato);
+		ContratoDoc contratoDoc = new ContratoDoc();
+		contratoDoc.setContrato(contrato);
+		contratoDoc.setContratoPdf(ContratoDBUtil.criarContrato(matriculaIni.getNome(), contrato));
+		contratoDocRepository.save(contratoDoc);
+		return contrato;
 	}
 
 	private String getMountCnab() {
@@ -214,7 +231,8 @@ public class MatriculaIniService {
 	public Resource downloadContrato(Long codigo) {
 		MatriculaIni matriculaIni = matriculaIniRepository.getOne(codigo);
 		Contrato contrato = contratoRepository.findByMatricula(matriculaIni);
-		return new ByteArrayResource(contrato.getContratoPdf());
+		ContratoDoc contratoDoc = contratoDocRepository.findByContrato(contrato);
+		return new ByteArrayResource(contratoDoc.getContratoPdf());
 	}
 
 	public List<ContratoDTO> buscarContratos() {
@@ -229,8 +247,11 @@ public class MatriculaIniService {
 		return new ByteArrayResource(contrato.getArquivoCnab().getBytes());
 	}
 
-
-	
+	public Resource downloadBoleto(Long codigo) {
+		Parcela parcela = parcelaRepository.getOne(codigo);
+		ParcelaDoc parcelaDoc = parcelaDocRepository.findByParcela(parcela);
+		return new ByteArrayResource(parcelaDoc.getBoleto());
+	}
 
 
 }

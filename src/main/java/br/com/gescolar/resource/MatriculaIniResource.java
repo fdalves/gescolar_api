@@ -7,7 +7,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -30,8 +29,6 @@ import br.com.gescolar.dto.CobrancaDTO;
 import br.com.gescolar.dto.ContratoDTO;
 import br.com.gescolar.dto.MatriculaDTO;
 import br.com.gescolar.event.RecursoCriadoEvent;
-import br.com.gescolar.model.Parcela;
-import br.com.gescolar.repository.ParcelaRepository;
 import br.com.gescolar.service.MatriculaIniService;
 
 @RestController
@@ -40,8 +37,6 @@ public class MatriculaIniResource {
 
 	@Autowired
 	private MatriculaIniService matriculaIniService; 
-	@Autowired
-	private ParcelaRepository parcelaRepository; 
 	@Autowired
 	private ApplicationEventPublisher publisher;
 
@@ -95,11 +90,10 @@ public class MatriculaIniResource {
 	@GetMapping("/downloadBoleto/{codigo}")
     @ResponseBody
     public ResponseEntity<Resource> downloadBoleto(@PathVariable Long codigo) {
-		Parcela parcela = parcelaRepository.getOne(codigo);
-		Resource file = new ByteArrayResource(parcela.getBoleto());
+		Resource file = matriculaIniService.downloadBoleto(codigo);
         return ResponseEntity.ok()
                              .header(HttpHeaders.CONTENT_TYPE, "application/x-pdf")
-                             .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + parcela.getNomeBoleto() + "\"")
+                             .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
                              .body(file);
     }
 	

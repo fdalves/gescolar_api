@@ -60,8 +60,6 @@ public class Contrato  implements Serializable {
 	@Column(name="valor_juros")
 	private Double valorJuros;
 	
-	@Column(name="contrato")
-	private byte[] contratoPdf;
 	
 	@Column(name="arquivo_cnab")
 	private String arquivoCnab;
@@ -153,14 +151,6 @@ public class Contrato  implements Serializable {
 
 	public void setValorJuros(Double valorJuros) {
 		this.valorJuros = valorJuros;
-	}
-
-	public byte[] getContratoPdf() {
-		return contratoPdf;
-	}
-
-	public void setContratoPdf(byte[] contratoPdf) {
-		this.contratoPdf = contratoPdf;
 	}
 
 	public String getArquivoCnab() {
